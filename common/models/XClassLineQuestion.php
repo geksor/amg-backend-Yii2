@@ -46,10 +46,10 @@ class XClassLineQuestion extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'leftColumn' => 'Left Column',
-            'rightColumn' => 'Right Column',
-            'answerCount' => 'Answer Count',
+            'title' => 'Задание',
+            'leftColumn' => 'Заголовок левой колонки',
+            'rightColumn' => 'Заголовок второй колонки',
+            'answerCount' => 'Кол-во картинок',
             'xClass_line_test_id' => 'X Class Line Test ID',
         ];
     }
