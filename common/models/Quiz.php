@@ -32,6 +32,7 @@ class Quiz extends \yii\db\ActiveRecord
     {
         return [
             [['trueAnswer'], 'integer'],
+            [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'trueAnswer'], 'required'],
             [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'], 'string', 'max' => 255],
         ];
     }
@@ -43,12 +44,12 @@ class Quiz extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'question' => 'Question',
-            'answer_1' => 'Answer 1',
-            'answer_2' => 'Answer 2',
-            'answer_3' => 'Answer 3',
-            'answer_4' => 'Answer 4',
-            'trueAnswer' => 'True Answer',
+            'question' => 'Вопрос',
+            'answer_1' => 'Ответ 1',
+            'answer_2' => 'Ответ 2',
+            'answer_3' => 'Ответ 3',
+            'answer_4' => 'Ответ 4',
+            'trueAnswer' => 'Правильный ответ',
         ];
     }
 }

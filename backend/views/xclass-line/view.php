@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить задание', ['question-create', 'parId' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить задание', ['question-create', 'parId' => $model->id, 'parTitle' => $model->title], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box box-primary">

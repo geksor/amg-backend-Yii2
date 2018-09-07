@@ -320,6 +320,7 @@ desired effect
                                 ["label" => "AMG Статика", "url" => ["/amg-static-test/index"], "active" => Yii::$app->controller->id === 'amg-static-test',],
                                 ["label" => "MBUX Тест", "url" => ["/mbux-test/index"], "active" => Yii::$app->controller->id === 'mbux-test',],
                                 ["label" => "X-Class линии исполнения", "url" => ["/xclass-line/index"], "active" => Yii::$app->controller->id === 'xclass-line',],
+                                ["label" => "Викторина", "url" => ["/quiz/index"], "active" => Yii::$app->controller->id === 'quiz',],
                             ],
                         ],
 //                        [

@@ -4,15 +4,15 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\MbuxQuestion */
+/* @var $model common\models\XClassLineQuestion */
 /* @var $parentTitle */
 
-$this->title = 'Создание вопроса';
-$this->params['breadcrumbs'][] = ['label' => 'MBUX тесты', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $parentTitle, 'url' => ['view', 'id' => $model->mbux_test_id]];
+$this->title = 'Создание задания';
+$this->params['breadcrumbs'][] = ['label' => 'X-class линии исполнения тесты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $parentTitle, 'url' => ['view', 'id' => $model->xClass_line_test_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mbux-question-create">
+<div class="xClass-question-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
