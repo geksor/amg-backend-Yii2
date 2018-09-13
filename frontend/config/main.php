@@ -41,7 +41,9 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
+            'rules' =>
+            [
+                '/' => 'site/index',
                 '<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -53,7 +55,12 @@ return [
                 '<controller>/<action>/<parentId:\d+>' => '<controller>/<action>',
                 '<controller>/<action>' => '<controller>/<action>',
             ],
-        ]    ],
+        ],
+//        'consoleRunner' => [
+//            'class' => 'vova07\console\ConsoleRunner',
+//            'file' => '@app/' // or an absolute path to console file
+//        ]
+    ],
     'params' => $params,
     'language' => 'ru-RU',
 ];

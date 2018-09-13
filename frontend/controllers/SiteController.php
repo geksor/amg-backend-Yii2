@@ -1,6 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\DealerCenter;
+use vova07\console\ConsoleRunner;
+use console\controllers\ServerController;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -12,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+
 
 /**
  * Site controller
@@ -73,6 +77,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionTestSocket()
+    {
+        $model = DealerCenter::find()->all();
+        return $this->render('test-socket', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -211,5 +228,12 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionRun()
+    {
+//        Yii::$app->consoleRunner->run('server/start');
+        $cr = new ConsoleRunner(['file' => Yii::getAlias('@app/yii.php')]);
+        $cr->run('server/start');
     }
 }

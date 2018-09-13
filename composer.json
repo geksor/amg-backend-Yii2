@@ -24,7 +24,10 @@
         "yiisoft/yii2-imagine": "^2.1",
         "kartik-v/yii2-widget-datetimepicker": "*",
         "mihaildev/yii2-ckeditor": "*",
-        "zxbodya/yii2-gallery-manager": "*@dev"
+        "zxbodya/yii2-gallery-manager": "*@dev",
+        "consik/yii2-websocket": "^1.0",
+        "textalk/websocket": "1.0.*",
+        "vova07/yii2-console-runner-extension": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

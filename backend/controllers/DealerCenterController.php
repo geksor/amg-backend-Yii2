@@ -2,12 +2,17 @@
 
 namespace backend\controllers;
 
+use WebSocket\Client;
 use Yii;
 use common\models\DealerCenter;
 use common\models\DealerCenterSearch;
+use yii\base\Model;
+use yii\base\Object;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\events\TestEvent;
 
 /**
  * DealerCenterController implements the CRUD actions for DealerCenter model.
@@ -67,6 +72,17 @@ class DealerCenterController extends Controller
         $model = new DealerCenter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $data = ArrayHelper::toArray($model, [
+                'app\models\Post' => [
+                    'id',
+                    'title',
+                ],
+            ]);
+            $data = json_encode($data);
+            try {
+                $client = new Client("ws://localhost:8081");
+                $client->send(json_encode(['action' => 'chat', 'message' => $data]));
+            }catch (\Exception $exception){}
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

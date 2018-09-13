@@ -2,52 +2,87 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'ABS админ панель';
 ?>
 <div class="site-index">
+<!--    --><?//= \yii\bootstrap\Html::textInput('message', '', ['class' => 'messField', 'placeholder' => 'Message']) ?>
+<!--    --><?//= \yii\helpers\Html::button(
+//            'Привет',
+//            [
+//                'class' => 'hey btn btn-primary',
+//            ]
+//    ) ?>
+<!--    <div class="response"></div>-->
+<!---->
+<!--    <script>-->
+<!--        var conn = new WebSocket('ws://localhost:8080');-->
+<!--        conn.onmessage = function (e) {-->
+<!--            console.log(e);-->
+<!--            $('.response').text('Response: ' + e.data)-->
+<!--        };-->
+<!--        conn.onopen = function (e) {-->
+<!--            console.log("Connection established!");-->
+<!--        };-->
+<!---->
+<!--        window.onload = function () {-->
+<!--            $('.hey').on('click', function () {-->
+<!--                conn.send($('.messField').val());-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    Username:<br />
+    <input id="username" type="text"><button id="btnSetUsername">Set username</button><button id="disconnect">Disconnect</button>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+    <div id="chat" style="width:400px; height: 250px; overflow: scroll;"></div>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+    Message:<br />
+    <input id="message" type="text"><button id="btnSend">Send</button>
+    <div id="response" style="color:#D00"></div>
 
-    <div class="body-content">
+    <script>
+        window.onload = function () {
+            function connect () {
+                var chat = new WebSocket('ws://localhost:8080');
+                chat.onmessage = function(e) {
+                    $('#response').text('');
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                    var response = JSON.parse(e.data);
+                    if (response.type && response.type == 'chat') {
+                        console.log(response);
+                        $('#chat').append('<div><b>' + response.from + '</b>: ' + response.message + '</div>');
+                        $('#chat').scrollTop = $('#chat').height;
+                    } else if (response.message) {
+                        $('#response').text(response.message);
+                    }
+                };
+                chat.onopen = function(e) {
+                    $('#response').text("Connection established! Please, set your username.");
+                    open = true;
+                };
+                $('#btnSend').click(function() {
+                    if ($('#message').val()) {
+                        chat.send( JSON.stringify({'action' : 'chat', 'message' : $('#message').val()}) );
+                    } else {
+                        alert('Enter the message')
+                    }
+                });
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                $('#btnSetUsername').click(function() {
+                    if ($('#username').val()) {
+                        chat.send( JSON.stringify({'action' : 'setName', 'name' : $('#username').val()}) );
+                    } else {
+                        alert('Enter username')
+                    }
+                });
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                chat.onclose = function () {
+                    connect()
+                };
+            }
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+            connect();
+        }
+    </script>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
 </div>
