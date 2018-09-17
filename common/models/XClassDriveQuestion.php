@@ -64,4 +64,5 @@ class XClassDriveQuestion extends \yii\db\ActiveRecord
     {
         return $this->hasOne(XClassDriveTest::className(), ['id' => 'xClass_drive_test_id']);
     }
+
 }

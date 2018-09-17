@@ -50,4 +50,15 @@ class XClassLineTest extends \yii\db\ActiveRecord
     {
         return $this->hasMany(XClassLineQuestion::className(), ['xClass_line_test_id' => 'id']);
     }
+
+    public function beforeDelete()
+    {
+        if ($this->xClassLineQuestions){
+            foreach ($this->xClassLineQuestions as $question){
+                $question->deleteChildPhoto();
+            }
+        }
+
+        return parent::beforeDelete();
+    }
 }

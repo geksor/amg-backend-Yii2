@@ -50,4 +50,16 @@ class MbuxTest extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MbuxQuestion::className(), ['mbux_test_id' => 'id']);
     }
+
+    public function beforeDelete()
+    {
+        if ($this->mbuxQuestions){
+            foreach ($this->mbuxQuestions as $question){
+                $question->deletePhoto();
+            }
+        }
+
+        return parent::beforeDelete();
+    }
+
 }

@@ -79,4 +79,5 @@ class XClassDriveTest extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Command::className(), ['id' => 'command_id']);
     }
+
 }

@@ -50,4 +50,15 @@ class AmgStaticTest extends \yii\db\ActiveRecord
     {
         return $this->hasMany(AmgStaticQuestion::className(), ['amgStatic_test_id' => 'id']);
     }
+
+    public function beforeDelete()
+    {
+        if ($this->amgStaticQuestions){
+            foreach ($this->amgStaticQuestions as $question){
+                $question->deletePhoto();
+            }
+        }
+
+        return parent::beforeDelete();
+    }
 }

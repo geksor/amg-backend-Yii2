@@ -69,4 +69,20 @@ class XClassLineQuestion extends \yii\db\ActiveRecord
     {
         return $this->hasOne(XClassLineTest::className(), ['id' => 'xClass_line_test_id']);
     }
+
+    public function deleteChildPhoto()
+    {
+        if ($this->xClassLineAnswers){
+            foreach ($this->xClassLineAnswers as $answer){
+                $answer->deletePhoto();
+            }
+        }
+    }
+
+    public function beforeDelete()
+    {
+        $this->deleteChildPhoto();
+
+        return parent::beforeDelete();
+    }
 }
