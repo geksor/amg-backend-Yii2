@@ -324,7 +324,7 @@ class AmgStaticTestController extends Controller
                 break;
         }
 
-        if (Yii::$app->request->isPost)
+        if (Yii::$app->request->isPost && Yii::$app->request->post('ImageUpload')['crop_info'])
         {
             $file = UploadedFile::getInstance($model, 'image');
             $cropInfo = Yii::$app->request->post('ImageUpload')['crop_info'];

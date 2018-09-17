@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Вопросы', ['question-index', 'TimetableSearch' => ['amgStatic_test_id' => $model->id], 'testTitle' => $model->title, 'parId' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Вопросы', ['question-index', 'AmgStaticQuestionSearch' => ['amgStatic_test_id' => $model->id], 'testTitle' => $model->title, 'parId' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [

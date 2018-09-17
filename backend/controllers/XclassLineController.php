@@ -58,7 +58,7 @@ class XclassLineController extends Controller
     public function actionView($id)
     {
         $searchModel = new XClassLineQuestionTestSearch();
-        $dataProvider = $searchModel->search(['xClass_line_test_id' => $id]);
+        $dataProvider = $searchModel->search(['XClassLineQuestionTestSearch' => ['xClass_line_test_id' => $id]]);
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -249,7 +249,7 @@ class XclassLineController extends Controller
         $model = new ImageUpload();
         $answer = $this->findAnswerModel($id);
 
-        if (Yii::$app->request->isPost)
+        if (Yii::$app->request->isPost && Yii::$app->request->post('ImageUpload')['crop_info'])
         {
             $file = UploadedFile::getInstance($model, 'image');
             $cropInfo = Yii::$app->request->post('ImageUpload')['crop_info'];

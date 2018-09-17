@@ -88,7 +88,8 @@ class MbuxQuestion extends \yii\db\ActiveRecord
     {
         $imageUploadModel = new ImageUpload();
 
-        $imageUploadModel->deleteCurrentImage($this->image);
+        $imageUploadModel->deleteCurrentImage($this->image_1);
+        $imageUploadModel->deleteCurrentImage($this->image_2);
     }
 
     public function beforeDelete()

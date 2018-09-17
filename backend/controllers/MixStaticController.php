@@ -152,7 +152,7 @@ class MixStaticController extends Controller
         $model = new ImageUpload();
         $gallery = $this->findModel($id);
 
-        if (Yii::$app->request->isPost)
+        if (Yii::$app->request->isPost && Yii::$app->request->post('ImageUpload')['crop_info'])
         {
             $file = UploadedFile::getInstance($model, 'image');
             $cropInfo = Yii::$app->request->post('ImageUpload')['crop_info'];

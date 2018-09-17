@@ -14,12 +14,12 @@ var serverStart = function () {
 
 
 var connect = function () {
-    var socket = new WebSocket('ws://localhost:' + $('.modelWrap').data('port'));
-    socket.onopen = function () {
-        console.log('Connected');
+    var socket = new WebSocket('ws://localhost');
+    socket.onopen = function (response) {
+        console.log(response);
     };
-    socket.onerror = function (ev) {
-      serverStart();
+    socket.onerror = function (response) {
+      console.log(response);
     };
     socket.onmessage = function (e) {
         var response = JSON.parse(e.data);

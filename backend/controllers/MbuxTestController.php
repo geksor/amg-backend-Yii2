@@ -57,7 +57,7 @@ class MbuxTestController extends Controller
     public function actionView($id)
     {
         $searchModel = new MbuxQuestiontSearch();
-        $dataProvider = $searchModel->search(['mbux_test_id' => $id]);
+        $dataProvider = $searchModel->search(['MbuxQuestiontSearch' => ['mbux_test_id' => $id]]);
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -203,7 +203,7 @@ class MbuxTestController extends Controller
                 break;
         }
 
-        if (Yii::$app->request->isPost)
+        if (Yii::$app->request->isPost && Yii::$app->request->post('ImageUpload')['crop_info'])
         {
             $file = UploadedFile::getInstance($model, 'image');
             $cropInfo = Yii::$app->request->post('ImageUpload')['crop_info'];

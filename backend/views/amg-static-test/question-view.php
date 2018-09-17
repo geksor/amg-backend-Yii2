@@ -97,8 +97,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </p>
                     <br>
                     <br>
-                    <h3><?= $image_1->title ?></h3>
-                    <h4><?= $image_1 ? 'Сортировка: ' : '' ?><?= $image_1->rank ?></h4>
+                    <h3><?= $image_1 ? $image_1->title : '' ?></h3>
+                    <h4><?= $image_1 ? 'Сортировка: ' : '' ?><?= $image_2 ? $image_2->rank : '' ?></h4>
                 </div>
             </div>
         </div>
@@ -152,8 +152,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </p>
                     <br>
                     <br>
-                    <h3><?= $image_2->title ?></h3>
-                    <h4><?= $image_2 ? 'Сортировка: ' : '' ?><?= $image_2->rank ?></h4>
+                    <h3><?= $image_2 ? $image_2->title : '' ?></h3>
+                    <h4><?= $image_2 ? 'Сортировка: ' : '' ?><?= $image_2 ? $image_2->rank : '' ?></h4>
                 </div>
             </div>
         </div>
@@ -207,8 +207,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </p>
                     <br>
                     <br>
-                    <h3><?= $image_3->title ?></h3>
-                    <h4><?= $image_3 ? 'Сортировка: ' : '' ?><?= $image_3->rank ?></h4>
+                    <h3><?= $image_3 ? $image_3->title : '' ?></h3>
+                    <h4><?= $image_3 ? 'Сортировка: ' : '' ?><?= $image_3 ? $image_3->rank : '' ?></h4>
                 </div>
             </div>
         </div>

@@ -1,11 +1,12 @@
 <?php
 namespace frontend\controllers;
-
+//WV]rlqm&C4qU!y!M03
 use common\models\DealerCenter;
 use vova07\console\ConsoleRunner;
 use console\controllers\ServerController;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\Console;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -233,7 +234,7 @@ class SiteController extends Controller
     public function actionRun()
     {
 //        Yii::$app->consoleRunner->run('server/start');
-        $cr = new ConsoleRunner(['file' => Yii::getAlias('@app/yii.php')]);
-        $cr->run('server/start');
+//        $cr = new ConsoleRunner(['file' => Yii::getAlias('@app/yii.php')]);
+//        $cr->run('server/start');
     }
 }

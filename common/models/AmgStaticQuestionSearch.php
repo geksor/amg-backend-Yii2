@@ -18,8 +18,8 @@ class AmgStaticQuestionSearch extends AmgStaticQuestion
     public function rules()
     {
         return [
-            [['id', 'answerCount', 'amgStatic_test_id'], 'integer'],
-            [['title', 'image_1', 'image_2', 'image_3'], 'safe'],
+            [['id', 'answerCount'], 'integer'],
+            [['title', 'image_1', 'image_2', 'image_3', 'amgStatic_test_id'], 'safe'],
         ];
     }
 

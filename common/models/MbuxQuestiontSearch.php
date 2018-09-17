@@ -18,8 +18,8 @@ class MbuxQuestiontSearch extends MbuxQuestion
     public function rules()
     {
         return [
-            [['id', 'mbux_test_id'], 'integer'],
-            [['title', 'description', 'image_1', 'image_2'], 'safe'],
+            [['id'], 'integer'],
+            [['title', 'description', 'image_1', 'image_2', 'mbux_test_id'], 'safe'],
         ];
     }
 
