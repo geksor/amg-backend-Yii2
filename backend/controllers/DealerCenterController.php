@@ -80,7 +80,7 @@ class DealerCenterController extends Controller
             ]);
             $data = json_encode($data);
             try {
-                $client = new Client("ws://188.225.10.52:443");
+                $client = new Client("ws://188.225.10.52:1024");
                 $client->send(json_encode(['action' => 'chat', 'message' => $data]));
             }catch (\Exception $exception){}
             return $this->redirect(['view', 'id' => $model->id]);

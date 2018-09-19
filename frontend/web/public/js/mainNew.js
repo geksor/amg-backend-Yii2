@@ -1,6 +1,6 @@
 
 var connect = function () {
-    var socket = new WebSocket('ws://188.225.10.52:443');
+    var socket = new WebSocket('ws://188.225.10.52:1024');
     socket.onopen = function (response) {
         console.log(response);
     };
