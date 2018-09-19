@@ -1,20 +1,6 @@
-var serverStart = function () {
-    $.ajax({
-        type: 'GET',
-        url: 'run',
-
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    })
-};
-
 
 var connect = function () {
-    var socket = new WebSocket('ws://localhost');
+    var socket = new WebSocket('ws://188.225.10.52:443');
     socket.onopen = function (response) {
         console.log(response);
     };
@@ -34,3 +20,4 @@ if ($('.modelWrap')){
     connect();
 }
 
+// test-jinmedia.tw1.ru
