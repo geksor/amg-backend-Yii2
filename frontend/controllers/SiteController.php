@@ -2,11 +2,17 @@
 namespace frontend\controllers;
 //WV]rlqm&C4qU!y!M03
 use common\models\DealerCenter;
+use common\models\GalleryImage;
+use common\models\MixStatic;
+use common\models\Timetable;
+use common\models\User;
 use vova07\console\ConsoleRunner;
 use console\controllers\ServerController;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -31,15 +37,15 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+//                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index', 'timetable', 'timetable-info', 'mix-static', 'mix-static-gallery'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -73,24 +79,129 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
+     * @var $userModel User
      * @return mixed
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $userModel = User::findOne(Yii::$app->user->id);
+
+        return $this->render('index', [
+            'userModel' => $userModel,
+            'totalCount' => $userModel->getTotalCount(),
+        ]);
     }
 
     /**
-     * Displays homepage.
+     * Displays infoPage.
      *
      * @return mixed
      */
-    public function actionTestSocket()
+    public function actionInfo()
     {
-        $model = DealerCenter::find()->all();
-        return $this->render('test-socket', [
+
+        return $this->render('info');
+    }
+
+    /**
+     * Displays tablePage.
+     *
+     * @var $timetableModels Timetable
+     * @return mixed
+     */
+    public function actionTimetable()
+    {
+        $userModel = User::findOne(Yii::$app->user->id);
+        $traningDay = (integer) date('w', $userModel->training->date);
+        $timetableModels = Timetable::find()
+            ->where([
+                'group' => $userModel->group,
+                'trainingDay' => $traningDay,
+            ])
+            ->orderBy('startTime')
+            ->all();
+        return $this->render('timetable', [
+            'timetableModels' => $timetableModels,
+            'traningDay' => $traningDay,
+        ]);
+    }
+
+    /**
+     * Displays timetable-info Page.
+     *
+     * @var $model Timetable
+     * @return mixed
+     */
+    public function actionTimetableInfo($id)
+    {
+        $model = Timetable::findOne($id);
+
+        return $this->render('timetable-info', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays mix-static Page.
+     *
+     * @var $model Timetable
+     * @return mixed
+     */
+    public function actionMixStatic()
+    {
+        $models = MixStatic::find()->with('users')->all();
+
+        return $this->render('mix-static', [
+            'models' => $models,
+        ]);
+    }
+
+
+    /**
+     * Displays mix-static-gallery Page.
+     *
+     * @var $model Timetable
+     * @var $images GalleryImage
+     * @return mixed
+     */
+    public function actionMixStaticGallery($id, $step = 0, $imageId = null, $stars = null)
+    {
+        $model = MixStatic::findOne($id);
+        $images = $model->getBehavior('galleryBehavior')->getImages();
+        if (ArrayHelper::toArray($images)){
+            Yii::$app->session->set('images', ArrayHelper::toArray($images));
+        }
+
+        if ($imageId !== null && $stars !== null){
+            $this->setRatingImage($imageId, $stars);
+        }
+
+        if (count(ArrayHelper::toArray($images)) == $step){
+            /* @var $userModel User */
+            $userModel = User::findOne(Yii::$app->user->id);
+            $userModel->saveMixStatic($id);
+            $this->redirect('/site/mix-static');
+        }
+
+        return $this->render('mix-static-gallery', [
+            'model' => $model,
+            'images' => $images,
+            'step' => $step,
+        ]);
+    }
+
+    public function setRatingImage($id, $stars)
+    {
+        $model = GalleryImage::findOne($id);
+
+        $model->rating = $model->rating + (int) $stars;
+        $model->voteCount = ++$model->voteCount;
+
+        if ($model->save()){
+            return true;
+        };
+
+        return false;
     }
 
     /**

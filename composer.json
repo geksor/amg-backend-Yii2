@@ -28,7 +28,8 @@
         "consik/yii2-websocket": "^1.0",
         "textalk/websocket": "1.0.*",
         "vova07/yii2-console-runner-extension": "*",
-        "morozovsk/yii2-websocket": "^1.0"
+        "morozovsk/yii2-websocket": "^1.0",
+        "kartik-v/yii2-widget-rating": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

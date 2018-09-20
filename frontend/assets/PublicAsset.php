@@ -12,19 +12,15 @@ class PublicAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'public/css/main.css',
+        'public/css/style.css',
     ];
     public $js = [
-        'public/js/vendor/jquery-ui.min.js',
-        'public/js/vendor/jquery.maskedinput.min.js',
-        'public/js/vendor/slick.min.js',
-        'public/js/vendor/slideout.js',
-        'public/js/vendor/jquery.fancybox.min.js',
-        'public/js/agreement.js',
-        'public/js/mainNew.js',
+//        'https://code.jquery.com/jquery-1.12.4.js',
+        'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+        'public\js\jquery.ui.touch-punch.min.js',
+        'public\js\main.js',
     ];
     public $depends = [
-//        'yii\web\YiiAsset',
-        'frontend\assets\AppAsset'
+        'yii\web\YiiAsset',
     ];
 }

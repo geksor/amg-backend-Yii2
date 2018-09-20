@@ -15,6 +15,7 @@ class m180903_110712_create_timetable_table extends Migration
         $this->createTable('timetable', [
             'id' => $this->primaryKey(),
             'title' => $this->string(),
+            'description' => $this->text(),
             'startTime' => $this->string(),
             'stopTime' => $this->string(),
             'weekday' => $this->integer(1),

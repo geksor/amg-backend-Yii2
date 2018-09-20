@@ -43,6 +43,9 @@ use yii\web\IdentityInterface;
  * @property Command $command
  * @property DealerCenter $dealerCenter
  * @property Training $training
+ * @property MixStaticUser[] $mixStaticUsers
+ * @property MixStatic[] $mixStatics
+ *
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -108,14 +111,14 @@ class User extends ActiveRecord implements IdentityInterface
             'training_id' => 'Training ID',
             'dealer_center_id' => 'Dealer Center ID',
             'command_id' => 'Command ID',
-            'amgStatic' => 'AMG Статика',
-            'mixStatic' => 'MIX Статика',
-            'mbux' => 'MBUX Теория и практика',
-            'xClassDrive' => 'X-Class тест-драйв',
-            'amgDrive' => 'AMG тест-драйв',
+            'amgStatic' => 'AMG статика',
+            'mixStatic' => 'Mix статика',
+            'mbux' => 'MBUX теория и практика',
+            'xClassDrive' => 'X-Класс Тест-Драйв',
+            'amgDrive' => 'AMG Тест-Драйв',
             'intelligent' => 'Intelligent drive',
-            'mixDrive' => 'MIX драйв',
-            'xClassLine' => 'X-Class линии исполнения',
+            'mixDrive' => 'Mix Тест-Драйв',
+            'xClassLine' => 'X-Класс линии исполнения',
             'quiz' => 'Викторина',
             'moderatorPoints' => 'Очки от модератора',
         ];
@@ -290,5 +293,48 @@ class User extends ActiveRecord implements IdentityInterface
     public function getTraining()
     {
         return $this->hasOne(Training::className(), ['id' => 'training_id']);
+    }
+
+    /**
+     * @return integer
+     */
+    public function getTotalCount()
+    {
+        $sum = $this->amgStatic
+            + $this->mixStatic
+            + $this->mbux
+            + $this->xClassDrive
+            + $this->amgDrive
+            + $this->intelligent
+            + $this->mixDrive
+            + $this->xClassLine
+            + $this->quiz
+            + $this->moderatorPoints;
+        return $sum;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMixStaticUsers()
+    {
+        return $this->hasMany(MixStaticUser::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMixStatics()
+    {
+        return $this->hasMany(MixStatic::className(), ['id' => 'mixStatic_id'])->viaTable('mixStatic_user', ['user_id' => 'id']);
+    }
+
+    public function saveMixStatic($mixStaticId)
+    {
+        if ($mixStaticId)
+        {
+            $mixStatic = MixStatic::findOne($mixStaticId);
+            $this->link('mixStatics', $mixStatic);
+        }
     }
 }

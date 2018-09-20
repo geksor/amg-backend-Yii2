@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.152 16">
+    <defs>
+        <style>
+            .cls-1{fill:#fff;opacity:.6}
+        </style>
+    </defs>
+    <path id="lock" d="M60.424 6.3H59.7V4.121a4.121 4.121 0 0 0-8.242 0V6.3h-.727a.727.727 0 0 0-.731.73v8.242a.727.727 0 0 0 .727.727h9.7a.727.727 0 0 0 .727-.727V7.03a.727.727 0 0 0-.73-.73zm-7.515-2.179a2.667 2.667 0 0 1 5.333 0V6.3h-5.333zM59.7 14.545h-8.245V7.758H59.7z" class="cls-1" transform="translate(-50)"/>
+</svg>

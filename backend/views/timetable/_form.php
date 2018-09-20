@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\datetime\DateTimePicker;
+use mihaildev\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Timetable */
@@ -24,6 +24,15 @@ use kartik\datetime\DateTimePicker;
     <?= $form->field($model, 'group')->hiddenInput(['value' => (integer) $group])->label(false) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'description')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+            'height' => 400,
+            'resize_enabled' => true,
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'startTime')->textInput()  ?>
 

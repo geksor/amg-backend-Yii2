@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 303 303">
+    <defs>
+        <style>
+            .cls-1{fill:#f2f2f2}.cls-2{fill:#dedede}
+        </style>
+    </defs>
+    <g id="Group_92" data-name="Group 92" transform="translate(-37 -97)">
+        <path id="img04" d="M0 0h303v303H0z" class="cls-1" transform="translate(37 97)"/>
+        <g id="photo-camera" transform="translate(126 186.5)">
+            <path id="Path_920" d="M18.1 54.5H0v51.4a5.591 5.591 0 0 0 5.6 5.6h112a6.445 6.445 0 0 0 6.4-6.4V35.6a6.061 6.061 0 0 0-6.1-6.1H89.1a5.934 5.934 0 0 1-5.9-5.1l-1-6.6a6.279 6.279 0 0 0-5.9-5.3H47.5a6.026 6.026 0 0 0-5.9 5.3l-1 6.6a6.013 6.013 0 0 1-5.9 5.1H6a6.018 6.018 0 0 0-6 6v5h18.1a6.914 6.914 0 0 1 6.9 6.9v.1a6.936 6.936 0 0 1-6.9 7zM108 40.7a7 7 0 1 1-7 7 6.957 6.957 0 0 1 7-7zm-45.7 2.5a30 30 0 1 1-30 30 29.959 29.959 0 0 1 30-30z" class="cls-2" data-name="Path 920"/>
+            <circle id="Ellipse_17" cx="15" cy="15" r="15" class="cls-2" data-name="Ellipse 17" transform="translate(47 58.2)"/>
+        </g>
+    </g>
+</svg>

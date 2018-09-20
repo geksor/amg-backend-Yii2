@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="podium" viewBox="0 0 44.526 25.985">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <path id="Path_3" d="M1.4 71.106a1.4 1.4 0 0 0 0 2.809h1.357v12.5a1.4 1.4 0 0 0 1.4 1.4h36.2a1.4 1.4 0 0 0 1.4-1.4V76.233h1.352a1.4 1.4 0 1 0 0-2.809H31.713v-8.779h.979a1.4 1.4 0 1 0 0-2.809H11.834a1.4 1.4 0 1 0 0 2.809h.979v6.461zm12.813 2.809a1.4 1.4 0 0 0 1.4-1.4v-7.87H28.9v10.184a1.4 1.4 0 0 0 1.4 1.4h8.66v8.779H5.566v-11.1z" class="cls-1" data-name="Path 3" transform="translate(0 -61.836)"/>
+    <path id="Path_4" d="M142.924 95.564a.983.983 0 0 0-.983.983v2.318a.983.983 0 0 0 1.967 0v-2.318a.983.983 0 0 0-.984-.983z" class="cls-1" data-name="Path 4" transform="translate(-120.661 -90.507)"/>
+    <path id="Path_5" d="M50.17 157.4a.983.983 0 0 0-.983.983v2.317a.983.983 0 0 0 1.967 0v-2.318a.983.983 0 0 0-.984-.982z" class="cls-1" data-name="Path 5" transform="translate(-41.813 -143.073)"/>
+    <path id="Path_6" d="M65.629 157.4a.983.983 0 0 0-.983.983v2.317a.983.983 0 0 0 1.967 0v-2.318a.983.983 0 0 0-.984-.982z" class="cls-1" data-name="Path 6" transform="translate(-54.954 -143.073)"/>
+    <path id="Path_7" d="M203.777 173.842v2.318a.983.983 0 1 0 1.967 0v-2.318a.983.983 0 0 0-1.967 0z" class="cls-1" data-name="Path 7" transform="translate(-173.227 -156.214)"/>
+    <path id="Path_8" d="M220.219 177.143a.984.984 0 0 0 .983-.983v-2.318a.983.983 0 0 0-1.967 0v2.318a.984.984 0 0 0 .984.983z" class="cls-1" data-name="Path 8" transform="translate(-186.368 -156.214)"/>
+    <path id="Path_9" d="M235.678 177.143a.984.984 0 0 0 .983-.983v-2.318a.983.983 0 0 0-1.967 0v2.318a.984.984 0 0 0 .984.983z" class="cls-1" data-name="Path 9" transform="translate(-199.509 -156.214)"/>
+</svg>

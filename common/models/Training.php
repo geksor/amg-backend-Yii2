@@ -49,13 +49,19 @@ class Training extends \yii\db\ActiveRecord
 
     public function checkWeekday($attribute)
     {
-        $date = strtotime($this->date);
-        $weekday = (integer) date('w', $date);
+
+        $weekday = $this->getWeekday();
 
         if ($weekday !== 1 && $weekday != 3){
             $this->addError($attribute, 'Дата должна быть понедельником или средой');
         }
 
+    }
+
+    public function getWeekday()
+    {
+        $date = strtotime($this->date);
+        return (integer) date('w', $date);
     }
 
     /**

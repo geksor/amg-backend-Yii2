@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.89 16">
+    <defs>
+        <style>
+            .cls-1{opacity:.6}.cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="user" class="cls-1" transform="translate(-27.75)">
+        <path id="XMLID_792_" d="M83.516 7.033A3.517 3.517 0 1 0 80 3.517a3.521 3.521 0 0 0 3.516 3.516zm0-5.352a1.835 1.835 0 1 1-1.836 1.836 1.837 1.837 0 0 1 1.836-1.836z" class="cls-2" transform="translate(-49.321)"/>
+        <path id="XMLID_795_" d="M34.195 155.5a6.452 6.452 0 0 0-6.445 6.445.841.841 0 0 0 .841.841H39.8a.841.841 0 0 0 .841-.841 6.452 6.452 0 0 0-6.446-6.445zm-4.689 5.6a4.764 4.764 0 0 1 9.379 0z" class="cls-2" transform="translate(0 -146.785)"/>
+    </g>
+</svg>
