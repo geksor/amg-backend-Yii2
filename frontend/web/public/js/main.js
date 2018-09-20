@@ -19,13 +19,24 @@ $( function() {
     });
 
     // mixStaticPage
+    $(document).ready(function () {
+        $('#w1').on('change', function () {
+            $('.mix__noStars').removeClass('mix__noStars');
+        })
+    });
+    
     $('#mix_static_link').on('click', function (event) {
+        if ($(this).hasClass('mix__noStars')){
+            return false;
+        }
         // event.preventDefault();
         var starCount = $('.rating-stars').attr('title');
         var href = $(this).attr('href');
         href += '&stars='+starCount;
         $(this).attr('href', href);
-        // console.log($(this).attr('href'));
+    });
+    $('.mix__link.viewed').on('click', function (event) {
+        event.preventDefault();
     });
 
     $( "#draggable, #draggable_1, #draggable_2" ).draggable();

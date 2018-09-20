@@ -22,7 +22,7 @@ $imageId = Yii::$app->session->get('images')[$step]['id'];
 <div class="info">
     <?= $this->render('_top-line', [
         'title' => 'Mix статика',
-        'link' => Yii::$app->request->referrer,
+        'link' => '/site/mix-static',
    ]) ?>
     <div class="x-class_content">
         <? foreach ($images as $image) {?>
@@ -64,7 +64,7 @@ $imageId = Yii::$app->session->get('images')[$step]['id'];
         </div>
     </div>
 
-    <?= \yii\helpers\Html::a('Далее', ['/site/mix-static-gallery', 'id' => $model->id, 'step' => ++$step, 'imageId' => $imageId], ['class' => 'submit', 'id' => 'mix_static_link']) ?>
+    <?= \yii\helpers\Html::a('Далее', ['/site/mix-static-gallery', 'id' => $model->id, 'step' => ++$step, 'imageId' => $imageId], ['class' => 'submit mix__noStars', 'id' => 'mix_static_link']) ?>
 
     <?php ActiveForm::end(); ?>
 

@@ -144,12 +144,34 @@ class SiteController extends Controller
     /**
      * Displays mix-static Page.
      *
-     * @var $model Timetable
+     * @var $models MixStatic
+     *
      * @return mixed
      */
     public function actionMixStatic()
     {
         $models = MixStatic::find()->with('users')->all();
+        $viewedCount = 0;
+        foreach ($models as $model)
+        {
+        /* @var $model MixStatic */
+            if (!empty($model->users)) {
+                foreach ($model->users as $user){
+                    if ($user->id == Yii::$app->user->id && $user->isMixStaticViewed($model->id)){
+                        ++$viewedCount;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if ($viewedCount === 3){
+            $userModel = User::findOne(Yii::$app->user->id);
+            $userModel->mixStatic = Yii::$app->params['PointTest']['mixStatic'];
+            if ($userModel->save()){
+                return $this->redirect('/site/index');
+            }
+        }
 
         return $this->render('mix-static', [
             'models' => $models,
@@ -162,23 +184,27 @@ class SiteController extends Controller
      *
      * @var $model Timetable
      * @var $images GalleryImage
+     * @var $userModel User
+     *
      * @return mixed
      */
     public function actionMixStaticGallery($id, $step = 0, $imageId = null, $stars = null)
     {
         $model = MixStatic::findOne($id);
         $images = $model->getBehavior('galleryBehavior')->getImages();
+        $userModel = User::findOne(Yii::$app->user->id);
         if (ArrayHelper::toArray($images)){
             Yii::$app->session->set('images', ArrayHelper::toArray($images));
         }
 
         if ($imageId !== null && $stars !== null){
-            $this->setRatingImage($imageId, $stars);
+            if (!$this->isImageVote($imageId, $userModel)){
+                $this->setRatingImage($imageId, $stars);
+                $userModel->saveGalleryImage($imageId);
+            }
         }
 
         if (count(ArrayHelper::toArray($images)) == $step){
-            /* @var $userModel User */
-            $userModel = User::findOne(Yii::$app->user->id);
             $userModel->saveMixStatic($id);
             $this->redirect('/site/mix-static');
         }
@@ -201,6 +227,28 @@ class SiteController extends Controller
             return true;
         };
 
+        return false;
+    }
+
+    /**
+     * isImageVote ?
+     *
+     * @var $userModel User
+     *
+     * @return boolean
+     *
+     */
+    public function isImageVote($imageId, $userModel)
+    {
+        if (!empty($userModel->galleryImages)){
+            foreach ($userModel->galleryImages as $image)
+            {
+                if ($image->id === (integer)$imageId)
+                {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 use yii\web\IdentityInterface;
 
 /**
@@ -45,6 +46,8 @@ use yii\web\IdentityInterface;
  * @property Training $training
  * @property MixStaticUser[] $mixStaticUsers
  * @property MixStatic[] $mixStatics
+ * @property UserGalleryImage[] $userGalleryImages
+ * @property GalleryImage[] $galleryImages
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -337,4 +340,50 @@ class User extends ActiveRecord implements IdentityInterface
             $this->link('mixStatics', $mixStatic);
         }
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserGalleryImages()
+    {
+        return $this->hasMany(UserGalleryImage::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGalleryImages()
+    {
+        return $this->hasMany(GalleryImage::className(), ['id' => 'gallery_image_id'])->viaTable('user_gallery_image', ['user_id' => 'id']);
+    }
+
+
+    public function saveGalleryImage($galleryImage)
+    {
+        if ($galleryImage)
+        {
+            $galleryImage = GalleryImage::findOne($galleryImage);
+            $this->link('galleryImages', $galleryImage);
+        }
+    }
+
+    /**
+     * @param $mixStaticId
+     * @return bool
+     */
+    public function isMixStaticViewed($mixStaticId)
+    {
+        if (!empty($this->mixStatics))
+        {
+            foreach ($this->mixStatics as $mixStatic)
+            {
+                if ($mixStatic->id === $mixStaticId)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

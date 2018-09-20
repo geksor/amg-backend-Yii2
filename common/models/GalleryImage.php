@@ -17,6 +17,9 @@ use Yii;
  * @property int $voteCount
  *
  * @property MixStatic $owner
+ * @property UserGalleryImage[] $userGalleryImages
+ * @property User[] $users
+ *
  */
 class GalleryImage extends \yii\db\ActiveRecord
 {
@@ -64,5 +67,21 @@ class GalleryImage extends \yii\db\ActiveRecord
     public function getOwner()
     {
         return $this->hasOne(MixStatic::className(), ['id' => 'ownerId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserGalleryImages()
+    {
+        return $this->hasMany(UserGalleryImage::className(), ['gallery_image_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user_gallery_image', ['gallery_image_id' => 'id']);
     }
 }

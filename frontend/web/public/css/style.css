@@ -1066,3 +1066,16 @@ body {
 	object-fit: cover;
 	object-position: center;
 }
+.mix__link.viewed .mix_img{
+	-webkit-filter: brightness(0.1);
+	filter: brightness(0.1);
+}
+.mix__noStars{
+	opacity: .1;
+	position: relative;
+	z-index: -1;
+}
+.submit.mix__noStars:hover, .submit.mix__noStars:active{
+	color: #fff;
+	background-color: #00988d;
+}

@@ -21,11 +21,19 @@ $this->title = 'ABS Авто Mix статика';
    ]) ?>
     <div class="x-class_content">
         <? foreach ($models as $model) {?>
-            <? if (!$model->users) {?>
-                <a href="<?= \yii\helpers\Url::to(['site/mix-static-gallery', 'id' => $model->id]) ?>">
-                    <img src = "<?= $model->getThumbPhoto() ?>" alt="<?= $model->title ?>" class = "mix_img">
-                </a>
-            <?}?>
+            <? $viewed = false; ?>
+            <? if (!empty($model->users)) {
+                foreach ($model->users as $user){
+                    if ($user->id == Yii::$app->user->id && $user->isMixStaticViewed($model->id)){
+                        $viewed = true;
+                        break;
+                    }
+                }
+            }?>
+            <a href="<?= $viewed ? '#' : \yii\helpers\Url::to(['site/mix-static-gallery', 'id' => $model->id]) ?>"
+                class="mix__link <?= $viewed ? 'viewed' : '' ?>">
+                <img src = "<?= $model->getThumbPhoto() ?>" alt="<?= $model->title ?>" class = "mix_img">
+            </a>
         <?}?>
     </div>
     <?= $this->render('_footer') ?>
