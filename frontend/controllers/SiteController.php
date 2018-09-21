@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 //WV]rlqm&C4qU!y!M03
+use common\models\AmgStaticTest;
 use common\models\DealerCenter;
 use common\models\GalleryImage;
 use common\models\MixStatic;
@@ -45,7 +46,15 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index', 'timetable', 'timetable-info', 'mix-static', 'mix-static-gallery'],
+                        'actions' => [
+                            'logout',
+                            'index',
+                            'timetable',
+                            'timetable-info',
+                            'mix-static',
+                            'mix-static-gallery',
+                            'amg-static',
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -169,6 +178,11 @@ class SiteController extends Controller
             $userModel = User::findOne(Yii::$app->user->id);
             $userModel->mixStatic = Yii::$app->params['PointTest']['mixStatic'];
             if ($userModel->save()){
+                Yii::$app->session->remove('images');
+                Yii::$app->session->set('mixStatic', true);
+                Yii::$app->session->setFlash('popupEndTest', [
+                    'point' => $userModel->mixStatic,
+                ]);
                 return $this->redirect('/site/index');
             }
         }
@@ -250,6 +264,53 @@ class SiteController extends Controller
             }
         }
         return false;
+    }
+
+    /**
+     * Displays amg-static Page.
+     *
+     * @var $models AmgStaticTest
+     * @var $model AmgStaticTest
+     *
+     * @return mixed
+     */
+    public function actionAmgStatic()
+    {
+        $models = AmgStaticTest::find()
+            ->select('id')
+            ->with([
+                'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
+                    $query->andWhere(['answerCount' => 3]);
+                },
+            ])
+            ->asArray()
+            ->all();
+
+        $tempArr = [];
+
+        foreach ($models as $model){
+            if (!empty($model['amgStaticQuestions'])){
+                $tempArr[] = $model;
+            }
+        }
+
+        $idArr = ArrayHelper::index($tempArr, 'id');
+
+        $model = AmgStaticTest::find()
+            ->where(['id' => array_rand($idArr, 1)])
+            ->with([
+                'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
+                    $query->andWhere(['answerCount' => 3])
+                    ->with('amgStaticAnswers');
+                },
+            ])
+            ->one();
+
+
+
+        return $this->render('amg-static', [
+            'model' => $model,
+        ]);
     }
 
     /**

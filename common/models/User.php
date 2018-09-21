@@ -48,6 +48,8 @@ use yii\web\IdentityInterface;
  * @property MixStatic[] $mixStatics
  * @property UserGalleryImage[] $userGalleryImages
  * @property GalleryImage[] $galleryImages
+ * @property UserAmgStaticQuestion[] $userAmgStaticQuestions
+ * @property AmgStaticQuestion[] $amgStaticQuestions
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -384,6 +386,22 @@ class User extends ActiveRecord implements IdentityInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserAmgStaticQuestions()
+    {
+        return $this->hasMany(UserAmgStaticQuestion::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAmgStaticQuestions()
+    {
+        return $this->hasMany(AmgStaticQuestion::className(), ['id' => 'amgStatic_question_id'])->viaTable('user_amgStatic_question', ['user_id' => 'id']);
     }
 
 }

@@ -27,7 +27,9 @@ $this->title = 'ABS Авто главная';
             <p><?= $userModel->xClassDrive ?> / <?= Yii::$app->params['PointTest']['amgDrive'] ?></p>
         </div>
         <div data-value="<?= $userModel->mixStatic ?>" data-max="<?= Yii::$app->params['PointTest']['mixStatic'] ?>" class="progressBar test test_2">
-            <?= \yii\helpers\Html::a('', '/site/mix-static') ?>
+            <? if (!Yii::$app->session->has('mixStatic')) {?>
+                <?= \yii\helpers\Html::a('', '/site/mix-static') ?>
+            <?}?>
             <h3><?= $userModel->getAttributeLabel('mixStatic') ?></h3>
             <p><?= $userModel->mixStatic ?> / <?= Yii::$app->params['PointTest']['mixStatic'] ?></p>
         </div>
@@ -63,3 +65,11 @@ $this->title = 'ABS Авто главная';
     </div>
     <?= $this->render('_footer') ?>
 </div>
+<? if (Yii::$app->session->hasFlash('popupEndTest')) {?>
+
+        <?= $this->render('_popup-point-count', [
+            'point' => Yii::$app->session->getFlash('popupEndTest')['point'],
+            'truAnswers' => false,
+        ]);?>
+
+<?}?>

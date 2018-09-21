@@ -25,11 +25,10 @@ $( function() {
         })
     });
     
-    $('#mix_static_link').on('click', function (event) {
+    $('#mix_static_link').on('click', function () {
         if ($(this).hasClass('mix__noStars')){
             return false;
         }
-        // event.preventDefault();
         var starCount = $('.rating-stars').attr('title');
         var href = $(this).attr('href');
         href += '&stars='+starCount;
@@ -39,7 +38,13 @@ $( function() {
         event.preventDefault();
     });
 
+    // popup points
+    $('#pointsOk').on('click', function () {
+        $('.popupWrap').hide();
+    });
+
     $( "#draggable, #draggable_1, #draggable_2" ).draggable();
+
     $( "#droppable" ).droppable({
         drop: function( event, ui ) {
             $( this )
