@@ -45,36 +45,28 @@ $( function() {
 
 
     // amgStaticPage
+    function inAnswer ($item, $drop) {
+        $item
+            .detach()
+            .addClass('answerAppend')
+            .appendTo($drop)
+    }
 
-    $( "#draggable, #draggable_1, #draggable_2" ).draggable();
+    $("#draggable_0, #draggable_1, #draggable_2").draggable(
+        {
+            revert: "invalid"
+            // helper: "clone"
+        });
 
-    $( "#droppable" ).droppable({
-        drop: function( event, ui ) {
-            $( this )
-                .addClass( "ui-state-highlight" )
-                .find( "p" )
-                .html( "Dropped!" );
+    $("#droppable_1,#droppable_2,#droppable_3").droppable({
+        accept: "#draggable_0, #draggable_1, #draggable_2",
+        drop: function(event, ui) {
+            $(this).removeClass('color_0 color_1 color_2').addClass(ui.draggable.data('set_color'));
+
+            inAnswer(ui.draggable, $(this));
         }
     });
 
-    $( "#draggable_x, #draggable_x_1, #draggable_x_2" ).draggable();
-    $( "#droppable_x" ).droppable({
-        drop: function( event, ui ) {
-            $( this )
-                .addClass( "ui-state-highlight-x" )
-                .find( "p" )
-                .html( "Dropped!" );
-        }
-    });
-    $( "#draggable_x, #draggable_x_1, #draggable_x_2" ).draggable();
-    $( "#droppable_x_2" ).droppable({
-        drop: function( event, ui ) {
-            $( this )
-                .addClass( "ui-state-highlight-x" )
-                .find( "p" )
-                .html( "Dropped!" );
-        }
-    });
 
     $(document).ready(function () {
         $('.amg_static_slick').slick(

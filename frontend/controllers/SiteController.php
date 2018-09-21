@@ -301,7 +301,11 @@ class SiteController extends Controller
             ->with([
                 'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
                     $query->andWhere(['answerCount' => 3])
-                    ->with('amgStaticAnswers');
+                    ->with([
+                        'amgStaticAnswers' => function (\yii\db\ActiveQuery $query) {
+                            $query->orderBy('rank');
+                        }
+                    ]);
                 },
             ])
             ->one();
