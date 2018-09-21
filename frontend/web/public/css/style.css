@@ -1,4 +1,4 @@
-@font-face {
+.info@font-face {
 	font-family: 'CorporateA-Demi', sans-serif;
 	src: url(../fonts/CorporateA-Demi.otf);
 }
@@ -587,6 +587,9 @@ body {
 -----------------------------------------------------------------------------*/
 .info{
 	background: #fff;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }
 .info_button{
 	margin: 40% 5%;
@@ -724,6 +727,10 @@ body {
 }
 .x-class_content{
 	margin: 5%;
+	flex: 1;
+}
+.info .submit{
+	margin: 0 auto;
 }
 .x-class_content span{
 	color: #ef5c5c;
