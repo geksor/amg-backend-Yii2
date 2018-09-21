@@ -45,6 +45,8 @@ $( function() {
 
 
     // amgStaticPage
+    var $lobbi = $('#lobby');
+
     function inAnswer ($item, $drop) {
         $item
             .detach()
@@ -52,18 +54,25 @@ $( function() {
             .appendTo($drop)
     }
 
-    $("#draggable_0, #draggable_1, #draggable_2").draggable(
+    $("div", $lobbi).draggable(
         {
             revert: "invalid"
             // helper: "clone"
         });
 
     $("#droppable_1,#droppable_2,#droppable_3").droppable({
-        accept: "#draggable_0, #draggable_1, #draggable_2",
+        accept: "#lobby > div",
         drop: function(event, ui) {
-            $(this).removeClass('color_0 color_1 color_2').addClass(ui.draggable.data('set_color'));
+            if (!$(this).hasClass('answerSet')){
 
-            inAnswer(ui.draggable, $(this));
+                $(this).removeClass('color_0 color_1 color_2').addClass(ui.draggable.data('set_color'));
+                $(this).addClass('answerSet');
+                $(this).droppable({
+                    accept: '#nosinc'
+                });
+
+                inAnswer(ui.draggable, $(this));
+            }
         }
     });
 

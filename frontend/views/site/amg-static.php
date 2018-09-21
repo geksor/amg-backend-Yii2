@@ -47,9 +47,9 @@ $this->title = 'ABS Авто Amg статика';
         </div>
         <div class = "dotsAppend"></div>
 
-        <div class = "mix_amg">
+        <div id="lobby" class = "mix_amg">
             <? foreach ($questionLocal->amgStaticAnswers as $key => $answer) {?>
-                <div id="draggable_<?= $key ?>" class="amg__answer color_<?= $key ?>" data-set_color="color_<?= $key ?>" data-answer_id="<?= $answer->id ?>"><?= $answer->title ?></div>
+                <div class="amg__answer color_<?= $key ?>" data-set_color="color_<?= $key ?>" data-answer_id="<?= $answer->id ?>"><?= $answer->title ?></div>
             <?}?>
         </div>
     </div>
