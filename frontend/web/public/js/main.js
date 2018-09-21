@@ -43,6 +43,9 @@ $( function() {
         $('.popupWrap').hide();
     });
 
+
+    // amgStaticPage
+
     $( "#draggable, #draggable_1, #draggable_2" ).draggable();
 
     $( "#droppable" ).droppable({
@@ -72,6 +75,22 @@ $( function() {
                 .html( "Dropped!" );
         }
     });
+
+    $(document).ready(function () {
+        $('.amg_static_slick').slick(
+            {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: false,
+                dots: true,
+                arrows: false,
+                appendDots: $('.dotsAppend'),
+                dotsClass: 'mix_ul'
+
+            }
+        );
+    });
+
 
     $('#personalDataOpen').on('click', function () {
         $('.personal_data').show('fade', 300);

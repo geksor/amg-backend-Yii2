@@ -133,4 +133,20 @@ class AmgStaticQuestion extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user_amgStatic_question', ['amgStatic_question_id' => 'id']);
     }
+
+    /**
+     * @param $userId
+     * @return bool
+     */
+    public function isUserAnswer($userId)
+    {
+        foreach ($this->users as $user)
+        {
+            if ($user->id == $userId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -19,17 +19,33 @@ $this->title = 'ABS Авто Amg статика';
         'link' => Yii::$app->homeUrl,
    ]) ?>
     <div class="x-class_content">
-        <div id="amg_static_slick">
-            <? foreach ($model->amgStaticQuestions as $key => $question) {/* @var $question \common\models\AmgStaticQuestion */?>
+        <div class="amg_static_slick">
 
-                <div id="droppable<?= $key ?>" style = 'background: url(<?= $question->getPhotos() ?>)'></div>
+            <? foreach ($model->amgStaticQuestions as $question) {/* @var $question \common\models\AmgStaticQuestion */?>
+                <? if (!$question->isUserAnswer(Yii::$app->user->id)) {?>
+
+                    <? $photoArr = $question->getPhotos();?>
+
+
+                    <div>
+                        <div id="droppable_1" class="amg__questImage" style = 'background-image: url(<?= $photoArr['thumb_image_1'] ?>)'></div>
+                    </div>
+
+                    <div>
+                        <div id="droppable_2" class="amg__questImage" style = 'background-image: url(<?= $photoArr['thumb_image_2'] ?>)'></div>
+                    </div>
+
+                    <div>
+                        <div id="droppable_3" class="amg__questImage" style = 'background-image: url(<?= $photoArr['thumb_image_3'] ?>)'></div>
+                    </div>
+
+                    <? break ?>
+
+                <?}?>
             <?}?>
+
         </div>
-        <ul class = "mix_ul">
-            <li></li>
-            <li></li>
-            <li class = "active"></li>
-        </ul>
+        <div class = "dotsAppend"></div>
         <ul class = "mix_amg">
             <li id="draggable">63</li>
             <li id="draggable_1">53</li>

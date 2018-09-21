@@ -12,6 +12,8 @@ class PublicAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'public/css/slick-theme.css',
+        'public/css/slick.css',
         'public/css/style.css',
     ];
     public $js = [
