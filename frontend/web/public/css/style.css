@@ -1,4 +1,4 @@
-.info@font-face {
+@font-face {
 	font-family: 'CorporateA-Demi', sans-serif;
 	src: url(../fonts/CorporateA-Demi.otf);
 }
@@ -888,7 +888,7 @@ body {
 .x-class_center p{
 	width: 100%;
 	color: #fff;
-	padding: 20px 0px;
+	padding: 20px 0;
 	background: #fff;
 	margin-bottom: 10px;
 	text-align: center;
