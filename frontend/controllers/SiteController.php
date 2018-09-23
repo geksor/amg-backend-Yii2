@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 //WV]rlqm&C4qU!y!M03
+use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;
 use common\models\DealerCenter;
 use common\models\GalleryImage;
@@ -274,8 +275,37 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAmgStatic()
+    public function actionAmgStatic($questId = null, $img_1 = null, $img_2 = null, $img_3 = null)
     {
+        if ($questId){
+            $userModel = User::findOne(Yii::$app->user->id);
+            $userModel->saveAmgTest($questId);
+
+            $trueAnswer = 0;
+
+            $img_1_answer = AmgStaticAnswer::findOne($img_1);
+            $img_2_answer = AmgStaticAnswer::findOne($img_2);
+            $img_3_answer = AmgStaticAnswer::findOne($img_3);
+
+            if ((integer)$img_1_answer->trueImage === 1){
+                ++$trueAnswer;
+            }
+            if ((integer)$img_2_answer->trueImage === 2){
+                ++$trueAnswer;
+            }
+            if ((integer)$img_3_answer->trueImage === 3){
+                ++$trueAnswer;
+            }
+
+            if (Yii::$app->session->has('trueAnswers')){
+                $trueAnswerFromSession = Yii::$app->session->get('trueAnswers') + $trueAnswer;
+                Yii::$app->session->set('trueAnswers', $trueAnswerFromSession);
+            }else{
+                Yii::$app->session->set('trueAnswers', $trueAnswer);
+            }
+
+        }
+
         $models = AmgStaticTest::find()
             ->select('id')
             ->with([
@@ -296,8 +326,21 @@ class SiteController extends Controller
 
         $idArr = ArrayHelper::index($tempArr, 'id');
 
+        if (empty($idArr))
+        {
+            return $this->redirect('/');
+        }
+
+        $testId = null;
+
+        if (Yii::$app->session->has('amgStaticTestId')){
+            $testId = Yii::$app->session->get('amgStaticTestId');
+        }else{
+            $testId = array_rand($idArr, 1);
+        }
+
         $model = AmgStaticTest::find()
-            ->where(['id' => array_rand($idArr, 1)])
+            ->where(['id' => $testId])
             ->with([
                 'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
                     $query->andWhere(['answerCount' => 3])
@@ -309,11 +352,28 @@ class SiteController extends Controller
                 },
             ])
             ->one();
+        /* @var $model AmgStaticTest */
+        if (!Yii::$app->session->has('amgStaticTestId')){
+            Yii::$app->session->set('amgStaticTestId', $model->id);
+        }
 
+        foreach ($model->amgStaticQuestions as $question){
+            if (!$question->isUserAnswer(Yii::$app->user->id)) {
+                $questionModel = $question;
+                break;
+            }
+        }
 
+        if (!$questionModel){
+            $maxPoint = Yii::$app->params['PointTest']['amgStatic'];
+            $totalQuestion = count($model->amgStaticQuestions)*3;
+            $pointStep = $maxPoint/$totalQuestion;
+            $point = Yii::$app->session->get('trueAnswers')*$pointStep;
+            VarDumper::dump($point, 10, true);die;
+        }
 
         return $this->render('amg-static', [
-            'model' => $model,
+            'questionModel' => $questionModel,
         ]);
     }
 

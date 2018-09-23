@@ -334,6 +334,9 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(MixStatic::className(), ['id' => 'mixStatic_id'])->viaTable('mixStatic_user', ['user_id' => 'id']);
     }
 
+    /**
+     * @param $mixStaticId
+     */
     public function saveMixStatic($mixStaticId)
     {
         if ($mixStaticId)
@@ -359,7 +362,9 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(GalleryImage::className(), ['id' => 'gallery_image_id'])->viaTable('user_gallery_image', ['user_id' => 'id']);
     }
 
-
+    /**
+     * @param $galleryImage
+     */
     public function saveGalleryImage($galleryImage)
     {
         if ($galleryImage)
@@ -402,6 +407,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAmgStaticQuestions()
     {
         return $this->hasMany(AmgStaticQuestion::className(), ['id' => 'amgStatic_question_id'])->viaTable('user_amgStatic_question', ['user_id' => 'id']);
+    }
+
+    /**
+     * @param $amgTestId
+     */
+    public function saveAmgTest($amgTestId)
+    {
+        if ($amgTestId)
+        {
+            $amgTest = GalleryImage::findOne($amgTestId);
+            $this->link('amgStaticQuestions', $amgTest);
+        }
     }
 
 }
