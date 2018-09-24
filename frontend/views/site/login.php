@@ -19,13 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $form = ActiveForm::begin(['id' => 'login-form', 'options' => ['class' => 'form', 'autocomplete' => 'off']]); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'user'])->label(false) ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Введите логин', 'class' => 'user'])->label(false) ?>
 
-            <?= $form->field($model, 'password')->passwordInput(['class' => 'password'])->label(false) ?>
+            <?= $form->field($model, 'password')->passwordInput(['class' => 'password', 'placeholder' => 'Введите пароль'])->label(false) ?>
 
             <?= Html::submitButton('Отправить', ['class' => 'submit', 'name' => 'login-button']) ?>
 
-            <?= Html::a('Регистрация', 'signup') ?>
+            <?= Html::a('Регистрация', '/site/signup-step-1') ?>
 
             <?php ActiveForm::end(); ?>
 

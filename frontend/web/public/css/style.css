@@ -134,7 +134,7 @@ body {
 	justify-content: center;
 	align-items: center;
 }
-.form .form-group{
+.form .form-group, .form_step_1 .form-group{
 	width: 90%;
 }
 .form a{
@@ -246,6 +246,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	padding: 20px;
+	width: 100%;
 }
 .button_next_back img{
 	width: 18px;
@@ -259,6 +260,8 @@ body {
 	align-items: center;
 	color: #fff;
 	padding: 15px 20px;
+	border: none;
+	height: 48px;
 }
 .button_back{
 	width: 50%;
@@ -269,6 +272,7 @@ body {
 	align-items: center;
 	color: #fff;
 	padding: 15px 20px;
+	text-decoration: none;
 }
 .button_help{
 	width: 50%;

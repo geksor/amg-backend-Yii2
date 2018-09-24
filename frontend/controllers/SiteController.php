@@ -8,7 +8,10 @@ use common\models\EndQuest;
 use common\models\GalleryImage;
 use common\models\MixStatic;
 use common\models\Timetable;
+use common\models\Training;
 use common\models\User;
+use frontend\models\SignupFormStep2;
+use frontend\models\SignupFormStep3;
 use vova07\console\ConsoleRunner;
 use console\controllers\ServerController;
 use Yii;
@@ -43,13 +46,15 @@ class SiteController extends Controller
 //                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login'],
+                        'actions' => ['signup-step-1', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
                         'actions' => [
                             'logout',
+                            'signup-step-2',
+                            'signup-step-3',
                             'index',
                             'timetable',
                             'timetable-info',
@@ -96,6 +101,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $userModel = User::findOne(Yii::$app->user->id);
+
+        if (!$userModel->training_id || !$userModel->group){
+            return $this->redirect('site/signup-step-2');
+        }
+
+        if (!$userModel->first_name || !$userModel->last_name || !$userModel->surname || !$userModel->dealer_center_id){
+            return $this->redirect('signup-step-3');
+        }
 
         return $this->render('index', [
             'userModel' => $userModel,
@@ -458,56 +471,76 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
      * Signs user up.
      *
      * @return mixed
      */
-    public function actionSignup()
+    public function actionSignupStep1()
     {
         $model = new SignupForm();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    return $this->redirect('signup-step-2');
                 }
             }
         }
 
-        return $this->render('signup', [
+        return $this->render('signup-step-1', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionSignupStep2()
+    {
+        $model = new SignupFormStep2();
+        $trainings = Training::find()->select(['id', 'date'])->asArray()->all();
+
+        $trainingsArr = [];
+
+        if (!empty($trainings)){
+            foreach ($trainings as $training){
+                $value = date("d.m.Y", (integer) $training['date']);
+                $trainingsArr[$training['id']] = $value;
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->setValue(Yii::$app->user->id)) {
+                return $this->redirect('signup-step-3');
+            }
+        }
+
+        return $this->render('signup-step-2', [
+            'model' => $model,
+            'trainingsArr' => $trainingsArr,
+        ]);
+    }
+
+    public function actionSignupStep3()
+    {
+        $model = new SignupFormStep3();
+        $dealerCenters = DealerCenter::find()->select(['id', 'title'])->asArray()->all();
+
+        $dealerCentersArr = [];
+
+        if (!empty($dealerCenters)){
+            foreach ($dealerCenters as $training){
+                $value = $training['title'];
+                $dealerCentersArr[$training['id']] = $value;
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->setValue(Yii::$app->user->id)) {
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('signup-step-3', [
+            'model' => $model,
+            'dealerCentersArr' => $dealerCentersArr,
         ]);
     }
 
