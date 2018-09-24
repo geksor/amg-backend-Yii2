@@ -797,7 +797,7 @@ body {
 .mix_ul li{
 	font-size: 0;
 }
-.mix_ul li button{
+.mix_ul.amg li button, .mix_ul li{
 	width: 15px;
 	height: 15px;
 	background-color: #dedede;
@@ -805,7 +805,10 @@ body {
 	border-radius: 15px;
 	font-size: 0;
 }
-.mix_ul .slick-active button{
+.mix_ul li.active{
+	background-color: #ef5c5c;
+}
+.mix_ul.amg .slick-active button{
 	background-color: #ef5c5c;
 }
 .mix_star{

@@ -55,6 +55,7 @@ class SiteController extends Controller
                             'logout',
                             'signup-step-2',
                             'signup-step-3',
+                            'signup-end',
                             'index',
                             'timetable',
                             'timetable-info',
@@ -436,6 +437,26 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays mbux Page.
+     *
+     * @var $models AmgStaticTest
+     *
+     * @return mixed
+     */
+    public function actionMbux()
+    {
+        $userModel = User::findOne(Yii::$app->user->id);
+
+            Yii::$app->session->setFlash('popupEndTest', [
+                'point' => '10',
+            ]);
+
+        return $this->render('mbux', [
+            'userModel' => $userModel,
+        ]);
+    }
+
+    /**
      * Logs in a user.
      *
      * @return mixed
@@ -534,7 +555,8 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->setValue(Yii::$app->user->id)) {
-                return $this->goHome();
+
+                return $this->redirect('signup-end');
             }
         }
 
@@ -542,6 +564,11 @@ class SiteController extends Controller
             'model' => $model,
             'dealerCentersArr' => $dealerCentersArr,
         ]);
+    }
+
+    public function actionSignupEnd()
+    {
+        return $this->render('signup-end');
     }
 
     /**

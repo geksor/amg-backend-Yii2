@@ -442,10 +442,9 @@ class User extends ActiveRecord implements IdentityInterface
         if ($link){
             $link->delete();
         }
-        {
-            $amgTest = GalleryImage::findOne($amgTestId);
-            $this->link('amgStaticQuestions', $amgTest);
-        }
+        $amgTest = AmgStaticQuestion::findOne($amgTestId);
+
+        $this->link('amgStaticQuestions', $amgTest);
     }
 
 }

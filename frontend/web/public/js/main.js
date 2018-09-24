@@ -89,7 +89,7 @@ $( function() {
                 dots: true,
                 arrows: false,
                 appendDots: $('.dotsAppend'),
-                dotsClass: 'mix_ul'
+                dotsClass: 'mix_ul amg'
 
             }
         );

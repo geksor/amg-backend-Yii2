@@ -1,6 +1,7 @@
 <?php
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 use common\models\User;
 
@@ -47,7 +48,8 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-          'conformPassword' => 'Подтверждение пароля'
+          'conformPassword' => 'Подтверждение пароля',
+          'password' => 'Пароль'
         ];
     }
 
@@ -67,7 +69,27 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+
+        $this->sendEmail($this->email);
         
         return $user->save() ? $user : null;
+    }
+
+    /**
+     * Sends an email to the specified email address using the information collected by this model.
+     *
+     * @param string $email the target email address
+     * @return bool whether the email was sent
+     */
+    public function sendEmail($email)
+    {
+        $body = 'Логин: '.$email.' Пароль: '.$this->password;
+
+        return Yii::$app->mailer->compose()
+            ->setTo($email)
+            ->setFrom(['support@abs.ru' => 'ABS-Auto'])
+            ->setSubject('Регистрация')
+            ->setTextBody($body)
+            ->send();
     }
 }
