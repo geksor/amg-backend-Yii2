@@ -40,6 +40,7 @@ use yii\web\IdentityInterface;
  * @property int $moderatorPoints
  *
  * @property AmgDrive[] $amgDrives
+ * @property EndQuest[] $endQuests
  * @property MixDrive[] $mixDrives
  * @property Command $command
  * @property DealerCenter $dealerCenter
@@ -271,6 +272,28 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEndQuests()
+    {
+        return $this->hasOne(EndQuest::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @param $testName
+     * @return bool
+     */
+    public function isEndQuest($testName)
+    {
+       if (!empty($this->endQuests)){
+           if ($this->endQuests->$testName){
+               return true;
+           }
+       }
+       return false;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getMixDrives()
     {
         return $this->hasMany(MixDrive::className(), ['user_id' => 'id']);
@@ -415,6 +438,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function saveAmgTest($amgTestId)
     {
         if ($amgTestId)
+        $link = UserAmgStaticQuestion::find()->where(['amgStatic_question_id' => $amgTestId])->one();
+        if ($link){
+            $link->delete();
+        }
         {
             $amgTest = GalleryImage::findOne($amgTestId);
             $this->link('amgStaticQuestions', $amgTest);

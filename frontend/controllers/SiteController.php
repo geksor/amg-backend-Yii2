@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;
 use common\models\DealerCenter;
+use common\models\EndQuest;
 use common\models\GalleryImage;
 use common\models\MixStatic;
 use common\models\Timetable;
@@ -180,7 +181,9 @@ class SiteController extends Controller
             $userModel->mixStatic = Yii::$app->params['PointTest']['mixStatic'];
             if ($userModel->save()){
                 Yii::$app->session->remove('images');
-                Yii::$app->session->set('mixStatic', true);
+
+                $this->setEndQuest($userModel, 'mixStatic');
+
                 Yii::$app->session->setFlash('popupEndTest', [
                     'point' => $userModel->mixStatic,
                 ]);
@@ -192,6 +195,30 @@ class SiteController extends Controller
             'models' => $models,
         ]);
     }
+
+    /**
+     * @param $userModel
+     * @param $testName
+     */
+    public function setEndQuest($userModel, $testName)
+    {
+        /* @var $userModel User */
+        /* @var $endQuestsModel EndQuest */
+        if (!empty($userModel->endQuests)){
+            $endQuestsModel = EndQuest::findOne($userModel->endQuests->id);
+            if (!$endQuestsModel->$testName){
+                $endQuestsModel->$testName = 1;
+                $endQuestsModel->save();
+            }
+        }else{
+            $endQuestsModel = new EndQuest();
+            $endQuestsModel->user_id = Yii::$app->user->id;
+            $endQuestsModel->$testName = 1;
+            $endQuestsModel->save();
+        }
+    }
+
+
 
 
     /**
@@ -277,8 +304,9 @@ class SiteController extends Controller
      */
     public function actionAmgStatic($questId = null, $img_1 = null, $img_2 = null, $img_3 = null)
     {
+        $userModel = User::findOne(Yii::$app->user->id);
+
         if ($questId){
-            $userModel = User::findOne(Yii::$app->user->id);
             $userModel->saveAmgTest($questId);
 
             $trueAnswer = 0;
@@ -366,10 +394,27 @@ class SiteController extends Controller
 
         if (!$questionModel){
             $maxPoint = Yii::$app->params['PointTest']['amgStatic'];
+
             $totalQuestion = count($model->amgStaticQuestions)*3;
+
             $pointStep = $maxPoint/$totalQuestion;
-            $point = Yii::$app->session->get('trueAnswers')*$pointStep;
-            VarDumper::dump($point, 10, true);die;
+
+            $point = ceil(Yii::$app->session->get('trueAnswers')*$pointStep);
+
+            $this->setEndQuest($userModel, 'amgStatic');
+
+            $userModel->amgStatic = $point;
+            $userModel->save();
+
+            Yii::$app->session->setFlash('popupEndTest', [
+                'point' => $point,
+            ]);
+
+            Yii::$app->session->remove('point');
+            Yii::$app->session->remove('amgStaticTestId');
+            Yii::$app->session->remove('trueAnswers');
+
+            return $this->redirect('/');
         }
 
         return $this->render('amg-static', [
