@@ -51,6 +51,8 @@ use yii\web\IdentityInterface;
  * @property GalleryImage[] $galleryImages
  * @property UserAmgStaticQuestion[] $userAmgStaticQuestions
  * @property AmgStaticQuestion[] $amgStaticQuestions
+ * @property UserXClassLineQuestion[] $userXClassLineQuestions
+ * @property XClassLineQuestion[] $xClassLineQuestions
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -447,4 +449,32 @@ class User extends ActiveRecord implements IdentityInterface
         $this->link('amgStaticQuestions', $amgTest);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserXClassLineQuestions()
+    {
+        return $this->hasMany(UserXClassLineQuestion::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getXClassLineQuestions()
+    {
+        return $this->hasMany(XClassLineQuestion::className(), ['id' => 'xClass_line_question_id'])->viaTable('user_xClass_line_question', ['user_id' => 'id']);
+    }
+
+    public function saveQuestion($questionId)
+    {
+        if ($questionId){
+            if ($link = UserXClassLineQuestion::find()->where(['xClass_line_question_id' => $questionId])->one()){
+                $link->delete();
+            }
+
+            $xClassQuest = XClassLineQuestion::findOne($questionId);
+
+            $this->link('xClassLineQuestions', $xClassQuest);
+        }
+    }
 }

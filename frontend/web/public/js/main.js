@@ -164,7 +164,7 @@ $( function() {
 
     showOn();
 
-    //amgDrive
+    //amgDrive end mixDrive
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -182,14 +182,44 @@ $( function() {
         readURL(this);
     });
 
-
-
-
-
+    //login
     $('#personalDataOpen').on('click', function () {
         $('.personal_data').show('fade', 300);
     });
     $('#personalDataClose').on('click', function () {
         $('.personal_data').hide('fade', 300);
     });
+
+    //xClass
+    var colLeft = null;
+    var colRight = null;
+    var end = false;
+
+    $( "#sortable_left, #sortable_0, #sortable_right" ).sortable({
+        connectWith: ".connectedSortable",
+        items: "img",
+        receive: function( event, ui ) {
+            switch ($(this).data('column')) {
+                case 0:
+                    colRight = ui.item.data('image_id');
+                    break;
+                case 1:
+                    colLeft = ui.item.data('image_id');
+                    break;
+                case 2:
+                    end = false;
+                    if (colRight === ui.item.data('image_id')){
+                        colRight = null;
+                    }
+                    if (colLeft === ui.item.data('image_id')){
+                        colLeft = null;
+                    }
+
+            }
+            if (colLeft && colRight){
+                end = true
+
+            }
+        }
+    }).disableSelection();
 } );

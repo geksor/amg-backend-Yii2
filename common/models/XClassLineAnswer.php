@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $image
- * @property int $column
+ * @property int $column 0 - right, 1 - left
  * @property int $xClass_line_question_id
  *
  * @property XClassLineQuestion $xClassLineQuestion

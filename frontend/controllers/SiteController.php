@@ -13,6 +13,7 @@ use common\models\MixStatic;
 use common\models\Timetable;
 use common\models\Training;
 use common\models\User;
+use common\models\XClassLineTest;
 use frontend\models\ImageUpload;
 use frontend\models\SignupFormStep2;
 use frontend\models\SignupFormStep3;
@@ -71,6 +72,7 @@ class SiteController extends Controller
                             'mbux',
                             'amg-drive',
                             'mix-drive',
+                            'x-class-line',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -619,6 +621,130 @@ class SiteController extends Controller
 
         return $this->render('mix-drive', [
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays x-class-line Page.
+     *
+     * @var $mixDriveModel MixDrive
+     * @var $models XClassLineTest
+     *
+     * @return mixed
+     */
+    public function actionXClassLine($questId = null)
+    {
+        $userModel = User::findOne(Yii::$app->user->id);
+
+        if ($questId){
+            $userModel->saveQuestion($questId);
+
+            $trueAnswer = 0;
+
+            $img_1_answer = AmgStaticAnswer::findOne($img_1);
+            $img_2_answer = AmgStaticAnswer::findOne($img_2);
+            $img_3_answer = AmgStaticAnswer::findOne($img_3);
+
+            if ((integer)$img_1_answer->trueImage === 1){
+                ++$trueAnswer;
+            }
+            if ((integer)$img_2_answer->trueImage === 2){
+                ++$trueAnswer;
+            }
+            if ((integer)$img_3_answer->trueImage === 3){
+                ++$trueAnswer;
+            }
+
+            if (Yii::$app->session->has('trueAnswers')){
+                $trueAnswerFromSession = Yii::$app->session->get('trueAnswers') + $trueAnswer;
+                Yii::$app->session->set('trueAnswers', $trueAnswerFromSession);
+            }else{
+                Yii::$app->session->set('trueAnswers', $trueAnswer);
+            }
+
+        }
+
+        $models = XClassLineTest::find()
+            ->select('id')
+            ->with([
+                'xClassLineQuestions' => function (\yii\db\ActiveQuery $query) {
+                    $query->andWhere('answerCount > 1');
+                },
+            ])
+            ->asArray()
+            ->all();
+
+        $tempArr = [];
+
+        foreach ($models as $model){
+            if (!empty($model['xClassLineQuestions'])){
+                $tempArr[] = $model;
+            }
+        }
+
+        $idArr = ArrayHelper::index($tempArr, 'id');
+
+        if (empty($idArr))
+        {
+            return $this->redirect('/');
+        }
+
+        $testId = null;
+
+        if (Yii::$app->session->has('xClassLineTestId')){
+            $testId = Yii::$app->session->get('xClassLineTestId');
+        }else{
+            $testId = array_rand($idArr, 1);
+        }
+
+        $model = XClassLineTest::find()
+            ->where(['id' => $testId])
+            ->with([
+                'xClassLineQuestions' => function (\yii\db\ActiveQuery $query) {
+                    $query->andWhere('answerCount > 1')
+                        ->with([ 'xClassLineAnswers' ]);
+                },
+            ])
+            ->one();
+        /* @var $model XClassLineTest */
+        if (!Yii::$app->session->has('xClassLineTestId')){
+            Yii::$app->session->set('xClassLineTestId', $model->id);
+        }
+
+        foreach ($model->xClassLineQuestions as $question){
+            if (!$question->isUserAnswer(Yii::$app->user->id)) {
+                $questionModel = $question;
+                break;
+            }
+        }
+
+        if (!$questionModel){
+            $maxPoint = Yii::$app->params['PointTest']['xClassLine'];
+
+            $totalQuestion = count($model->xClassLineQuestions)*2;
+
+            $pointStep = $maxPoint/$totalQuestion;
+
+            $point = ceil(Yii::$app->session->get('trueAnswers')*$pointStep);
+
+            $this->setEndQuest($userModel, 'xClassLine');
+
+            $userModel->amgStatic = $point;
+            $userModel->save();
+
+            Yii::$app->session->setFlash('popupEndTest', [
+                'point' => $point,
+            ]);
+
+            Yii::$app->session->remove('point');
+            Yii::$app->session->remove('xClassLineTestId');
+            Yii::$app->session->remove('trueAnswers');
+
+            return $this->redirect('/');
+        }
+
+        return $this->render('x-class-line', [
+            'questionModel' => $questionModel,
         ]);
     }
 

@@ -27,12 +27,6 @@ $this->title = 'Регистрация';
                 '2' => '02',
         ], ['class' => 'step_2_group']) ?>
 
-        <h2 class = "h2">Номер группы</h2>
-        <div class = "step_2_group">
-            <img src="/public/images/group-1.svg" alt = "01">
-            <img src="/public/images/group-2.svg" alt = "02">
-        </div>
-
         <p>
             <span>*</span> Номер группы указан на вашем бейдже
         </p>
