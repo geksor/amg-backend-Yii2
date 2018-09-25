@@ -54,4 +54,11 @@ class MixDrive extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    public function savePhoto($fileName)
+    {
+        $this->photo = $fileName;
+
+        return $this->save(false);
+    }
 }

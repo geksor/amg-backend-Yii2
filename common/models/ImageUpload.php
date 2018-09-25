@@ -151,8 +151,8 @@ class ImageUpload extends Model
         return $cropInfo;
     }
 
-    public function getThumbImagePath()
-    {
+        public function getThumbImagePath()
+        {
         return $this->getFolder() . '/thumb_';
     }
 

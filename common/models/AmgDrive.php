@@ -42,7 +42,7 @@ class AmgDrive extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'photo' => 'Photo',
+            'photo' => 'Фото',
             'user_id' => 'User ID',
         ];
     }
@@ -53,5 +53,12 @@ class AmgDrive extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function savePhoto($fileName)
+    {
+        $this->photo = $fileName;
+
+        return $this->save(false);
     }
 }

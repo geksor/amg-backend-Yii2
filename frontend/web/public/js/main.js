@@ -124,10 +124,18 @@ $( function() {
 
             }
         );
+        $('.button_next').on('click', function () {
+            $('.mbux_slick').slick('slickNext');
+        });
+
     });
 
-    $('.mbux_slick').on('beforeChange', function () {
+    $('.mbux_slick').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         $('.mbux__helpHide').trigger('click');
+        if ($('.mbux_slick').slick('getSlick').slideCount === ++nextSlide){
+            $('.button_next.mbux__next').hide();
+            $('.button_next.mbux__end').show();
+        }
     });
 
     function showOn(){
@@ -156,9 +164,24 @@ $( function() {
 
     showOn();
 
-    $('.button_next').on('click', function () {
-        $('.mbux_slick').swipe()
+    //amgDrive
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#insertImage').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('.jsImageInput').on('change', function () {
+        readURL(this);
     });
+
 
 
 
