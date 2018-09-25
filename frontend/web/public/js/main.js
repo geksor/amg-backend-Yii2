@@ -164,6 +164,24 @@ $( function() {
 
     showOn();
 
+    //amgDrive
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#insertImage').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('.amgImageInput').on('change', function () {
+        readURL(this);
+    });
+
 
 
 
