@@ -136,6 +136,10 @@ body {
 }
 .form .form-group, .form_step_1 .form-group{
 	width: 90%;
+	text-align: center;
+	font-size: 16px;
+	line-height: 1.19;
+	padding: 10px 0;
 }
 .form a{
 	margin-top: 40px;
@@ -239,13 +243,7 @@ body {
 .form_step_1 .user, .form_step_1 .password{
 	color: #000;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-}
-.form .form-group, .form_step_1 .form-group {
-	width: 90%;
-	text-align: center;
-	font-size: 16px;
-	line-height: 1.19;
-	padding: 10px 0;
+	border-radius: 0px;
 }
 .button_next_back{
 	display: flex;
@@ -293,12 +291,13 @@ body {
 }
 /* Step_2
 -----------------------------------------------------------------------------*/
-.step_2_group {
+.step_2_group{
 	margin: 20px;
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	align-items: center;
+}
+.step_2_group img{
+	width: 100px;
+	margin: 10px;
 }
 .step_2_group .radio{
 	width: 100px;
