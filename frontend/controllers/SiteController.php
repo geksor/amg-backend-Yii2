@@ -6,6 +6,7 @@ use common\models\AmgStaticTest;
 use common\models\DealerCenter;
 use common\models\EndQuest;
 use common\models\GalleryImage;
+use common\models\MbuxTest;
 use common\models\MixStatic;
 use common\models\Timetable;
 use common\models\Training;
@@ -16,6 +17,7 @@ use vova07\console\ConsoleRunner;
 use console\controllers\ServerController;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 use yii\helpers\VarDumper;
@@ -62,6 +64,7 @@ class SiteController extends Controller
                             'mix-static',
                             'mix-static-gallery',
                             'amg-static',
+                            'mbux',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -439,7 +442,7 @@ class SiteController extends Controller
     /**
      * Displays mbux Page.
      *
-     * @var $models AmgStaticTest
+     * @var $models MbuxTest
      *
      * @return mixed
      */
@@ -447,12 +450,55 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
-            Yii::$app->session->setFlash('popupEndTest', [
-                'point' => '10',
-            ]);
+        $models = MbuxTest::find()
+            ->select('id')
+            ->with('mbuxQuestions')
+            ->asArray()
+            ->all();
+
+        $tempArr = [];
+
+        foreach ($models as $model){
+            if (!empty($model['mbuxQuestions'])){
+                $tempArr[] = $model;
+            }
+        }
+
+        $idArr = ArrayHelper::index($tempArr, 'id');
+
+        if (empty($idArr))
+        {
+            return $this->redirect('/');
+        }
+
+        $testId = null;
+
+        if (Yii::$app->session->has('mbuxId')){
+            $testId = Yii::$app->session->get('mbuxId');
+        }else{
+            $testId = array_rand($idArr, 1);
+        }
+
+
+            $model = MbuxTest::find()
+                ->where(['id' => $testId])
+                ->with('mbuxQuestions')
+                ->one();
+        if (!$model){
+            if (Yii::$app->session->has('mbuxId')){
+                Yii::$app->session->remove('mbuxId');
+            }
+            return $this->redirect('/site/mbux');
+        }
+
+
+        /* @var $model AmgStaticTest */
+        if (!Yii::$app->session->has('mbuxId')){
+            Yii::$app->session->set('mbuxId', $model->id);
+        }
 
         return $this->render('mbux', [
-            'userModel' => $userModel,
+            'model' => $model,
         ]);
     }
 

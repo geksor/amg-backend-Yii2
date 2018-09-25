@@ -95,6 +95,7 @@ $( function() {
         );
     });
 
+
     $('#amg_static_link').on('click', function () {
         if ($(this).hasClass('mix__noStars')){
             return false;
@@ -108,6 +109,58 @@ $( function() {
 
         $(this).attr('href', href);
     });
+
+    //mbux
+    $(document).ready(function () {
+        $('.mbux_slick').slick(
+            {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: false,
+                dots: true,
+                arrows: false,
+                appendDots: $('.dotsAppend'),
+                dotsClass: 'mix_ul amg'
+
+            }
+        );
+    });
+
+    $('.mbux_slick').on('beforeChange', function () {
+        $('.mbux__helpHide').trigger('click');
+    });
+
+    function showOn(){
+        $('.mbux__helpShow').on('click', function (e) {
+            e.preventDefault;
+            $('.mbux__help').show('fade', 300);
+            $(this).text('Скрыть подсказку').addClass('mbux__helpHide', function () {
+                $(this).removeClass('mbux__helpShow');
+                $(this).unbind('click');
+                showOff();
+            });
+        });
+    }
+
+    function showOff(){
+        $('.mbux__helpHide').on('click', function (e) {
+            e.preventDefault;
+            $('.mbux__help').hide('fade', 300);
+            $(this).text('Подсказка').addClass('mbux__helpShow', function () {
+                $(this).removeClass('mbux__helpHide');
+                $(this).unbind('click');
+                showOn()
+            });
+        });
+    }
+
+    showOn();
+
+    $('.button_next').on('click', function () {
+        $('.mbux_slick').swipe()
+    });
+
+
 
 
     $('#personalDataOpen').on('click', function () {
