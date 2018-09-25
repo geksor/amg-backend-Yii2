@@ -8,6 +8,7 @@ use common\models\DealerCenter;
 use common\models\EndQuest;
 use common\models\GalleryImage;
 use common\models\MbuxTest;
+use common\models\MixDrive;
 use common\models\MixStatic;
 use common\models\Timetable;
 use common\models\Training;
@@ -69,6 +70,7 @@ class SiteController extends Controller
                             'amg-static',
                             'mbux',
                             'amg-drive',
+                            'mix-drive',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -567,6 +569,55 @@ class SiteController extends Controller
         }
 
         return $this->render('amg-drive', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays mix-drive Page.
+     *
+     * @var $mixDriveModel MixDrive
+     * @var $model ImageUpload
+     *
+     * @return mixed
+     */
+    public function actionMixDrive()
+    {
+        if (!$mixDriveModel = MixDrive::find()->where(['user_id' => Yii::$app->user->id])->one()){
+            $mixDriveModel = new MixDrive();
+            $mixDriveModel->user_id = Yii::$app->user->id;
+            $mixDriveModel->save();
+        }
+
+        $model = new ImageUpload();
+
+        if (Yii::$app->request->isPost)
+        {
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if ($mixDriveModel->savePhoto($model->uploadFile($file, $mixDriveModel->photo)))
+            {
+                $point = Yii::$app->params['PointTest']['mixDrive'];
+
+                $userModel = $mixDriveModel->user;
+                $userModel->mixDrive = $point;
+
+                if ($userModel->save()){
+                    $this->setEndQuest($userModel, 'mixDrive');
+
+                    Yii::$app->session->setFlash('popupEndTest', [
+                        'point' => $point,
+                    ]);
+
+                    return $this->goHome();
+
+                }
+
+                return $this->redirect('/site/mix-drive');
+            }
+        }
+
+        return $this->render('mix-drive', [
             'model' => $model,
         ]);
     }

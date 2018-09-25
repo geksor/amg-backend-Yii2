@@ -12,12 +12,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model \frontend\models\ImageUpload */
 
-$this->title = 'ABS Авто AMG Тест-Драйв';
+$this->title = 'ABS Авто MIX Тест-Драйв';
 ?>
 
 <div class="info">
     <?= $this->render('_top-line', [
-        'title' => 'AMG Тест-Драйв',
+        'title' => 'MIX Тест-Драйв',
         'link' => Yii::$app->homeUrl,
    ]) ?>
     <?php $form = ActiveForm::begin([

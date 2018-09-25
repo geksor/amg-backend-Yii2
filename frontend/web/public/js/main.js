@@ -178,7 +178,7 @@ $( function() {
         }
     }
 
-    $('.amgImageInput').on('change', function () {
+    $('.jsImageInput').on('change', function () {
         readURL(this);
     });
 
