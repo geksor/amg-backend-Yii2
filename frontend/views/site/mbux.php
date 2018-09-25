@@ -31,7 +31,18 @@ $this->title = 'ABS Авто MBUX теория и практика';
     </div>
     <div class="button_next_back">
         <a class="button_help mbux__helpShow">Подсказка</a>
-        <a class="button_next">Далее<img src="/public/images/right-arrow.svg"></a>
+        <a class="button_next mbux__next">Далее<img src="/public/images/right-arrow.svg"></a>
+        <?= \yii\helpers\Html::a('Завершить',
+            ['/site/mbux'],
+            [
+                'class' => 'button_next mbux__end',
+                'style' => 'display:none',
+                'data-method' => 'POST',
+                'data-params' => [
+                    'userId' => Yii::$app->user->id,
+                    'end' => true,
+                ]
+            ]) ?>
     </div>
 
     <?= $this->render('_footer') ?>

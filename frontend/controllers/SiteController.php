@@ -448,7 +448,25 @@ class SiteController extends Controller
      */
     public function actionMbux()
     {
-        $userModel = User::findOne(Yii::$app->user->id);
+        if (Yii::$app->request->post('userId') && Yii::$app->request->post('end')){
+
+            $point = Yii::$app->params['PointTest']['mbux'];
+
+            $userModel = User::findOne(Yii::$app->request->post('userId'));
+
+            $userModel->mbux = $point;
+
+            if ($userModel->save()){
+                $this->setEndQuest($userModel, 'mbux');
+                Yii::$app->session->setFlash('popupEndTest', [
+                    'point' => $point,
+                ]);
+
+                return $this->goHome();
+            }
+
+            return $this->redirect('/site/mbux');
+        }
 
         $models = MbuxTest::find()
             ->select('id')
