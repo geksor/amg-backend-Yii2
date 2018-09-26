@@ -123,6 +123,12 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
+        if (empty($userModel->endQuests)){
+            $endQuestsModel = new EndQuest();
+            $endQuestsModel->user_id = $userModel->id;
+            $endQuestsModel->save();
+        }
+
         if (!$userModel->training_id || !$userModel->group){
             return $this->redirect('site/signup-step-2');
         }
