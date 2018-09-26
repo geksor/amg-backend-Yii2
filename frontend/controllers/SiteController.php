@@ -433,6 +433,10 @@ class SiteController extends Controller
 
             Yii::$app->session->setFlash('popupEndTest', [
                 'point' => $point,
+                'truAnswers' => [
+                    'true' => Yii::$app->session->get('trueAnswers'),
+                    'total' => $totalQuestion,
+                ]
             ]);
 
             Yii::$app->session->remove('point');
@@ -732,6 +736,10 @@ class SiteController extends Controller
 
             Yii::$app->session->setFlash('popupEndTest', [
                 'point' => $point,
+                'truAnswers' => [
+                    'true' => Yii::$app->session->get('trueAnswers'),
+                    'total' => $totalQuestion,
+                ]
             ]);
 
             Yii::$app->session->remove('point');
