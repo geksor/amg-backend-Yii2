@@ -17,7 +17,9 @@ $this->title = 'ABS Авто Карта тренинга';
         'title' => 'Карта тренинга',
         'link' => Yii::$app->request->referrer,
     ]) ?>
-    <?= $map ?>
+    <div class="info_content">
+        <?= $map ?>
+    </div>
     <?= $this->render('_footer') ?>
 </div>
 
