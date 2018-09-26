@@ -17,7 +17,7 @@ $this->title = 'ABS Авто Правила тренинга';
         'title' => 'Правила тренинга',
         'link' => Yii::$app->request->referrer,
     ]) ?>
-    <div class = "info_content">
+    <div class = "info_content info_content_p ">
         <div class = "info_content">
             <?= $rules ?>
         </div>
