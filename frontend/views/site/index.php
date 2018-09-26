@@ -18,7 +18,7 @@ $this->title = 'ABS Авто главная';
         </div>
         <div class = "block_3 block_3_mesto">
             <img src = "/public/images/podium.svg" class = "block_3_img" alt = "место">
-            <p><?= $place ?></p>
+            <p>&nbsp;<?= $place ?></p>
         </div>
     </div>
     <div class = "home_content">
