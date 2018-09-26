@@ -469,6 +469,8 @@ class SiteController extends Controller
             Yii::$app->session->set('amgStaticTestId', $model->id);
         }
 
+        $questionModel = null;
+
         foreach ($model->amgStaticQuestions as $question){
             if (!$question->isUserAnswer(Yii::$app->user->id)) {
                 $questionModel = $question;
