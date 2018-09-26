@@ -89,7 +89,7 @@ $this->title = 'ABS Авто главная';
 </div>
 <? if (Yii::$app->session->hasFlash('popupEndTest')) { ?>
     <? $truAnswers = [];
-            if (Yii::$app->session->getFlash('popupEndTest')['truAnswers']) {
+            if (!empty(Yii::$app->session->getFlash('popupEndTest')['truAnswers'])) {
                 $truAnswers = Yii::$app->session->getFlash('popupEndTest')['truAnswers'];
             }else{
                 $truAnswers = false;
