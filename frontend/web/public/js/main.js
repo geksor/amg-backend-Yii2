@@ -193,7 +193,6 @@ $( function() {
     //xClass
     var colLeft = null;
     var colRight = null;
-    var end = false;
 
     $( "#sortable_left, #sortable_0, #sortable_right" ).sortable({
         connectWith: ".connectedSortable",
@@ -214,12 +213,25 @@ $( function() {
                     if (colLeft === ui.item.data('image_id')){
                         colLeft = null;
                     }
-
             }
             if (colLeft && colRight){
-                end = true
+                var questId = $('#xclassSubmit').data('quest_id');
 
+                $('#xclassSubmit')
+                    .attr('data-method', 'POST')
+                    .attr('data-params', '{ "questId":' + questId +',"colLeft":' + colLeft + ',"colRight":' + colRight + '}' )
+                    .removeClass('mix__noStars');
+            }else {
+                if (!$('#xclassSubmit').hasClass('mix__noStars')){
+                    $('#xclassSubmit').addClass('mix__noStars');
+                }
             }
         }
     }).disableSelection();
+    $('#xclassSubmit').on('click', function () {
+        if ($(this).hasClass('mix__noStars')){
+            return false;
+        }
+    })
+
 } );

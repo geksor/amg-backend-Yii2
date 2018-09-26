@@ -13,6 +13,7 @@ use common\models\MixStatic;
 use common\models\Timetable;
 use common\models\Training;
 use common\models\User;
+use common\models\XClassLineAnswer;
 use common\models\XClassLineTest;
 use frontend\models\ImageUpload;
 use frontend\models\SignupFormStep2;
@@ -632,26 +633,22 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionXClassLine($questId = null)
+    public function actionXClassLine()
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
-        if ($questId){
-            $userModel->saveQuestion($questId);
+        if (Yii::$app->request->isPost){
+            $userModel->saveQuestion(Yii::$app->request->post('questId'));
 
             $trueAnswer = 0;
 
-            $img_1_answer = AmgStaticAnswer::findOne($img_1);
-            $img_2_answer = AmgStaticAnswer::findOne($img_2);
-            $img_3_answer = AmgStaticAnswer::findOne($img_3);
+            $colLeft_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colLeft'));
+            $colRight_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colRight'));
 
-            if ((integer)$img_1_answer->trueImage === 1){
+            if ((integer)$colLeft_answer->column === 1){
                 ++$trueAnswer;
             }
-            if ((integer)$img_2_answer->trueImage === 2){
-                ++$trueAnswer;
-            }
-            if ((integer)$img_3_answer->trueImage === 3){
+            if ((integer)$colRight_answer->column === 0){
                 ++$trueAnswer;
             }
 
@@ -729,7 +726,7 @@ class SiteController extends Controller
 
             $this->setEndQuest($userModel, 'xClassLine');
 
-            $userModel->amgStatic = $point;
+            $userModel->xClassLine = $point;
             $userModel->save();
 
             Yii::$app->session->setFlash('popupEndTest', [
