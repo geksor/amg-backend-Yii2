@@ -1187,3 +1187,20 @@ body {
 .amg_static_slick.slick-dotted.slick-slider{
 	margin: 0;
 }
+
+.quiz__answer::after{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #fff;
+	border-radius: 50%;
+	border: 1px solid #eee;
+}
+
+.quiz__answer.active::after {
+	background-color: #00988d;
+	border: 1px solid #00988d;
+}

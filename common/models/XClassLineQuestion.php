@@ -104,6 +104,10 @@ class XClassLineQuestion extends \yii\db\ActiveRecord
         return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user_xClass_line_question', ['xClass_line_question_id' => 'id']);
     }
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public function isUserAnswer($userId)
     {
         foreach ($this->users as $user)

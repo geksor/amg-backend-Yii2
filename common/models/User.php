@@ -54,6 +54,8 @@ use yii\web\IdentityInterface;
  * @property AmgStaticQuestion[] $amgStaticQuestions
  * @property UserXClassLineQuestion[] $userXClassLineQuestions
  * @property XClassLineQuestion[] $xClassLineQuestions
+ * @property UserQuiz[] $userQuizzes
+ * @property Quiz[] $quizzes
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -491,6 +493,39 @@ class User extends ActiveRecord implements IdentityInterface
             $this->link('xClassLineQuestions', $xClassQuest);
         }
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserQuizzes()
+    {
+        return $this->hasMany(UserQuiz::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuizzes()
+    {
+        return $this->hasMany(Quiz::className(), ['id' => 'quiz_id'])->viaTable('user_quiz', ['user_id' => 'id']);
+    }
+
+    /**
+     * @param $quizId
+     */
+    public function saveQuiz($quizId)
+    {
+        if ($quizId){
+            if ($link = UserQuiz::find()->where(['quiz_id' => $quizId])->one()){
+                $link->delete();
+            }
+
+            $quizItem = Quiz::findOne($quizId);
+
+            $this->link('quizzes', $quizItem);
+        }
+    }
+
 
     public function beforeSave($insert)
     {

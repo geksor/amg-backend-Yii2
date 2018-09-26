@@ -11,6 +11,7 @@ use common\models\GalleryImage;
 use common\models\MbuxTest;
 use common\models\MixDrive;
 use common\models\MixStatic;
+use common\models\Quiz;
 use common\models\RulesTraining;
 use common\models\Timetable;
 use common\models\Training;
@@ -80,6 +81,7 @@ class SiteController extends Controller
                             'contact',
                             'training-map',
                             'rules',
+                            'quiz',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -806,6 +808,95 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays quiz Page.
+     *
+     * @var $mixDriveModel MixDrive
+     * @var $models XClassLineTest
+     *
+     * @return mixed
+     */
+    public function actionQuiz()
+    {
+        $userModel = User::findOne(Yii::$app->user->id);
+
+        if (Yii::$app->request->isPost){
+            $postQuiz = Yii::$app->request->post('Quiz');
+            $quizId = $postQuiz['id'];
+            $userModel->saveQuiz($quizId);
+
+            $trueAnswer = 0;
+
+            $quiz = Quiz::findOne($quizId);
+
+            $answer = $postQuiz['trueAnswer'];
+
+            if ((integer)$answer === $quiz->trueAnswer){
+                ++$trueAnswer;
+            }
+
+            if (Yii::$app->session->has('trueAnswersQuiz')){
+                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersQuiz') + $trueAnswer;
+                Yii::$app->session->set('trueAnswersQuiz', $trueAnswerFromSession);
+            }else{
+                Yii::$app->session->set('trueAnswersQuiz', $trueAnswer);
+            }
+
+        }
+
+        $modelsArr = Quiz::find()
+            ->select('id')
+            ->asArray()
+            ->all();
+
+        $noAnswerQuests = [];
+
+        foreach ($modelsArr as $item){
+            $quiz = Quiz::findOne($item['id']);
+            if (!$quiz->isUserAnswer(Yii::$app->user->id)){
+                $noAnswerQuests[] = $item;
+            }
+        }
+
+        if (empty($noAnswerQuests)){
+
+            $totalQuestion = Quiz::find()->count();
+
+            $pointStep = Yii::$app->params['PointTest']['quizItem'];
+
+            $point = ceil(Yii::$app->session->get('trueAnswersQuiz')*$pointStep);
+
+            $this->setEndQuest($userModel, 'quiz');
+
+            $userModel->quiz = $point;
+            $userModel->save();
+
+            Yii::$app->session->setFlash('popupEndTest', [
+                'point' => $point,
+                'truAnswers' => [
+                    'true' => Yii::$app->session->get('trueAnswersQuiz'),
+                    'total' => $totalQuestion,
+                ]
+            ]);
+
+            Yii::$app->session->remove('point');
+            Yii::$app->session->remove('trueAnswersQuiz');
+
+            return $this->redirect('/');
+        }
+
+        $idArr = ArrayHelper::index($noAnswerQuests, 'id');
+
+        $questId = array_rand($idArr, 1);
+
+        $model = Quiz::findOne($questId);
+
+
+        return $this->render('quiz', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Logs in a user.
      *
      * @return mixed
@@ -862,6 +953,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionSignupStep2()
     {
         $model = new SignupFormStep2();
@@ -888,6 +982,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionSignupStep3()
     {
         $model = new SignupFormStep3();
@@ -915,6 +1012,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionSignupEnd()
     {
         return $this->render('signup-end');

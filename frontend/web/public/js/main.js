@@ -232,6 +232,11 @@ $( function() {
         if ($(this).hasClass('mix__noStars')){
             return false;
         }
-    })
+    });
 
+    //quizPage
+    $('.quiz__answer').on('click', function () {
+        $('.quiz__answer').removeClass('active');
+        $(this).addClass('active');
+    })
 } );
