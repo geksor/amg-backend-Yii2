@@ -127,6 +127,7 @@ class SiteController extends Controller
             $endQuestsModel = new EndQuest();
             $endQuestsModel->user_id = $userModel->id;
             $endQuestsModel->save();
+            return $this->goHome();
         }
 
         if (!$userModel->training_id || !$userModel->group){
@@ -773,6 +774,8 @@ class SiteController extends Controller
         if (!Yii::$app->session->has('xClassLineTestId')){
             Yii::$app->session->set('xClassLineTestId', $model->id);
         }
+
+        $questionModel = null;
 
         foreach ($model->xClassLineQuestions as $question){
             if (!$question->isUserAnswer(Yii::$app->user->id)) {
