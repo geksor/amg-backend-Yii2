@@ -332,7 +332,7 @@ class SiteController extends Controller
 
         if (count(ArrayHelper::toArray($images)) == $step){
             $userModel->saveMixStatic($id);
-            $this->redirect('/site/mix-static');
+            return $this->redirect('/site/mix-static');
         }
 
         return $this->render('mix-static-gallery', [
