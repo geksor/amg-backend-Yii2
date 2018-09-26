@@ -125,7 +125,8 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'userModel' => $userModel,
-            'totalCount' => $userModel->getTotalCount(),
+            'totalCount' => $userModel->totalPoint,
+            'place' => $userModel->getPlace(),
         ]);
     }
 

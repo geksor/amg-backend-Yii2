@@ -43,6 +43,8 @@ class m180903_134913_create_user_table extends Migration
             'xClassLine' => $this->integer()->defaultValue(0),
             'quiz' => $this->integer()->defaultValue(0),
             'moderatorPoints' => $this->integer()->defaultValue(0),
+
+            'totalPoint' => $this->integer()->defaultValue(0),
         ]);
 
         // creates index for column `training_id`

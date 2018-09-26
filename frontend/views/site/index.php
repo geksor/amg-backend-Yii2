@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $userModel \common\models\User */
+/* @var $place \common\models\User */
 /* @var $totalCount \frontend\controllers\SiteController */
 
 $this->title = 'ABS Авто главная';
@@ -17,7 +18,7 @@ $this->title = 'ABS Авто главная';
         </div>
         <div class = "block_3 block_3_mesto">
             <img src = "/public/images/podium.svg" class = "block_3_img" alt = "место">
-            <p>3</p>
+            <p><?= $place ?></p>
         </div>
     </div>
     <div class = "home_content">
