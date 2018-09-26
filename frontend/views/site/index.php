@@ -6,7 +6,6 @@
 /* @var $totalCount \frontend\controllers\SiteController */
 
 $this->title = 'ABS Авто главная';
-\yii\helpers\VarDumper::dump($userModel, 10, true);die;
 ?>
 <div class = "home">
     <div class = "home_head">
