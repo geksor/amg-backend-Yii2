@@ -4,12 +4,14 @@ namespace frontend\controllers;
 use common\models\AmgDrive;
 use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;
+use common\models\Contact;
 use common\models\DealerCenter;
 use common\models\EndQuest;
 use common\models\GalleryImage;
 use common\models\MbuxTest;
 use common\models\MixDrive;
 use common\models\MixStatic;
+use common\models\RulesTraining;
 use common\models\Timetable;
 use common\models\Training;
 use common\models\User;
@@ -74,6 +76,10 @@ class SiteController extends Controller
                             'amg-drive',
                             'mix-drive',
                             'x-class-line',
+                            'info',
+                            'contact',
+                            'training-map',
+                            'rules',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -139,6 +145,51 @@ class SiteController extends Controller
     {
 
         return $this->render('info');
+    }
+
+    /**
+     * Displays contactPage.
+     * @var $models Contact
+     *
+     * @return mixed
+     */
+    public function actionContact()
+    {
+        $models = Contact::find()->all();
+
+        return $this->render('contact', [
+            'models' => $models
+        ]);
+    }
+
+    /**
+     * Displays training-map Page.
+     * @var $map
+     *
+     * @return mixed
+     */
+    public function actionTrainingMap()
+    {
+        $map = Yii::$app->params['RulesTraining']['map'];
+
+        return $this->render('training-map', [
+            'map' => $map
+        ]);
+    }
+
+    /**
+     * Displays training-map Page.
+     * @var $map
+     *
+     * @return mixed
+     */
+    public function actionRules()
+    {
+        $rules = Yii::$app->params['RulesTraining']['rules'];
+
+        return $this->render('rules', [
+            'rules' => $rules
+        ]);
     }
 
     /**

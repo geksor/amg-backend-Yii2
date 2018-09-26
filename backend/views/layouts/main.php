@@ -119,6 +119,7 @@ desired effect
                             "url" => "#",
                             "items" => [
                                 ["label" => "Контакты", "url" => ["/contact/index"], "active" => Yii::$app->controller->id === 'contact',],
+                                ["label" => "Правила и карта", "url" => ["/rules-training/index"], "active" => Yii::$app->controller->id === 'rules-training',],
                                 ["label" => "Дилерские центры", "url" => ["/dealer-center/index"], "active" => Yii::$app->controller->id === 'dealer-center',],
                                 ["label" => "Тренинги", "url" => ["/training/index"], "active" => Yii::$app->controller->id === 'training',],
                                 [

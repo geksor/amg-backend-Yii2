@@ -5,6 +5,7 @@
 $this->title = 'ABS админ панель';
 ?>
 <div class="site-index">
+    <?= Yii::$app->params['RulesTraining']['map'] ?>
 <!--    --><?//= \yii\bootstrap\Html::textInput('message', '', ['class' => 'messField', 'placeholder' => 'Message']) ?>
 <!--    --><?//= \yii\helpers\Html::button(
 //            'Привет',

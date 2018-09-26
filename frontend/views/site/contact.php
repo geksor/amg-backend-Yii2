@@ -1,45 +1,35 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Geksar
+ * Date: 20.09.2018
+ * Time: 11:29
+ */
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\ContactForm */
+/* @var $models \common\models\Contact */
+/* @var $model \common\models\Contact */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use yii\captcha\Captcha;
-
-$this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'ABS Авто Контакты';
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'email') ?>
-
-                <?= $form->field($model, 'subject') ?>
-
-                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+<div class="info">
+    <?= $this->render('_top-line', [
+        'title' => 'Контакты',
+        'link' => Yii::$app->request->referrer,
+    ]) ?>
+    <div class = "info_content">
+        <div class = "info_content">
+            <? foreach ($models as $model) {?>
+                <div class = "info_kontakt">
+                    <h3><?= $model->name ?></h3>
+                    <p class ="info_kontakt_p"><?= $model->position ?></p>
+                    <p class = "info_phone"><?= $model->phone ?></p>
                 </div>
-
-            <?php ActiveForm::end(); ?>
+            <?}?>
         </div>
     </div>
-
+    <?= $this->render('_footer') ?>
 </div>
+
+
