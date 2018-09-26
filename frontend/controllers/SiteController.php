@@ -409,11 +409,11 @@ class SiteController extends Controller
                 ++$trueAnswer;
             }
 
-            if (Yii::$app->session->has('trueAnswers')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswers') + $trueAnswer;
-                Yii::$app->session->set('trueAnswers', $trueAnswerFromSession);
+            if (Yii::$app->session->has('trueAnswersAmgStatic')){
+                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersAmgStatic') + $trueAnswer;
+                Yii::$app->session->set('trueAnswersAmgStatic', $trueAnswerFromSession);
             }else{
-                Yii::$app->session->set('trueAnswers', $trueAnswer);
+                Yii::$app->session->set('trueAnswersAmgStatic', $trueAnswer);
             }
 
         }
@@ -485,7 +485,7 @@ class SiteController extends Controller
 
             $pointStep = $maxPoint/$totalQuestion;
 
-            $point = ceil(Yii::$app->session->get('trueAnswers')*$pointStep);
+            $point = ceil(Yii::$app->session->get('trueAnswersAmgStatic')*$pointStep);
 
             $this->setEndQuest($userModel, 'amgStatic');
 
@@ -495,7 +495,7 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('popupEndTest', [
                 'point' => $point,
                 'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswers'),
+                    'true' => Yii::$app->session->get('trueAnswersAmgStatic'),
                     'total' => $totalQuestion,
                 ]
             ]);
@@ -718,11 +718,11 @@ class SiteController extends Controller
                 ++$trueAnswer;
             }
 
-            if (Yii::$app->session->has('trueAnswers')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswers') + $trueAnswer;
-                Yii::$app->session->set('trueAnswers', $trueAnswerFromSession);
+            if (Yii::$app->session->has('trueAnswersXClassLine')){
+                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersXClassLine') + $trueAnswer;
+                Yii::$app->session->set('trueAnswersXClassLine', $trueAnswerFromSession);
             }else{
-                Yii::$app->session->set('trueAnswers', $trueAnswer);
+                Yii::$app->session->set('trueAnswersXClassLine', $trueAnswer);
             }
 
         }
@@ -788,7 +788,7 @@ class SiteController extends Controller
 
             $pointStep = $maxPoint/$totalQuestion;
 
-            $point = ceil(Yii::$app->session->get('trueAnswers')*$pointStep);
+            $point = ceil(Yii::$app->session->get('trueAnswersXClassLine')*$pointStep);
 
             $this->setEndQuest($userModel, 'xClassLine');
 
@@ -798,14 +798,14 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('popupEndTest', [
                 'point' => $point,
                 'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswers'),
+                    'true' => Yii::$app->session->get('trueAnswersXClassLine'),
                     'total' => $totalQuestion,
                 ]
             ]);
 
             Yii::$app->session->remove('point');
             Yii::$app->session->remove('xClassLineTestId');
-            Yii::$app->session->remove('trueAnswers');
+            Yii::$app->session->remove('trueAnswersXClassLine');
 
             return $this->redirect('/');
         }
