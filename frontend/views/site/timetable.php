@@ -22,7 +22,7 @@ $this->title = 'ABS Авто расписание';
     <div id="weekday_<?= $traningDay === 1 ? '1' : '3' ?>" class="timetableDayWrap active">
         <? $key = 1 ?>
         <? foreach ($timetableModels as $model) {?>
-            <? if ($model->weekday === 1) {?>
+            <? if ($model->weekday === ($traningDay === 1 ? 1 : 3)) {?>
                 <div class = "schedule_content<?= $key%2 !== 0 ? ' schedule_content_1' : '' ?>">
                     <?= \yii\helpers\Html::a('', ['/site/timetable-info', 'id' => $model->id]) ?>
                     <p class = "schedule_data"><?= $model->startTime ?> - <?= $model->stopTime ?></p>
@@ -36,7 +36,7 @@ $this->title = 'ABS Авто расписание';
     <div id="weekday_<?= $traningDay === 1 ? '2' : '4' ?>" class="timetableDayWrap">
         <? $key = 1 ?>
         <? foreach ($timetableModels as $model) {?>
-            <? if ($model->weekday === 2) {?>
+            <? if ($model->weekday === ($traningDay === 1 ? 2 : 4)) {?>
                 <div class = "schedule_content<?= $key%2 !== 0 ? ' schedule_content_1' : '' ?>">
                     <?= \yii\helpers\Html::a('', ['/site/timetable-info', 'id' => $model->id]) ?>
                     <p class = "schedule_data"><?= $model->startTime ?> - <?= $model->stopTime ?></p>
@@ -50,7 +50,7 @@ $this->title = 'ABS Авто расписание';
     <div id="weekday_<?= $traningDay === 1 ? '3' : '5' ?>" class="timetableDayWrap">
         <? $key = 1 ?>
         <? foreach ($timetableModels as $model) {?>
-            <? if ($model->weekday === 3) {?>
+            <? if ($model->weekday === ($traningDay === 1 ? 3 : 5)) {?>
                 <div class = "schedule_content<?= $key%2 !== 0 ? ' schedule_content_1' : '' ?>">
                     <?= \yii\helpers\Html::a('', ['/site/timetable-info', 'id' => $model->id]) ?>
                     <p class = "schedule_data"><?= $model->startTime ?> - <?= $model->stopTime ?></p>
