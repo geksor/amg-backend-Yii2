@@ -294,6 +294,9 @@ body {
 .step_2_group{
 	margin: 20px;
 	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
 }
 .step_2_group img{
 	width: 100px;
@@ -312,7 +315,7 @@ body {
 	color: #000;
 }
 .step_2_group .radio:active, .step_2_group .radio:hover, .step_2_group .radio:focus {
-	background: #5e958c;
+	background: #00988d;
 	display: block;
 	color: #fff;
 }
@@ -819,7 +822,7 @@ body {
 .mix_ul{
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
 	margin: 0;
 }
@@ -843,12 +846,15 @@ body {
 .mix_star{
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-evenly;
+	justify-content: center;
 	align-items: center;
 	margin: 20px 0;
 }
 .mix_star li{
 	width: 10%;
+}
+#mix_static_link, #amg_static_link, #xclassSubmit{
+	margin-bottom: 30px;
 }
 .mix_ul_p{
 	font-size: 12px;
@@ -897,6 +903,7 @@ body {
 	flex-flow: row wrap;
 	justify-content: start;
 	align-items: stretch;
+	flex: 1;
 }
 .x-class_left{
 	width: 30%
