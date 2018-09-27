@@ -1,5 +1,7 @@
 <?php
 namespace console\daemons;
+use common\models\Chat;
+use common\models\User;
 use consik\yii2websocket\events\WSClientEvent;
 use consik\yii2websocket\WebSocketServer;
 use Ratchet\ConnectionInterface;
@@ -29,18 +31,27 @@ class ChatServer extends WebSocketServer
         $request = json_decode($msg, true);
         $result = ['message' => ''];
 
-        if (!$client->name) {
-            $result['message'] = 'Set your name';
-        } elseif (!empty($request['message']) && $message = trim($request['message']) ) {
+        if (!empty($request['message']) && $message = trim($request['message']) ) {
+
+            //save from DB
+            $userModel = User::findOne($client->id);
+            $model = new Chat();
+            $model->message = $message;
+            $model->create_at = time();
+            $model->user_id = $userModel->id;
+            $model->training_id = $userModel->training_id;
+            $model->save();
+            //end Save from Db
+
             foreach ($this->clients as $chatClient) {
                 $chatClient->send( json_encode([
                     'type' => 'chat',
-                    'from' => $client->name,
+                    'from' => [ 'name' => $client->name, 'id' => $client->id],
                     'message' => $message,
                 ]) );
             }
         } else {
-            $result['message'] = 'Enter message';
+            $result['message'] = 'Введите сообщение';
         }
 
         $client->send( json_encode($result) );
@@ -51,11 +62,11 @@ class ChatServer extends WebSocketServer
         $request = json_decode($msg, true);
         $result = ['message' => 'Username updated'];
 
-        if (!empty($request['name']) && !empty($request['id']) && $name = trim($request['name']) && $id = trim($request['id'])) {
+        if (!empty($request['name']) && !empty($request['id']) && ($name = trim($request['name'])) && $id = trim($request['id'])) {
             $usernameFree = true;
             foreach ($this->clients as $chatClient) {
-                if ($chatClient != $client && $chatClient->name == $name) {
-                    $result['message'] = 'This name is used by other user';
+                if ($chatClient != $client && $chatClient->id == $id) {
+                    $result['message'] = 'This id is used by other user';
                     $usernameFree = false;
                     break;
                 }
@@ -63,6 +74,7 @@ class ChatServer extends WebSocketServer
 
             if ($usernameFree) {
                 $client->name = $name;
+                $client->id = $id;
             }
         } else {
             $result['message'] = 'Invalid username';

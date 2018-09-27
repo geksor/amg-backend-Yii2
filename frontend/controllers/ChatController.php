@@ -69,7 +69,7 @@ class ChatController extends Controller
 
         $messages = Chat::find()
                     ->where(['training_id' => $userModel->training_id])
-                    ->with('users')
+                    ->with('user')
                     ->orderBy(['create_at' => SORT_ASC])
                     ->all();
 

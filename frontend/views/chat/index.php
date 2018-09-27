@@ -22,44 +22,56 @@ $this->title = 'ABS Авто Чат';
         'title' => 'Назад',
         'link' => Yii::$app->homeUrl,
     ]) ?>
-    <div id="messBlock" class="messBlockWrap">
-        <? foreach ($messages as $message) {?>
+    <div class="messBlockWrap">
+        <div id="messBlock" class="messBlock">
+            <? foreach ($messages as $message) {?>
 
-            <? if ($message->user_id === $userModel->id) {?>
-                <div class="messege messege_user">
-                    <h3>Вы</h3>
-                    <p>
-                        <?= $message->message ?>
-                    <p>
-                </div>
-            <?}else{?>
-                <div class="messege">
-                    <? $user = $message->user ?>
-                    <h3><?= "$user->surname $user->first_name $user->last_name" ?></h3>
-                    <p>
-                        <?= $message->message ?>
-                    <p>
-                </div>
+                <? if ($message->user_id === $userModel->id) {?>
+                    <div class="messege messege_user">
+                        <h3>Вы</h3>
+                        <p>
+                            <?= $message->message ?>
+                        <p>
+                    </div>
+                <?}else{?>
+                    <div class="messege">
+                        <? $user = $message->user ?>
+                        <h3><?= "$user->surname $user->first_name $user->last_name" ?></h3>
+                        <p>
+                            <?= $message->message ?>
+                        <p>
+                    </div>
+                <?}?>
+
             <?}?>
-
-        <?}?>
+        </div>
     </div>
     <p>
-        <input id="sendMessage" type="text" name="text" class = "textarea" placeholder = "Написать сообщение..">
+        <input id="sendMessage" type="text" name="text" class = "textarea" placeholder = "Написать сообщение.."
+
+               data-name="<?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?>"
+
+               data-id="<?= $userModel->id ?>"
+        >
     </p>
     <?= $this->render('_footer') ?>
 </div>
 
 <script>
-    var block = document.getElementById("messBlock");
-    block.scrollTop = block.scrollHeight;
+    // var block = document.getElementById("messBlock");
+    // block.scrollTop = block.scrollHeight;
 </script>
 
 <script>
     window.onload = function () {
 
+        var $chatWrap = $('.messBlockWrap');
         var $chatBlock = $('#messBlock');
         var $sendMessage = $('#sendMessage');
+
+        $chatWrap.css('height', $chatWrap.height());
+
+        $chatWrap.scrollTop($chatBlock.height());
 
         function connect () {
             var chat = new WebSocket('ws://localhost:8080');
@@ -68,19 +80,22 @@ $this->title = 'ABS Авто Чат';
                 var response = JSON.parse(e.data);
                 if (response.type && response.type === 'chat') {
                     console.log(response);
-                    $chatBlock.append('<div class="messege"><h3>' + response.from + '</h3> <p>' + response.message + '</p></div>');
-                    $chatBlock.scrollTop = chat.height;
+                    var messClass = +response.from.id === +$sendMessage.data('id') ? ' messege_user' : '';
+                    var messName = +response.from.id === +$sendMessage.data('id') ? 'Вы' : response.from.name;
+                    $chatBlock.append( '<div class="messege' + messClass + '"><h3>' + messName + '</h3> <p>' + response.message + '</p></div>' );
+                    $chatWrap.scrollTop($chatBlock.height());
                 } else if (response.message) {
                     console.log(response.message);
                 }
             };
             chat.onopen = function(e) {
-                chat.send( JSON.stringify({'action' : 'setName', 'name' : $('#username').val()}) );
+                chat.send( JSON.stringify({'action' : 'setName', 'name' : $sendMessage.data('name'), 'id' : $sendMessage.data('id')}) );
                 console.log('connect')
             };
             $('#send').click(function() {
                 if ($sendMessage.val()) {
                     chat.send( JSON.stringify({'action' : 'chat', 'message' : $sendMessage.val()}) );
+                    $sendMessage.val('');
                 } else {
                     alert('Enter the message')
                 }
