@@ -31,7 +31,6 @@ class m180903_134913_create_user_table extends Migration
             'group' => $this->integer(1),
             'training_id' => $this->integer(),
             'dealer_center_id' => $this->integer(),
-            'command_id' => $this->integer(),
 
             'amgStatic' => $this->integer()->defaultValue(0),
             'mixStatic' => $this->integer()->defaultValue(0),
@@ -81,22 +80,6 @@ class m180903_134913_create_user_table extends Migration
             'SET NULL'
         );
 
-        // creates index for column `command_id`
-        $this->createIndex(
-            'idx-user-command_id',
-            'user',
-            'command_id'
-        );
-
-        // add foreign key for table `command`
-        $this->addForeignKey(
-            'fk-user-command_id',
-            'user',
-            'command_id',
-            'command',
-            'id',
-            'SET NULL'
-        );
     }
 
     /**
@@ -104,17 +87,6 @@ class m180903_134913_create_user_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `command`
-        $this->dropForeignKey(
-            'fk-user-command_id',
-            'user'
-        );
-
-        // drops index for column `command_id`
-        $this->dropIndex(
-            'idx-user-command_id',
-            'user'
-        );
 
         // drops foreign key for table `dealer_center`
         $this->dropForeignKey(

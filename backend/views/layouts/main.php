@@ -318,6 +318,7 @@ desired effect
                             "url" => "#",
                             "items" => [
                                 ["label" => "Очки за тесты", "url" => ["/point-test/index"], "active" => Yii::$app->controller->id === 'point-test',],
+                                ["label" => "X-Class Тест драйв", "url" => ["/xclass-drive/index"], "active" => Yii::$app->controller->id === 'xclass-drive',],
                                 ["label" => "MIX Статика", "url" => ["/mix-static/index"], "active" => Yii::$app->controller->id === 'mix-static',],
                                 ["label" => "AMG Статика", "url" => ["/amg-static-test/index"], "active" => Yii::$app->controller->id === 'amg-static-test',],
                                 ["label" => "MBUX Тест", "url" => ["/mbux-test/index"], "active" => Yii::$app->controller->id === 'mbux-test',],

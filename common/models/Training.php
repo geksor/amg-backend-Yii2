@@ -14,7 +14,7 @@ use yii\helpers\VarDumper;
  *
  * @property Chat[] $chats
  * @property User[] $users
- * @property Weekday[] $weekdays
+ * @property Command[] $commands
  */
 class Training extends \yii\db\ActiveRecord
 {
@@ -80,6 +80,14 @@ class Training extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::className(), ['training_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommands()
+    {
+        return $this->hasMany(Command::className(), ['training_id' => 'id']);
     }
 
     public function beforeSave($insert)

@@ -27,7 +27,6 @@ use yii\web\IdentityInterface;
  * @property int $group
  * @property int $training_id
  * @property int $dealer_center_id
- * @property int $command_id
  * @property int $amgStatic
  * @property int $mixStatic
  * @property int $mbux
@@ -40,11 +39,15 @@ use yii\web\IdentityInterface;
  * @property int $moderatorPoints
  * @property int $totalPoint
  *
+ * @property XClassDriveAnswerImage[] $xClassDriveAnswerImages
  * @property AmgDrive[] $amgDrives
  * @property Chat[] $chats
+ * @property Command[] $commandsCapitan
+ * @property Command[] $commandsPlayer_1
+ * @property Command[] $commandsPlayer_2
+ * @property Command[] $commandsPlayer_3
  * @property EndQuest[] $endQuests
  * @property MixDrive[] $mixDrives
- * @property Command $command
  * @property DealerCenter $dealerCenter
  * @property Training $training
  * @property MixStaticUser[] $mixStaticUsers
@@ -92,12 +95,11 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email',], 'required'],
-            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'command_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint'], 'integer'],
+            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint'], 'integer'],
             [['username', 'surname', 'first_name', 'last_name', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
-            [['command_id'], 'exist', 'skipOnError' => true, 'targetClass' => Command::className(), 'targetAttribute' => ['command_id' => 'id']],
             [['dealer_center_id'], 'exist', 'skipOnError' => true, 'targetClass' => DealerCenter::className(), 'targetAttribute' => ['dealer_center_id' => 'id']],
             [['training_id'], 'exist', 'skipOnError' => true, 'targetClass' => Training::className(), 'targetAttribute' => ['training_id' => 'id']],
         ];
@@ -122,7 +124,6 @@ class User extends ActiveRecord implements IdentityInterface
             'group' => 'Группа',
             'training_id' => 'Training ID',
             'dealer_center_id' => 'Dealer Center ID',
-            'command_id' => 'Command ID',
             'amgStatic' => 'AMG статика',
             'mixStatic' => 'Mix статика',
             'mbux' => 'MBUX теория и практика',
@@ -279,14 +280,6 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getChats()
-    {
-        return $this->hasMany(Chat::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEndQuests()
     {
         return $this->hasOne(EndQuest::className(), ['user_id' => 'id']);
@@ -312,14 +305,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getMixDrives()
     {
         return $this->hasMany(MixDrive::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCommand()
-    {
-        return $this->hasOne(Command::className(), ['id' => 'command_id']);
     }
 
     /**
@@ -533,6 +518,46 @@ class User extends ActiveRecord implements IdentityInterface
 
             $this->link('quizzes', $quizItem);
         }
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getXClassDriveAnswerImages()
+    {
+        return $this->hasMany(XClassDriveAnswerImage::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommandsCapitan()
+    {
+        return $this->hasMany(Command::className(), ['capitan_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommandsPlayer_1()
+    {
+        return $this->hasMany(Command::className(), ['player_1_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommandsPlayer_2()
+    {
+        return $this->hasMany(Command::className(), ['player_2_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommandsPlayer_3()
+    {
+        return $this->hasMany(Command::className(), ['player_3_id' => 'id']);
     }
 
 
