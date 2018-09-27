@@ -18,6 +18,7 @@ class m180927_124455_create_XClassDriveQuestion_table extends Migration
             'question' => $this->text(),
             'question_image' => $this->string(),
             'description' => $this->text(),
+            'request' => $this->string(),
             'answer_var_1' => $this->string(),
             'answer_var_2' => $this->string(),
             'answer_var_3' => $this->string(),
