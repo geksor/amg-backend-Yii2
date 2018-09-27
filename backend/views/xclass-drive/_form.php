@@ -19,6 +19,8 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'description')->textInput() ?>
 
+    <?= $form->field($model, 'request')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'answer_var_1')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'answer_var_2')->textInput(['maxlength' => true]) ?>

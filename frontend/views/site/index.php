@@ -24,7 +24,7 @@ $this->title = 'ABS Авто главная';
     <div class = "home_content">
         <div data-value="<?= $userModel->xClassDrive ?>" data-max="<?= Yii::$app->params['PointTest']['amgDrive'] ?>" class="progressBar test test_1">
             <? if (!$userModel->endQuests->xClassDrive) {?>
-                <?= \yii\helpers\Html::a('', '/site/x-class-drive') ?>
+                <?= \yii\helpers\Html::a('', '/xclass-drive/index') ?>
             <?}?>
             <h3><?= $userModel->getAttributeLabel('xClassDrive') ?></h3>
             <p><?= $userModel->xClassDrive ?> / <?= Yii::$app->params['PointTest']['amgDrive'] ?></p>

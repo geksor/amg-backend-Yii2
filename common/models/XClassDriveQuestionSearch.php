@@ -19,7 +19,7 @@ class XClassDriveQuestionSearch extends XClassDriveQuestion
     {
         return [
             [['id', 'answer_isImage'], 'integer'],
-            [['title', 'question', 'question_image', 'description', 'answer_var_1', 'answer_var_2', 'answer_var_3', 'answer_var_4'], 'safe'],
+            [['title', 'question', 'question_image', 'description', 'request', 'answer_var_1', 'answer_var_2', 'answer_var_3', 'answer_var_4'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class XClassDriveQuestionSearch extends XClassDriveQuestion
             ->andFilterWhere(['like', 'question', $this->question])
             ->andFilterWhere(['like', 'question_image', $this->question_image])
             ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'request', $this->request])
             ->andFilterWhere(['like', 'answer_var_1', $this->answer_var_1])
             ->andFilterWhere(['like', 'answer_var_2', $this->answer_var_2])
             ->andFilterWhere(['like', 'answer_var_3', $this->answer_var_3])

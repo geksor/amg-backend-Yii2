@@ -1,6 +1,7 @@
 <?php
 namespace console\daemons;
 use common\models\Chat;
+use common\models\Command;
 use common\models\User;
 use consik\yii2websocket\events\WSClientEvent;
 use consik\yii2websocket\WebSocketServer;
@@ -78,6 +79,57 @@ class ChatServer extends WebSocketServer
             }
         } else {
             $result['message'] = 'Invalid username';
+        }
+
+        $client->send( json_encode($result) );
+    }
+
+    public function commandSetCaptain(ConnectionInterface $client, $msg)
+    {
+        $request = json_decode($msg, true);
+        $result = ['message' => 'Captain Set'];
+
+        if (!empty($request['user_id'])
+            && !empty($request['training_id'])
+            && !empty($request['group'])
+            && ($userId = trim($request['user_id']))
+            && ($trainingId = trim($request['training_id']))
+            && $group = trim($request['group'])) {
+
+            $commandCount = Command::find()
+                ->where(['training_id' => $trainingId])
+                ->andWhere(['group' => $group])
+                ->count();
+
+            if ($commandCount < 6){
+                $newCommand = new Command();
+                $newCommand->capitan_id = $userId;
+                $newCommand->training_id = $trainingId;
+                $newCommand->group = $group;
+                if ($newCommand->save()){
+                    $newCommand->capitan->role = 3;
+                    $newCommand->capitan->save();
+                    $client->send(json_encode([
+                        'type' => 'setCaptain',
+                        'from' =>  $client->id,
+                        'message' => 1,
+                    ]));
+                }
+            }else{
+                foreach ($this->clients as $amgClient){
+                    $user = User::findOne($amgClient->id);
+                    if ($user->role === 4){
+                        $amgClient->send(json_encode([
+                            'type' => 'setCaptain',
+                            'from' =>  $client->id,
+                            'message' => 0,
+                        ]));
+                    }
+                }
+            }
+
+        } else {
+            $result['message'] = 'Captain NoSet';
         }
 
         $client->send( json_encode($result) );
