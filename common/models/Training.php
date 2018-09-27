@@ -1,5 +1,6 @@
 <?php
 
+
 namespace common\models;
 
 use Yii;
@@ -11,6 +12,7 @@ use yii\helpers\VarDumper;
  * @property int $id
  * @property int $date
  *
+ * @property Chat[] $chats
  * @property User[] $users
  * @property Weekday[] $weekdays
  */
@@ -62,6 +64,14 @@ class Training extends \yii\db\ActiveRecord
     {
         $date = strtotime($this->date);
         return (integer) date('w', $date);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChats()
+    {
+        return $this->hasMany(Chat::className(), ['training_id' => 'id']);
     }
 
     /**

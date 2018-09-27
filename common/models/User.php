@@ -41,6 +41,7 @@ use yii\web\IdentityInterface;
  * @property int $totalPoint
  *
  * @property AmgDrive[] $amgDrives
+ * @property Chat[] $chats
  * @property EndQuest[] $endQuests
  * @property MixDrive[] $mixDrives
  * @property Command $command
@@ -273,6 +274,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAmgDrives()
     {
         return $this->hasMany(AmgDrive::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChats()
+    {
+        return $this->hasMany(Chat::className(), ['user_id' => 'id']);
     }
 
     /**

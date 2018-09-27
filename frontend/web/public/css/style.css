@@ -554,6 +554,14 @@ body {
 .forum{
 	background: url(../images/bg-2.svg);
 	background-size: cover;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.messBlockWrap{
+	flex: 1;
+	overflow-y: auto;
 }
 .back img{
 	width: 9px;
@@ -620,7 +628,6 @@ body {
 	width: 100%;
 	color: #aeaeae;
 	font-size: 14px;
-	height: 150px;
 	margin: 0;
 	display: block;
 	padding: 10px;

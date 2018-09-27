@@ -13,6 +13,7 @@ class ChatServer extends WebSocketServer
 
         $this->on(self::EVENT_CLIENT_CONNECTED, function(WSClientEvent $e) {
             $e->client->name = null;
+            $e->client->id = null;
         });
     }
 
@@ -50,7 +51,7 @@ class ChatServer extends WebSocketServer
         $request = json_decode($msg, true);
         $result = ['message' => 'Username updated'];
 
-        if (!empty($request['name']) && $name = trim($request['name'])) {
+        if (!empty($request['name']) && !empty($request['id']) && $name = trim($request['name']) && $id = trim($request['id'])) {
             $usernameFree = true;
             foreach ($this->clients as $chatClient) {
                 if ($chatClient != $client && $chatClient->name == $name) {
@@ -62,14 +63,6 @@ class ChatServer extends WebSocketServer
 
             if ($usernameFree) {
                 $client->name = $name;
-
-                foreach ($this->clients as $chatClient) {
-                    $chatClient->send( json_encode([
-                        'type' => 'chat',
-                        'from' => $client->name,
-                        'message' => 'Подключился к чату',
-                    ]) );
-                }
             }
         } else {
             $result['message'] = 'Invalid username';
