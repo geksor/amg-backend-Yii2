@@ -37,7 +37,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
     <?= $this->render('_footer') ?>
 </div>
 
-<?= $this->render('_popup-captain-ok') ?>
+<?= $this->render('_popup-captain') ?>
 
 <script>
     window.onload = function () {
@@ -50,7 +50,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
 
         function connect () {
             // var chat = new WebSocket('ws://188.225.10.52:1024');
-            var socket = new WebSocket('ws://localhost:8080');
+            var socket = new WebSocket('ws://localhost:8081');
 
             socket.onmessage = function(e) {
 
@@ -59,6 +59,9 @@ $this->title = 'ABS Авто X-Class тест драйв';
                     console.log(response);
                     if (+response.from === +userId){
                         $('#captainOk').show();
+                    }
+                    if (response.from === 0 && response.message === 0) {
+                        $('#captainNone').show();
                     }
                 } else if (response.message) {
                     console.log(response.message);

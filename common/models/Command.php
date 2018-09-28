@@ -14,12 +14,15 @@ use Yii;
  * @property int $player_3_id
  * @property int $training_id
  * @property int $group
+ * @property int $isFull
  *
- * @property User $capitan
- * @property User $player1
- * @property User $player2
- * @property User $player3
+ * @property User [] $captain
+ * @property User [] $player1
+ * @property User [] $player2
+ * @property User [] $player3
  * @property Training $training
+ * @property CommandXClassDriveQuestion[] $commandXClassDriveQuestions
+ * @property XClassDriveQuestion[] $xClassDriveQuestions
  */
 class Command extends \yii\db\ActiveRecord
 {
@@ -38,7 +41,7 @@ class Command extends \yii\db\ActiveRecord
     {
         return [
             [['capitan_id', 'training_id', 'group'], 'required'],
-            [['capitan_id', 'player_1_id', 'player_2_id', 'player_3_id', 'training_id', 'group'], 'integer'],
+            [['capitan_id', 'player_1_id', 'player_2_id', 'player_3_id', 'training_id', 'group', 'isFull'], 'integer'],
             [['capitan_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['capitan_id' => 'id']],
             [['player_1_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['player_1_id' => 'id']],
             [['player_2_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['player_2_id' => 'id']],
@@ -60,13 +63,14 @@ class Command extends \yii\db\ActiveRecord
             'player_3_id' => 'Player 3 ID',
             'training_id' => 'Training ID',
             'group' => 'Group',
+            'isFull' => 'Is Full',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCapitan()
+    public function getCaptain()
     {
         return $this->hasOne(User::className(), ['id' => 'capitan_id']);
     }
@@ -101,5 +105,21 @@ class Command extends \yii\db\ActiveRecord
     public function getTraining()
     {
         return $this->hasOne(Training::className(), ['id' => 'training_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommandXClassDriveQuestions()
+    {
+        return $this->hasMany(CommandXClassDriveQuestion::className(), ['command_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getXClassDriveQuestions()
+    {
+        return $this->hasMany(XClassDriveQuestion::className(), ['id' => 'XClassDriveQuestion_id'])->viaTable('command_XClassDriveQuestion', ['command_id' => 'id']);
     }
 }

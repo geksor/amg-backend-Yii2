@@ -44,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'group',
             'training_id',
             'dealer_center_id',
-            'command_id',
             'amgStatic',
             'mixStatic',
             'mbux',
@@ -55,6 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'xClassLine',
             'quiz',
             'moderatorPoints',
+            'totalPoint',
+            'command_id',
         ],
     ]) ?>
 

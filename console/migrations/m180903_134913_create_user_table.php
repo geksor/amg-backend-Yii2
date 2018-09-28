@@ -44,6 +44,7 @@ class m180903_134913_create_user_table extends Migration
             'moderatorPoints' => $this->integer()->defaultValue(0),
 
             'totalPoint' => $this->integer()->defaultValue(0),
+            'command_id' => $this->integer(),
         ]);
 
         // creates index for column `training_id`

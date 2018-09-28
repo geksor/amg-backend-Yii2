@@ -101,14 +101,15 @@ class ChatServer extends WebSocketServer
                 ->andWhere(['group' => $group])
                 ->count();
 
-            if ($commandCount < 6){
+            if ($commandCount < 1){//1 is temp use 6
                 $newCommand = new Command();
                 $newCommand->capitan_id = $userId;
                 $newCommand->training_id = $trainingId;
                 $newCommand->group = $group;
                 if ($newCommand->save()){
-                    $newCommand->capitan->role = 3;
-                    $newCommand->capitan->save();
+                    $newCommand->captain->role = 3;
+                    $newCommand->captain->command_id = $newCommand->id;
+                    $newCommand->captain->save();
                     $client->send(json_encode([
                         'type' => 'setCaptain',
                         'from' =>  $client->id,
@@ -121,11 +122,68 @@ class ChatServer extends WebSocketServer
                     if ($user->role === 4){
                         $amgClient->send(json_encode([
                             'type' => 'setCaptain',
-                            'from' =>  $client->id,
+                            'from' =>  0,
                             'message' => 0,
                         ]));
                     }
                 }
+            }
+
+        } else {
+            $result['message'] = 'Captain NoSet';
+        }
+
+        $client->send( json_encode($result) );
+    }
+
+    public function commandSelectCommand(ConnectionInterface $client, $msg)
+    {
+        $request = json_decode($msg, true);
+        $result = ['message' => 'Command Select'];
+
+        if (!empty($request['user_id'])
+            && !empty($request['commandId'])
+            && !empty($request['name'])
+            && ($userId = trim($request['user_id']))
+            && ($commandId = trim($request['commandId']))
+            && ($name = trim($request['name']))) {
+
+            /* @var $commandModel Command*/
+            $commandModel = Command::findOne($commandId);
+            /* @var $userModel User*/
+            $userModel = User::findOne($userId);
+
+            if ($commandModel->isFull === 0){
+                if ($commandModel->player_1_id === null){
+                    $commandModel->player_1_id = $userId;
+                    $from = 'player1';
+                }elseif ($commandModel->player_2_id === null){
+                    $commandModel->player_2_id = $userId;
+                    $from = 'player2';
+                }elseif ($commandModel->player_3_id === null){
+                    $commandModel->player_3_id = $userId;
+                    $from = 'player3';
+                    $commandModel->isFull = 1;
+                }
+                if ($commandModel->save()){
+                    $userModel->command_id = $commandId;
+                    $userModel->save();
+                    foreach ($this->clients as $amgClient){
+
+                        $amgClient->send(json_encode([
+                            'type' => 'selectCommand',
+                            'from' => ['commandId' => $commandId, 'player' => $from, 'userId' => $client->id],
+                            'message' => $name,
+                        ]));
+
+                    }
+                }
+            }else{
+                $client->send(json_encode([
+                    'type' => 'selectCommand',
+                    'from' =>  $client->id,
+                    'message' => false,
+                ]));
             }
 
         } else {

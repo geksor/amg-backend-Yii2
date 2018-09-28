@@ -2,13 +2,11 @@
 
 namespace backend\controllers;
 
-use WebSocket\Client;
+//use WebSocket\Client;
 use Yii;
 use common\models\DealerCenter;
 use common\models\DealerCenterSearch;
-use yii\base\Model;
-use yii\base\Object;
-use yii\helpers\ArrayHelper;
+//use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,17 +70,17 @@ class DealerCenterController extends Controller
         $model = new DealerCenter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $data = ArrayHelper::toArray($model, [
-                'app\models\Post' => [
-                    'id',
-                    'title',
-                ],
-            ]);
-            $data = json_encode($data);
-            try {
-                $client = new Client("ws://188.225.10.52:1024");
-                $client->send(json_encode(['action' => 'chat', 'message' => $data]));
-            }catch (\Exception $exception){}
+//            $data = ArrayHelper::toArray($model, [
+//                'app\models\Post' => [
+//                    'id',
+//                    'title',
+//                ],
+//            ]);
+//            $data = json_encode($data);
+//            try {
+//                $client = new Client("ws://188.225.10.52:1024");
+//                $client->send(json_encode(['action' => 'chat', 'message' => $data]));
+//            }catch (\Exception $exception){}
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

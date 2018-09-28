@@ -13,7 +13,7 @@ class ServerController extends Controller
     public function actionStart()
     {
         $ChatServer = new ChatServer();
-        $ChatServer->port = 8080; //This port must be busy by WebServer and we handle an error
+        $ChatServer->port = 8081; //This port must be busy by WebServer and we handle an error
 
         $ChatServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN_ERROR, function($e) use($ChatServer) {
             echo "Error opening port " . $ChatServer->port . "\n";

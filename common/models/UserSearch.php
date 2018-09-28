@@ -18,7 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'command_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints'], 'integer'],
+            [['id', 'status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint', 'command_id'], 'integer'],
             [['username', 'surname', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
         ];
     }
@@ -67,7 +67,6 @@ class UserSearch extends User
             'group' => $this->group,
             'training_id' => $this->training_id,
             'dealer_center_id' => $this->dealer_center_id,
-            'command_id' => $this->command_id,
             'amgStatic' => $this->amgStatic,
             'mixStatic' => $this->mixStatic,
             'mbux' => $this->mbux,
@@ -78,6 +77,8 @@ class UserSearch extends User
             'xClassLine' => $this->xClassLine,
             'quiz' => $this->quiz,
             'moderatorPoints' => $this->moderatorPoints,
+            'totalPoint' => $this->totalPoint,
+            'command_id' => $this->command_id,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

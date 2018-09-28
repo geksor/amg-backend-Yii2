@@ -27,6 +27,7 @@ class m180927_123209_create_command_table extends Migration
             'player_3_id' => $this->integer(),
             'training_id' => $this->integer()->notNull(),
             'group' => $this->integer()->notNull(),
+            'isFull' => $this->integer(1)->defaultValue(0),
         ]);
 
         // creates index for column `capitan_id`

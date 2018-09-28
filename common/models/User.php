@@ -38,6 +38,7 @@ use yii\web\IdentityInterface;
  * @property int $quiz
  * @property int $moderatorPoints
  * @property int $totalPoint
+ * @property int $command_id
  *
  * @property XClassDriveAnswerImage[] $xClassDriveAnswerImages
  * @property AmgDrive[] $amgDrives
@@ -95,7 +96,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email',], 'required'],
-            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint'], 'integer'],
+            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint', 'command_id'], 'integer'],
             [['username', 'surname', 'first_name', 'last_name', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['email'], 'unique'],
@@ -135,6 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
             'quiz' => 'Викторина',
             'moderatorPoints' => 'Очки от модератора',
             'totalPoint' => 'Всего очков',
+            'command_id' => 'Command ID',
         ];
     }
 

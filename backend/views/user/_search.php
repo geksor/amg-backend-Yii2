@@ -50,8 +50,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'dealer_center_id') ?>
 
-    <?php // echo $form->field($model, 'command_id') ?>
-
     <?php // echo $form->field($model, 'amgStatic') ?>
 
     <?php // echo $form->field($model, 'mixStatic') ?>
@@ -71,6 +69,10 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'quiz') ?>
 
     <?php // echo $form->field($model, 'moderatorPoints') ?>
+
+    <?php // echo $form->field($model, 'totalPoint') ?>
+
+    <?php // echo $form->field($model, 'command_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

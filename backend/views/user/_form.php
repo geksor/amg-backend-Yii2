@@ -38,8 +38,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dealer_center_id')->textInput() ?>
 
-    <?= $form->field($model, 'command_id')->textInput() ?>
-
     <?= $form->field($model, 'amgStatic')->textInput() ?>
 
     <?= $form->field($model, 'mixStatic')->textInput() ?>
@@ -60,8 +58,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'moderatorPoints')->textInput() ?>
 
+    <?= $form->field($model, 'totalPoint')->textInput() ?>
+
+    <?= $form->field($model, 'command_id')->textInput() ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

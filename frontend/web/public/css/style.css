@@ -1211,3 +1211,24 @@ body {
 	background-color: #00988d;
 	border: 1px solid #00988d;
 }
+
+.form_step_x{
+	margin-top: 10px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+.form_step_x p{
+	width: 90%;
+	margin: 0 auto;
+	font-size: 12px;
+	line-height: 16px;
+}
+.form_step_x p span{
+	color: #ef5c5c;
+}
+.form_step_x .user, .form_step_x .password{
+	color: #000;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
