@@ -2,13 +2,18 @@
 namespace frontend\controllers;
 
 use common\models\Command;
+use common\models\EndQuest;
 use common\models\User;
 use common\models\XClassDriveQuestion;
+use frontend\models\XclassAnswerImage;
+use frontend\models\XclassDriveAnswerForm;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 
 /**
@@ -173,6 +178,48 @@ class XclassDriveController extends Controller
         $userModel = User::findOne(Yii::$app->user->id);
         /* @var $commandModel Command */
         $commandModel = Command::findOne($userModel->command_id);
+        /* @var $answerForm XclassDriveAnswerForm */
+        $answerForm = new XclassDriveAnswerForm();
+        $answerImageForm = new XclassAnswerImage();
+
+        if ($answerForm->load(Yii::$app->request->post())){
+            if ($answerForm->validate()){
+                if ( $request = $commandModel->saveQuestion($answerForm->question_id)){
+                    Yii::$app->session->setFlash('trueAnswer', $request);
+
+                    $questionModel = XClassDriveQuestion::findOne($answerForm->question_id);
+
+                    return $this->render('question', [
+                        'commandModel' => $commandModel,
+                        'questionModel' => $questionModel,
+                        'answerForm' => $answerForm,
+                        'answerImageForm' => $answerImageForm,
+                    ]);
+
+                }
+            }
+        }
+
+        if ($answerImageForm->load(Yii::$app->request->post())){
+            if ($answerImageForm->validate()){
+
+                $file = UploadedFile::getInstance($answerImageForm, 'image');
+
+                if ( $request = $commandModel->saveQuestionIsImage($answerForm->question_id, $answerImageForm->uploadFile($file, $commandModel->image))){
+                    Yii::$app->session->setFlash('trueAnswer', $request);
+
+                    $questionModel = XClassDriveQuestion::findOne($answerImageForm->question_id);
+
+                    return $this->render('question', [
+                        'commandModel' => $commandModel,
+                        'questionModel' => $questionModel,
+                        'answerForm' => $answerForm,
+                        'answerImageForm' => $answerImageForm,
+                    ]);
+
+                }
+            }
+        }
 
         if ($userModel->id != $commandModel->capitan_id){
             return $this->redirect('index');
@@ -183,16 +230,58 @@ class XclassDriveController extends Controller
         $questionModel = null;
 
         foreach ($questionModels as $question){
-            if ($question->isCommandAnswer($commandModel->id)){
+
+            if (!$question->isCommandAnswer($commandModel->id)){
+                /* @var $questionModel XClassDriveQuestion */
                 $questionModel = $question;
                 break;
             }
         }
 
+        if ($questionModel === null){
+            $commandUser = User::find()->where(['command_id' => $commandModel->id]);
+            foreach ($commandUser as $user){
+                $this->setEndQuest($user, 'xClassDrive');
+            }
+
+            Yii::$app->session->setFlash('popupEndTest', [
+                'point' => Yii::$app->params['PointTest']['xClassDrive'],
+                'truAnswers' => null
+            ]);
+
+        }
+
+        $answerForm->question_id = $questionModel->id;
+        $answerImageForm->question_id = $questionModel->id;
+
         return $this->render('question', [
-            'userModel' => $userModel,
             'commandModel' => $commandModel,
             'questionModel' => $questionModel,
+            'answerForm' => $answerForm,
+            'answerImageForm' => $answerImageForm,
         ]);
     }
+
+    /**
+     * @param $userModel
+     * @param $testName
+     */
+    public function setEndQuest($userModel, $testName)
+    {
+        /* @var $userModel User */
+        /* @var $endQuestsModel EndQuest */
+        if (!empty($userModel->endQuests)){
+            $endQuestsModel = EndQuest::findOne($userModel->endQuests->id);
+            if (!$endQuestsModel->$testName){
+                $endQuestsModel->$testName = 1;
+                $endQuestsModel->save();
+            }
+        }else{
+            $endQuestsModel = new EndQuest();
+            $endQuestsModel->user_id = Yii::$app->user->id;
+            $endQuestsModel->$testName = 1;
+            $endQuestsModel->save();
+        }
+    }
+
 }

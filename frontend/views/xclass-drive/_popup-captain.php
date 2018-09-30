@@ -37,10 +37,11 @@
 <div id="commandNoSet" class="popupWrap" style="display: none">
     <div class="popup">
         <img src = "/public/images/capitan_no.png" class = "popup_img">
-        <p class = "popup_p">Вы не вступить в команду,<br>но у Вас есть возможность вступить<br>в другую</p>
+        <p class = "popup_p">Вы не успели вступить в команду,<br>но у Вас есть возможность вступить<br>в другую</p>
 
         <?= \yii\helpers\Html::a('Перейти к выбору команды', '/xclass-drive/select-command', ['class' => 'submit']) ?>
     </div>
 </div>
+
 
 

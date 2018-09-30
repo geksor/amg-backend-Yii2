@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use consik\yii2websocket\events\WSClientEvent;
 use consik\yii2websocket\WebSocketServer;
 use console\daemons\ChatServer;
 use console\daemons\CommandsServer;
@@ -23,6 +24,14 @@ class ServerController extends Controller
 
         $ChatServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN, function($e) use($ChatServer) {
             echo "Server started at port " . $ChatServer->port;
+        });
+
+        $ChatServer->on(WebSocketServer::EVENT_CLIENT_CONNECTED, function($e) use($ChatServer) {
+            echo "\n Client Connect";
+        });
+
+        $ChatServer->on(WebSocketServer::EVENT_CLIENT_DISCONNECTED, function($e) use($ChatServer) {
+            echo "\n Client Disconnect";
         });
 
         $ChatServer->start();

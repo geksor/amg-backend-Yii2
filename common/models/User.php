@@ -241,6 +241,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
+     * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
@@ -448,6 +449,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @param $amgTestId
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function saveAmgTest($amgTestId)
     {
@@ -508,6 +511,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @param $quizId
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function saveQuiz($quizId)
     {

@@ -24,8 +24,6 @@ $this->title = 'ABS Авто MIX Тест-Драйв';
         'options' => ['enctype'=>'multipart/form-data', 'class' => 'x-class_content'],
     ]); ?>
 
-
-
     <?= $form->field($model, 'image')->fileInput(['class' => 'jsImageInput', 'style' => 'display:none'])->label('<img id="insertImage" src = "/public/images/noimage.svg" class = "mix_img">'); ?>
 
     <p class = "mix_ul_p">More than 50 talented young people work with great enthusiasm from our offices in Málaga, in southern Spain. Jointly, more than 200 graphic designers and external collaborators.</p>

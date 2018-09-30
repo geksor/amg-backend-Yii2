@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 /* @var $userModel \common\models\User */
 /* @var $commandModel \common\models\Command */
 /* @var $questionModel \common\models\XClassDriveQuestion */
+/* @var $answerForm \frontend\models\XclassDriveAnswerForm */
+/* @var $answerImageForm \frontend\models\XclassAnswerImage */
 /* @var $captain \common\models\User */
 
 $captain = $commandModel->captain;
@@ -30,25 +32,81 @@ $this->title = 'ABS Авто Список членов команды';
             <p><?= $questionModel->title ?></p>
             <p><?= $questionModel->question ?></p>
         </div>
-        <img src = "<?= $questionModel->question_image ?>" class = "mix_img">
-        <form id="#" method="POST" class="form_step_x" autocomplete="off">
-            <input name="user" type="text" class="user" tabindex="0" placeholder="Введите правильный ответ" required="">
-        </form>
-    </div>
+        <img src = "<?= $questionModel->getThumbPhoto() ?>" class = "mix_img">
 
-    <div class="button_next_back">
-        <a class="button_help">Подсказка</a>
-        <a class="button_next">Далее<img src="/public/images/right-arrow.svg"></a>
+        <? if ($questionModel->answer_isImage) {?>
+
+            <?php $form = ActiveForm::begin(['id' => 'form-answer', 'options' => ['class' => 'form_step_x']]); ?>
+
+                <?= $form->field($answerImageForm, 'question_id')->hiddenInput()->label(false) ?>
+
+                <?= $form->field($answerImageForm, 'image')->fileInput(['class' => 'user', 'placeholder' => 'Введите правильный ответ'])->label(false) ?>
+
+                <div class="button_next_back">
+
+                    <a class="button_help">Подсказка</a>
+
+                    <?= Html::submitButton('Далее<img src = "/public/images/right-arrow.svg">', ['class' => 'button_next', 'name' => 'signup-button']) ?>
+
+                </div>
+
+            <?php ActiveForm::end(); ?>
+
+        <?}else{?>
+
+            <?php $form = ActiveForm::begin(['id' => 'form-answer', 'options' => ['class' => 'form_step_x']]); ?>
+
+                <?= $form->field($answerForm, 'question_id')->hiddenInput()->label(false) ?>
+
+                <?= $form->field($answerForm, 'answer')->textInput(['class' => 'user', 'placeholder' => 'Введите правильный ответ'])->label(false) ?>
+
+                <div class="button_next_back">
+
+                    <a class="button_help">Подсказка</a>
+
+                    <?= Html::submitButton('Далее<img src = "/public/images/right-arrow.svg">', ['class' => 'button_next', 'name' => 'signup-button']) ?>
+
+                </div>
+
+            <?php ActiveForm::end(); ?>
+
+        <?}?>
+
     </div>
 
     <?= $this->render('_footer') ?>
 </div>
 
-<?= $this->render('_popup-captain') ?>
+<? if (Yii::$app->session->hasFlash('trueAnswer')) {?>
+    <div class="popupWrap">
+        <div class="popup">
+
+            <p class = "popup_p">Координаты следующей точки<br><?= Yii::$app->session->getFlash('trueAnswer') ?></p>
+
+            <?= \yii\helpers\Html::a('Перейти к следующему вопросу', '/xclass-drive/question', ['class' => 'submit']) ?>
+        </div>
+    </div>
+<?}?>
+
+<div id="questHelp" class="popupWrap" style="display: none">
+    <div class="popup">
+        <p>Подсказка</p>
+
+        <p class = "popup_p"><?= $questionModel->description ?></p>
+
+        <?= \yii\helpers\Html::button('ОК', ['class' => 'submit', 'id' => 'closeHelp']) ?>
+    </div>
+</div>
+
 
 <script>
     window.onload = function () {
-
+        $('.button_help').on('click', function () {
+            $('#questHelp').show();
+        });
+        $('#closeHelp').on('click', function () {
+            $('#questHelp').hide();
+        })
     }
 </script>
 

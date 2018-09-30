@@ -15,6 +15,7 @@ use Yii;
  * @property int $training_id
  * @property int $group
  * @property int $isFull
+ * @property string $image
  *
  * @property User [] $captain
  * @property User [] $player1
@@ -42,6 +43,7 @@ class Command extends \yii\db\ActiveRecord
         return [
             [['capitan_id', 'training_id', 'group'], 'required'],
             [['capitan_id', 'player_1_id', 'player_2_id', 'player_3_id', 'training_id', 'group', 'isFull'], 'integer'],
+            [['image'], 'string', 'max' => 255],
             [['capitan_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['capitan_id' => 'id']],
             [['player_1_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['player_1_id' => 'id']],
             [['player_2_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['player_2_id' => 'id']],
@@ -64,6 +66,7 @@ class Command extends \yii\db\ActiveRecord
             'training_id' => 'Training ID',
             'group' => 'Group',
             'isFull' => 'Is Full',
+            'image' => 'Image',
         ];
     }
 
@@ -122,4 +125,58 @@ class Command extends \yii\db\ActiveRecord
     {
         return $this->hasMany(XClassDriveQuestion::className(), ['id' => 'XClassDriveQuestion_id'])->viaTable('command_XClassDriveQuestion', ['command_id' => 'id']);
     }
+
+    /**
+     * @param $questId XClassDriveQuestion
+     * @return string
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function saveQuestion($questId)
+    {
+        if ($questId){
+            if ($link = CommandXClassDriveQuestion::find()->where(['XClassDriveQuestion_id' => $questId])->one()){
+                $link->delete();
+            }
+
+            /* @var $question XClassDriveQuestion */
+            $question = XClassDriveQuestion::findOne($questId);
+
+            $this->link('xClassDriveQuestions', $question);
+
+            return $question->request;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param $questId
+     * @param $fileName
+     * @return bool|string
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function saveQuestionIsImage($questId, $fileName)
+    {
+        if ($questId){
+            if ($link = CommandXClassDriveQuestion::find()->where(['XClassDriveQuestion_id' => $questId])->one()){
+                $link->delete();
+            }
+
+            $this->image = $fileName;
+            $this->save(false);
+
+            /* @var $question XClassDriveQuestion */
+            $question = XClassDriveQuestion::findOne($questId);
+
+            $this->link('xClassDriveQuestions', $question);
+
+            return $question->request;
+        }
+
+        return false;
+    }
+
 }
