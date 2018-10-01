@@ -6,36 +6,49 @@
  * Time: 11:29
  */
 
-use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model \frontend\models\ImageUpload */
+/* @var $userModels \common\models\User */
 
 $this->title = 'ABS Авто AMG Тест-Драйв';
 ?>
 
-<div class="info">
+<div class = "info info_trenr_group_viktorina">
     <?= $this->render('_top-line', [
         'title' => 'AMG Тест-Драйв',
-        'link' => Yii::$app->homeUrl,
-   ]) ?>
-    <?php $form = ActiveForm::begin([
-        'options' => ['enctype'=>'multipart/form-data', 'class' => 'x-class_content'],
-    ]); ?>
+        'link' => '/trainer/index',
+    ]) ?>
 
-
-
-    <?= $form->field($model, 'image')->fileInput(['class' => 'jsImageInput', 'style' => 'display:none'])->label('<img id="insertImage" src = "/public/images/noimage.svg" class = "mix_img">'); ?>
-
-    <p class = "mix_ul_p">More than 50 talented young people work with great enthusiasm from our offices in Málaga, in southern Spain. Jointly, more than 200 graphic designers and external collaborators.</p>
-
-
-    <?= Html::submitButton('Загрузить фотографии', ['class' => 'submit']) ?>
-
-    <?php ActiveForm::end(); ?>
+    <div class = "trenr_groups">
+        <? foreach ($userModels as $key => $userModel) {?>
+            <?
+                /* @var $userModel \common\models\User */
+                /* @var $endQuests \common\models\EndQuest */
+                $endQuests = $userModel->endQuests;
+            ?>
+            <div class = "trenr_group linkWrap">
+                <div class = "group_place">
+                    <p class = "group_place_number"><?= ++$key ?></p>
+                </div>
+                <div class = "group_name">
+                    <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
+                </div>
+                <div class = "group_bal">
+                    <? if ($endQuests->amgDrive) {?>
+                        <p class = "test_ok">Тест завершен</p>
+                    <?}else{?>
+                        <p class = "test_no">Нет данных</p>
+                    <?}?>
+                </div>
+                <? if ($endQuests->amgDrive) {
+                    echo Html::a('', ['/trainer/amg-drive-view', 'id' => $userModel->id]);
+                }?>
+            </div>
+        <?}?>
+    </div>
 
     <?= $this->render('_footer') ?>
-</div>
+</div> <!-- -->
 
 

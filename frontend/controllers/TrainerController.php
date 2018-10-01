@@ -68,6 +68,8 @@ class TrainerController extends Controller
                             'mbux',
                             'amg-drive',
                             'mix-drive',
+                            'mix-drive-view',
+                            'amg-drive-view',
                             'x-class-line',
                             'info',
                             'contact',
@@ -612,100 +614,96 @@ class TrainerController extends Controller
     }
 
     /**
-     * Displays mag-drive Page.
+     * Displays amg-drive Page.
      *
-     * @var $amgDriveModel AmgDrive
-     * @var $model ImageUpload
+     * @var $userModels User
      *
      * @return mixed
      */
     public function actionAmgDrive()
     {
-        if (!$amgDriveModel = AmgDrive::find()->where(['user_id' => Yii::$app->user->id])->one()){
-            $amgDriveModel = new AmgDrive();
-            $amgDriveModel->user_id = Yii::$app->user->id;
-            $amgDriveModel->save();
-        }
-
-        $model = new ImageUpload();
-
-        if (Yii::$app->request->isPost)
-        {
-            $file = UploadedFile::getInstance($model, 'image');
-
-            if ($amgDriveModel->savePhoto($model->uploadFile($file, $amgDriveModel->photo)))
-            {
-                $point = Yii::$app->params['PointTest']['amgDrive'];
-
-                $userModel = $amgDriveModel->user;
-                $userModel->amgDrive = $point;
-
-                if ($userModel->save()){
-                    $this->setEndQuest($userModel, 'amgDrive');
-
-                    Yii::$app->session->setFlash('popupEndTest', [
-                        'point' => $point,
-                    ]);
-
-                    return $this->goHome();
-
-                }
-
-                return $this->redirect('/site/amg-drive');
-            }
-        }
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->with(['endQuests', 'amgDrives'])
+            ->orderBy(['totalPoint' => SORT_DESC])->all();
 
         return $this->render('amg-drive', [
-            'model' => $model,
+            'userModels' => $userModels,
         ]);
     }
 
     /**
      * Displays mix-drive Page.
      *
-     * @var $mixDriveModel MixDrive
-     * @var $model ImageUpload
+     * @var $userModels User
      *
      * @return mixed
      */
     public function actionMixDrive()
     {
-        if (!$mixDriveModel = MixDrive::find()->where(['user_id' => Yii::$app->user->id])->one()){
-            $mixDriveModel = new MixDrive();
-            $mixDriveModel->user_id = Yii::$app->user->id;
-            $mixDriveModel->save();
-        }
-
-        $model = new ImageUpload();
-
-        if (Yii::$app->request->isPost)
-        {
-            $file = UploadedFile::getInstance($model, 'image');
-
-            if ($mixDriveModel->savePhoto($model->uploadFile($file, $mixDriveModel->photo)))
-            {
-                $point = Yii::$app->params['PointTest']['mixDrive'];
-
-                $userModel = $mixDriveModel->user;
-                $userModel->mixDrive = $point;
-
-                if ($userModel->save()){
-                    $this->setEndQuest($userModel, 'mixDrive');
-
-                    Yii::$app->session->setFlash('popupEndTest', [
-                        'point' => $point,
-                    ]);
-
-                    return $this->goHome();
-
-                }
-
-                return $this->redirect('/site/mix-drive');
-            }
-        }
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->with(['endQuests', 'mixDrives'])
+            ->orderBy(['totalPoint' => SORT_DESC])->all();
 
         return $this->render('mix-drive', [
-            'model' => $model,
+            'userModels' => $userModels,
+        ]);
+    }
+
+    /**
+     * Displays mix-drive-view Page.
+     *
+     * @var $userModel User
+     * @var $driveModel MixDrive
+     *
+     * @param $driveId
+     * @param $userId
+     *
+     * @return mixed
+     */
+    public function actionMixDriveView($id)
+    {
+        $userModel = User::findOne($id);
+
+        $driveModel = MixDrive::findOne(['user_id' => $id]);
+
+        return $this->render('drive-view', [
+            'userModel' => $userModel,
+            'driveModel' => $driveModel,
+            'title' => 'MIX Тест-Драйв',
+        ]);
+    }
+
+    /**
+     * Displays amg-drive-view Page.
+     *
+     * @var $userModel User
+     * @var $driveModel MixDrive
+     *
+     * @param $driveId
+     * @param $userId
+     *
+     * @return mixed
+     */
+    public function actionAmgDriveView($id)
+    {
+        $userModel = User::findOne($id);
+
+        $driveModel = AmgDrive::findOne(['user_id' => $id]);
+
+        return $this->render('drive-view', [
+            'userModel' => $userModel,
+            'driveModel' => $driveModel,
+            'title' => 'AMG Тест-Драйв',
         ]);
     }
 
@@ -949,10 +947,4 @@ class TrainerController extends Controller
         ]);
     }
 
-    public function actionRun()
-    {
-//        Yii::$app->consoleRunner->run('server/start');
-//        $cr = new ConsoleRunner(['file' => Yii::getAlias('@app/yii.php')]);
-//        $cr->run('server/start');
-    }
 }

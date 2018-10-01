@@ -61,4 +61,9 @@ class AmgDrive extends \yii\db\ActiveRecord
 
         return $this->save(false);
     }
+
+    public function getPhoto()
+    {
+        return ($this->photo) ? '/uploads/images/' . $this->photo : '/public/images/noimage.svg';
+    }
 }
