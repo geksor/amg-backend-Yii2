@@ -67,6 +67,10 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const ROLE_ADMIN = 1;
+    const ROLE_TRAINER = 2;
+    const ROLE_CAPTAIN = 3;
+    const ROLE_USER = 4;
 
 
     /**
@@ -86,6 +90,49 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
+
+    /**
+     * @param $userName
+     * @return bool
+     */
+    public static function isAdmin($userName)
+    {
+        if (static::findOne(['username' => $userName, 'role' => self::ROLE_ADMIN]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $userName
+     * @return bool
+     */
+    public static function isTrainer($userName)
+    {
+        if (static::findOne(['username' => $userName, 'role' => self::ROLE_TRAINER]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $userName
+     * @return bool
+     */
+    public static function isCaptain($userName)
+    {
+        if (static::findOne(['username' => $userName, 'role' => self::ROLE_CAPTAIN]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * {@inheritdoc}
@@ -344,9 +391,14 @@ class User extends ActiveRecord implements IdentityInterface
         return $sum;
     }
 
+    /**
+     * @param $trainingId
+     * @param $group
+     * @return int|string
+     */
     public function getPlace()
     {
-        $allUsers = self::find()->select('id')->orderBy(['totalPoint' => SORT_DESC])->all();
+        $allUsers = self::find()->select('id')->where(['training_id' => $this->training_id, 'group' => $this->group])->orderBy(['totalPoint' => SORT_DESC])->all();
         foreach ($allUsers as $key => $user){
             if ($this->id === $user->id && $this->totalPoint > 0){
                 return ++$key;

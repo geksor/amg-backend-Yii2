@@ -1,6 +1,6 @@
 <?php
 namespace frontend\controllers;
-//WV]rlqm&C4qU!y!M03
+
 use common\models\AmgDrive;
 use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;
@@ -44,7 +44,7 @@ use yii\web\UploadedFile;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class TrainerController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -54,22 +54,14 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-//                'only' => ['logout', 'signup'],
                 'rules' => [
-                    [
-                        'actions' => ['signup-step-1', 'login'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
+
                     [
                         'actions' => [
                             'logout',
-                            'signup-step-2',
-                            'signup-step-3',
-                            'signup-end',
                             'index',
+                            'user-table',
                             'timetable',
-                            'timetable-info',
                             'mix-static',
                             'mix-static-gallery',
                             'amg-static',
@@ -85,6 +77,9 @@ class SiteController extends Controller
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isTrainer(Yii::$app->user->identity->username);
+                        }
                     ],
                 ],
             ],
@@ -123,31 +118,65 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
-        if (User::isTrainer(Yii::$app->user->identity->username)){
-            return $this->redirect('/trainer/index');
-        }
-
-        if (empty($userModel->endQuests)){
-            $endQuestsModel = new EndQuest();
-            $endQuestsModel->user_id = $userModel->id;
-            $endQuestsModel->save();
-            return $this->goHome();
-        }
-
-        if (!$userModel->training_id || !$userModel->group){
-            return $this->redirect('site/signup-step-2');
-        }
-
-        if (!$userModel->first_name || !$userModel->last_name || !$userModel->surname || !$userModel->dealer_center_id){
-            return $this->redirect('signup-step-3');
-        }
-
         return $this->render('index', [
             'userModel' => $userModel,
-            'totalCount' => $userModel->totalPoint,
-            'place' => $userModel->getPlace(),
         ]);
     }
+
+    /**
+     * @param $trainingId
+     *
+     */
+    public function setTraining($trainingId)
+    {
+        /* @var $userModel User */
+        $userModel = User::findOne(Yii::$app->user->id);
+
+        $userModel->training_id = $trainingId;
+        $userModel->save();
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @var $userModelsGroup1 User
+     * @var $userModelsGroup2 User
+     * @return mixed
+     */
+    public function actionUserTable()
+    {
+        $userModelsGroup1 = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => 1,
+                'role' => [4,3],
+            ])->orderBy(['totalPoint' => SORT_DESC])->all();
+
+        $userModelsGroup2 = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => 2,
+                'role' => [4,3],
+                ])->orderBy(['totalPoint' => SORT_DESC])->all();
+
+        $quizCount = Quiz::find()->count();
+
+        $maxPoint = (integer)Yii::$app->params['PointTest']['amgStatic']
+            + (integer)Yii::$app->params['PointTest']['mixStatic']
+            + (integer)Yii::$app->params['PointTest']['mbux']
+            + (integer)Yii::$app->params['PointTest']['xClassDrive']
+            + (integer)Yii::$app->params['PointTest']['intelligent']
+            + (integer)Yii::$app->params['PointTest']['mixDrive']
+            + (integer)Yii::$app->params['PointTest']['xClassLine']
+            + ((integer)Yii::$app->params['PointTest']['quizItem'] * $quizCount);
+
+        return $this->render('user-table', [
+            'userModelsGroup1' => $userModelsGroup1,
+            'userModelsGroup2' => $userModelsGroup2,
+            'maxPoint' => $maxPoint,
+        ]);
+    }
+
 
     /**
      * Displays infoPage.
@@ -217,7 +246,6 @@ class SiteController extends Controller
         $traningDay = (integer) date('w', $userModel->training->date);
         $timetableModels = Timetable::find()
             ->where([
-                'group' => $userModel->group,
                 'trainingDay' => $traningDay,
             ])
             ->orderBy('startTime')
@@ -225,21 +253,6 @@ class SiteController extends Controller
         return $this->render('timetable', [
             'timetableModels' => $timetableModels,
             'traningDay' => $traningDay,
-        ]);
-    }
-
-    /**
-     * Displays timetable-info Page.
-     *
-     * @var $model Timetable
-     * @return mixed
-     */
-    public function actionTimetableInfo($id)
-    {
-        $model = Timetable::findOne($id);
-
-        return $this->render('timetable-info', [
-            'model' => $model,
         ]);
     }
 
@@ -825,89 +838,30 @@ class SiteController extends Controller
     /**
      * Displays quiz Page.
      *
-     * @var $mixDriveModel MixDrive
-     * @var $models XClassLineTest
+     * @var $userModels User
      *
      * @return mixed
      */
     public function actionQuiz()
     {
-        $userModel = User::findOne(Yii::$app->user->id);
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->with('userQuizzes')
+            ->orderBy(['totalPoint' => SORT_DESC])->all();
 
-        if (Yii::$app->request->isPost){
-            $postQuiz = Yii::$app->request->post('Quiz');
-            $quizId = $postQuiz['id'];
-            $userModel->saveQuiz($quizId);
+        $quizCount = Quiz::find()->count();
 
-            $trueAnswer = 0;
-
-            $quiz = Quiz::findOne($quizId);
-
-            $answer = $postQuiz['trueAnswer'];
-
-            if ((integer)$answer === $quiz->trueAnswer){
-                ++$trueAnswer;
-            }
-
-            if (Yii::$app->session->has('trueAnswersQuiz')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersQuiz') + $trueAnswer;
-                Yii::$app->session->set('trueAnswersQuiz', $trueAnswerFromSession);
-            }else{
-                Yii::$app->session->set('trueAnswersQuiz', $trueAnswer);
-            }
-
-        }
-
-        $modelsArr = Quiz::find()
-            ->select('id')
-            ->asArray()
-            ->all();
-
-        $noAnswerQuests = [];
-
-        foreach ($modelsArr as $item){
-            $quiz = Quiz::findOne($item['id']);
-            if (!$quiz->isUserAnswer(Yii::$app->user->id)){
-                $noAnswerQuests[] = $item;
-            }
-        }
-
-        if (empty($noAnswerQuests)){
-
-            $totalQuestion = Quiz::find()->count();
-
-            $pointStep = Yii::$app->params['PointTest']['quizItem'];
-
-            $point = ceil(Yii::$app->session->get('trueAnswersQuiz')*$pointStep);
-
-            $this->setEndQuest($userModel, 'quiz');
-
-            $userModel->quiz = $point;
-            $userModel->save();
-
-            Yii::$app->session->setFlash('popupEndTest', [
-                'point' => $point,
-                'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswersQuiz'),
-                    'total' => $totalQuestion,
-                ]
-            ]);
-
-            Yii::$app->session->remove('point');
-            Yii::$app->session->remove('trueAnswersQuiz');
-
-            return $this->redirect('/');
-        }
-
-        $idArr = ArrayHelper::index($noAnswerQuests, 'id');
-
-        $questId = array_rand($idArr, 1);
-
-        $model = Quiz::findOne($questId);
+        $maxPoint = (integer)Yii::$app->params['PointTest']['quizItem'] * $quizCount;
 
 
         return $this->render('quiz', [
-            'model' => $model,
+            'userModels' => $userModels,
+            'maxPoint' => $maxPoint,
+            'quizCount' => $quizCount,
         ]);
     }
 
@@ -944,95 +898,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignupStep1()
-    {
-        $model = new SignupForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect('signup-step-2');
-                }
-            }
-        }
-
-        return $this->render('signup-step-1', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionSignupStep2()
-    {
-        $model = new SignupFormStep2();
-        $trainings = Training::find()->select(['id', 'date'])->asArray()->all();
-
-        $trainingsArr = [];
-
-        if (!empty($trainings)){
-            foreach ($trainings as $training){
-                $value = date("d.m.Y", (integer) $training['date']);
-                $trainingsArr[$training['id']] = $value;
-            }
-        }
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->setValue(Yii::$app->user->id)) {
-                return $this->redirect('signup-step-3');
-            }
-        }
-
-        return $this->render('signup-step-2', [
-            'model' => $model,
-            'trainingsArr' => $trainingsArr,
-        ]);
-    }
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionSignupStep3()
-    {
-        $model = new SignupFormStep3();
-        $dealerCenters = DealerCenter::find()->select(['id', 'title'])->asArray()->all();
-
-        $dealerCentersArr = [];
-
-        if (!empty($dealerCenters)){
-            foreach ($dealerCenters as $training){
-                $value = $training['title'];
-                $dealerCentersArr[$training['id']] = $value;
-            }
-        }
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->setValue(Yii::$app->user->id)) {
-
-                return $this->redirect('signup-end');
-            }
-        }
-
-        return $this->render('signup-step-3', [
-            'model' => $model,
-            'dealerCentersArr' => $dealerCentersArr,
-        ]);
-    }
-
-    /**
-     * @return string
-     */
-    public function actionSignupEnd()
-    {
-        return $this->render('signup-end');
     }
 
     /**
