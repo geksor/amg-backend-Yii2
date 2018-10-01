@@ -36,7 +36,7 @@ $this->title = 'ABS Авто Список членов команды';
 
         <? if ($questionModel->answer_isImage) {?>
 
-            <?php $form = ActiveForm::begin(['id' => 'form-answer', 'options' => ['class' => 'form_step_x']]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'form-answer-image', 'options' => ['class' => 'form_step_x']]); ?>
 
                 <?= $form->field($answerImageForm, 'question_id')->hiddenInput()->label(false) ?>
 
@@ -83,7 +83,7 @@ $this->title = 'ABS Авто Список членов команды';
 
             <p class = "popup_p">Координаты следующей точки<br><?= Yii::$app->session->getFlash('trueAnswer') ?></p>
 
-            <?= \yii\helpers\Html::a('Перейти к следующему вопросу', '/xclass-drive/question', ['class' => 'submit']) ?>
+            <?= \yii\helpers\Html::a('ОК', '/xclass-drive/question', ['class' => 'submit']) ?>
         </div>
     </div>
 <?}?>

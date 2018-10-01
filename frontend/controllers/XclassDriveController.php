@@ -180,6 +180,7 @@ class XclassDriveController extends Controller
         $commandModel = Command::findOne($userModel->command_id);
         /* @var $answerForm XclassDriveAnswerForm */
         $answerForm = new XclassDriveAnswerForm();
+        /* @var $answerImageForm XclassAnswerImage */
         $answerImageForm = new XclassAnswerImage();
 
         if ($answerForm->load(Yii::$app->request->post())){
@@ -198,26 +199,25 @@ class XclassDriveController extends Controller
 
                 }
             }
-        }
+        }elseif (Yii::$app->request->isPost){
 
-        if ($answerImageForm->load(Yii::$app->request->post())){
-            if ($answerImageForm->validate()){
+            $file = UploadedFile::getInstance($answerImageForm, 'image');
 
-                $file = UploadedFile::getInstance($answerImageForm, 'image');
+            $answerImageForm->load(Yii::$app->request->post());
 
-                if ( $request = $commandModel->saveQuestionIsImage($answerForm->question_id, $answerImageForm->uploadFile($file, $commandModel->image))){
-                    Yii::$app->session->setFlash('trueAnswer', $request);
+            if ( $request = $commandModel->saveQuestionIsImage($answerImageForm->question_id, $answerImageForm->uploadFile($file, $commandModel->image))){
 
-                    $questionModel = XClassDriveQuestion::findOne($answerImageForm->question_id);
+                Yii::$app->session->setFlash('trueAnswer', $request);
 
-                    return $this->render('question', [
-                        'commandModel' => $commandModel,
-                        'questionModel' => $questionModel,
-                        'answerForm' => $answerForm,
-                        'answerImageForm' => $answerImageForm,
-                    ]);
+                $questionModel = XClassDriveQuestion::findOne($answerImageForm->question_id);
 
-                }
+                return $this->render('question', [
+                    'commandModel' => $commandModel,
+                    'questionModel' => $questionModel,
+                    'answerForm' => $answerForm,
+                    'answerImageForm' => $answerImageForm,
+                ]);
+
             }
         }
 
@@ -239,16 +239,22 @@ class XclassDriveController extends Controller
         }
 
         if ($questionModel === null){
-            $commandUser = User::find()->where(['command_id' => $commandModel->id]);
+            $commandUser = User::find()->where(['command_id' => $commandModel->id])->all();
+            $totalPoint = Yii::$app->params['PointTest']['xClassDrive'];
+            $point = (integer)$totalPoint/4;
+
             foreach ($commandUser as $user){
                 $this->setEndQuest($user, 'xClassDrive');
+                $user->xClassDrive = $point;
+                $user->save();
             }
 
             Yii::$app->session->setFlash('popupEndTest', [
-                'point' => Yii::$app->params['PointTest']['xClassDrive'],
+                'point' => $point,
                 'truAnswers' => null
             ]);
 
+            return $this->redirect('/');
         }
 
         $answerForm->question_id = $questionModel->id;
