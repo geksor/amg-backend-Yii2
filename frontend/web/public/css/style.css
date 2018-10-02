@@ -1283,6 +1283,10 @@ body {
 }
 .home_head_test .block_3_mersedes{
 	margin-right: 10px;
+	flex-flow: initial;
+	justify-content: space-around;
+	align-items: center;
+	display: flex;
 }
 .test_trener .test_1 {
 	background-color: rgba(232, 232, 232, 1);
