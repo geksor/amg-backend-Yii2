@@ -1566,6 +1566,9 @@ body {
 .trenr_group_opros_name h2{
 	width: 50%;
 }
+.trenr_group_opros_name img{
+	width: 50%;
+}
 .ul_bal_12 {
 	display: flex;
 	flex-flow: row;
@@ -1617,7 +1620,7 @@ body {
 	align-items: center;
 }
 .trenr_group_opros_in .trenr_group_opros{
-	width: 48%;
+	width: 45%;
 	margin: 1%;
 	display: inline-block;
 }
