@@ -26,10 +26,12 @@ $imageId = Yii::$app->session->get('images')[$step]['id'];
    ]) ?>
     <div class="x-class_content">
         <? foreach ($images as $image) {?>
+            <?/* @var $image \common\models\GalleryImage */?>
             <? if ($image->id === $imageId) {?>
                 <div class="mix__imageWrap">
                     <?= \yii\helpers\Html::img($image->getUrl('small'), ['alt' => $image->name, 'class' => 'mix__imageAbsolute']); ?>
                 </div>
+                <p class="mixStatic__imageName"><?= $image->name ?></p>
             <?}?>
         <?}?>
 

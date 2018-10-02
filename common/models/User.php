@@ -143,13 +143,14 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email',], 'required'],
-            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint', 'command_id'], 'integer'],
+            [['status', 'role', 'created_at', 'updated_at', 'group', 'training_id', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint'], 'integer'],
             [['username', 'surname', 'first_name', 'last_name', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['dealer_center_id'], 'exist', 'skipOnError' => true, 'targetClass' => DealerCenter::className(), 'targetAttribute' => ['dealer_center_id' => 'id']],
             [['training_id'], 'exist', 'skipOnError' => true, 'targetClass' => Training::className(), 'targetAttribute' => ['training_id' => 'id']],
+            [['command_id'], 'safe'],
         ];
     }
 
@@ -181,7 +182,7 @@ class User extends ActiveRecord implements IdentityInterface
             'mixDrive' => 'Mix Тест-Драйв',
             'xClassLine' => 'X-Класс линии исполнения',
             'quiz' => 'Викторина',
-            'moderatorPoints' => 'Очки от модератора',
+            'moderatorPoints' => 'Intelligent Drive',
             'totalPoint' => 'Всего очков',
             'command_id' => 'Command ID',
         ];

@@ -60,11 +60,14 @@ $this->title = 'ABS Авто раздел тренера список учасн
 
 <script>
     window.onload = function () {
+
+        var maxPoint = <?= $maxPoint ?>;
+
         $('.group_bal').each(function () {
 
             $(this).progressbar({
                 value: $(this).data('value'),
-                max: <?= $maxPoint ?>
+                max: maxPoint
             })
         });
 
@@ -76,7 +79,8 @@ $this->title = 'ABS Авто раздел тренера список учасн
         $('#groupSelect_2').on('click', function () {
             $('#group_1_block').hide();
             $('#group_2_block').show();
-        })
+        });
+
     }
 </script>
 

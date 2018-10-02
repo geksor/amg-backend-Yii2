@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use common\models\User;
+use common\models\UserSearch;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,6 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         return $this->render('index');
     }
 
@@ -75,7 +78,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
             return $this->goBack();
         } else {
             $model->password = '';
