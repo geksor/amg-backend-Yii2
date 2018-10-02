@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $trainingsArr */
+/* @var $dealerCentersArr */
 ?>
 
 <div class="user-form">
@@ -23,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'training_id')->dropDownList($trainingsArr, [ 'prompt' => 'Выберите один вариант', ]) ?>
 
-    <?= $form->field($model, 'dealer_center_id')->textInput() ?>
+    <?= $form->field($model, 'dealer_center_id')->dropDownList($dealerCentersArr, [ 'prompt' => 'Выберите один вариант', ]) ?>
 
 
     <div class="form-group">
