@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\AmgDrive;
 use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;
+use common\models\Command;
 use common\models\Contact;
 use common\models\DealerCenter;
 use common\models\EndQuest;
@@ -55,7 +56,6 @@ class TrainerController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-
                     [
                         'actions' => [
                             'logout',
@@ -76,6 +76,7 @@ class TrainerController extends Controller
                             'training-map',
                             'rules',
                             'quiz',
+                            'xclass-drive',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -267,63 +268,12 @@ class TrainerController extends Controller
      */
     public function actionMixStatic()
     {
-        $models = MixStatic::find()->with('users')->all();
-        $viewedCount = 0;
-        foreach ($models as $model)
-        {
-        /* @var $model MixStatic */
-            if (!empty($model->users)) {
-                foreach ($model->users as $user){
-                    if ($user->id == Yii::$app->user->id && $user->isMixStaticViewed($model->id)){
-                        ++$viewedCount;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if ($viewedCount === 3){
-            $userModel = User::findOne(Yii::$app->user->id);
-            $userModel->mixStatic = Yii::$app->params['PointTest']['mixStatic'];
-            if ($userModel->save()){
-                Yii::$app->session->remove('images');
-
-                $this->setEndQuest($userModel, 'mixStatic');
-
-                Yii::$app->session->setFlash('popupEndTest', [
-                    'point' => $userModel->mixStatic,
-                ]);
-                return $this->redirect('/site/index');
-            }
-        }
+        $models = MixStatic::find()->with('mixStaticUsers')->all();
 
         return $this->render('mix-static', [
             'models' => $models,
         ]);
     }
-
-    /**
-     * @param $userModel
-     * @param $testName
-     */
-    public function setEndQuest($userModel, $testName)
-    {
-        /* @var $userModel User */
-        /* @var $endQuestsModel EndQuest */
-        if (!empty($userModel->endQuests)){
-            $endQuestsModel = EndQuest::findOne($userModel->endQuests->id);
-            if (!$endQuestsModel->$testName){
-                $endQuestsModel->$testName = 1;
-                $endQuestsModel->save();
-            }
-        }else{
-            $endQuestsModel = new EndQuest();
-            $endQuestsModel->user_id = Yii::$app->user->id;
-            $endQuestsModel->$testName = 1;
-            $endQuestsModel->save();
-        }
-    }
-
 
     /**
      * Displays mix-static-gallery Page.
@@ -334,31 +284,13 @@ class TrainerController extends Controller
      *
      * @return mixed
      */
-    public function actionMixStaticGallery($id, $step = 0, $imageId = null, $stars = null)
+    public function actionMixStaticGallery($id)
     {
         $model = MixStatic::findOne($id);
         $images = $model->getBehavior('galleryBehavior')->getImages();
-        $userModel = User::findOne(Yii::$app->user->id);
-        if (ArrayHelper::toArray($images)){
-            Yii::$app->session->set('images', ArrayHelper::toArray($images));
-        }
-
-        if ($imageId !== null && $stars !== null){
-            if (!$this->isImageVote($imageId, $userModel)){
-                $this->setRatingImage($imageId, $stars);
-                $userModel->saveGalleryImage($imageId);
-            }
-        }
-
-        if (count(ArrayHelper::toArray($images)) == $step){
-            $userModel->saveMixStatic($id);
-            return $this->redirect('/site/mix-static');
-        }
 
         return $this->render('mix-static-gallery', [
-            'model' => $model,
             'images' => $images,
-            'step' => $step,
         ]);
     }
 
@@ -830,6 +762,28 @@ class TrainerController extends Controller
 
         return $this->render('x-class-line', [
             'questionModel' => $questionModel,
+        ]);
+    }
+
+    /**
+     * Displays xclass-drive Page.
+     *
+     * @var $commandModels Command
+     *
+     * @return mixed
+     */
+    public function actionXclassDrive()
+    {
+        $commandModels = Command::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+            ])
+            ->with(['captain'])
+            ->all();
+
+        return $this->render('xclass-drive', [
+            'commandModels' => $commandModels,
         ]);
     }
 
