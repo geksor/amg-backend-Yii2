@@ -35,13 +35,13 @@ $this->title = 'ABS Авто AMG Тест-Драйв';
                     <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
                 </div>
                 <div class = "group_bal">
-                    <? if ($endQuests->amgDrive) {?>
+                    <? if ($endQuests !== null && $endQuests->amgDrive) {?>
                         <p class = "test_ok">Тест завершен</p>
                     <?}else{?>
                         <p class = "test_no">Нет данных</p>
                     <?}?>
                 </div>
-                <? if ($endQuests->amgDrive) {
+                <? if ($endQuests !== null && $endQuests->amgDrive) {
                     echo Html::a('', ['/trainer/amg-drive-view', 'id' => $userModel->id]);
                 }?>
             </div>
