@@ -1152,6 +1152,7 @@ body {
 
 .fullLinkWrap{
 	position: relative;
+	width: 100%;
 }
 .fullLink{
 	position: absolute;
