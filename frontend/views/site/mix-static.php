@@ -33,6 +33,7 @@ $this->title = 'ABS Авто Mix статика';
             <a href="<?= $viewed ? '#' : \yii\helpers\Url::to(['site/mix-static-gallery', 'id' => $model->id]) ?>"
                 class="mix__link <?= $viewed ? 'viewed' : '' ?>">
                 <img src = "<?= $model->getThumbPhoto() ?>" alt="<?= $model->title ?>" class = "mix_img">
+                <span><?= $model->title ?></span>
             </a>
         <?}?>
     </div>

@@ -71,12 +71,9 @@ class TrainerController extends Controller
                             'mix-drive-view',
                             'amg-drive-view',
                             'x-class-line',
-                            'info',
-                            'contact',
-                            'training-map',
-                            'rules',
                             'quiz',
                             'xclass-drive',
+                            'intelligent',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -177,63 +174,6 @@ class TrainerController extends Controller
             'userModelsGroup1' => $userModelsGroup1,
             'userModelsGroup2' => $userModelsGroup2,
             'maxPoint' => $maxPoint,
-        ]);
-    }
-
-
-    /**
-     * Displays infoPage.
-     *
-     * @return mixed
-     */
-    public function actionInfo()
-    {
-
-        return $this->render('info');
-    }
-
-    /**
-     * Displays contactPage.
-     * @var $models Contact
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $models = Contact::find()->all();
-
-        return $this->render('contact', [
-            'models' => $models
-        ]);
-    }
-
-    /**
-     * Displays training-map Page.
-     * @var $map
-     *
-     * @return mixed
-     */
-    public function actionTrainingMap()
-    {
-        $map = Yii::$app->params['RulesTraining']['map'];
-
-        return $this->render('training-map', [
-            'map' => $map
-        ]);
-    }
-
-    /**
-     * Displays training-map Page.
-     * @var $map
-     *
-     * @return mixed
-     */
-    public function actionRules()
-    {
-        $rules = Yii::$app->params['RulesTraining']['rules'];
-
-        return $this->render('rules', [
-            'rules' => $rules
         ]);
     }
 
@@ -346,133 +286,59 @@ class TrainerController extends Controller
         ]);
     }
 
-
     /**
      * Displays x-class-line Page.
      *
-     * @var $mixDriveModel MixDrive
-     * @var $models XClassLineTest
+     * @var $userModels User
      *
      * @return mixed
      */
     public function actionXClassLine()
     {
-        $userModel = User::findOne(Yii::$app->user->id);
-
-        if (Yii::$app->request->isPost){
-            $userModel->saveQuestion(Yii::$app->request->post('questId'));
-
-            $trueAnswer = 0;
-
-            $colLeft_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colLeft'));
-            $colRight_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colRight'));
-
-            if ((integer)$colLeft_answer->column === 1){
-                ++$trueAnswer;
-            }
-            if ((integer)$colRight_answer->column === 0){
-                ++$trueAnswer;
-            }
-
-            if (Yii::$app->session->has('trueAnswersXClassLine')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersXClassLine') + $trueAnswer;
-                Yii::$app->session->set('trueAnswersXClassLine', $trueAnswerFromSession);
-            }else{
-                Yii::$app->session->set('trueAnswersXClassLine', $trueAnswer);
-            }
-
-        }
-
-        $models = XClassLineTest::find()
-            ->select('id')
-            ->with([
-                'xClassLineQuestions' => function (\yii\db\ActiveQuery $query) {
-                    $query->andWhere('answerCount > 1');
-                },
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
             ])
-            ->asArray()
-            ->all();
+            ->orderBy(['xClassLine' => SORT_DESC])->all();
 
-        $tempArr = [];
+        $maxPoint = (integer)Yii::$app->params['PointTest']['xClassLine'];
 
-        foreach ($models as $model){
-            if (!empty($model['xClassLineQuestions'])){
-                $tempArr[] = $model;
-            }
-        }
-
-        $idArr = ArrayHelper::index($tempArr, 'id');
-
-        if (empty($idArr))
-        {
-            return $this->redirect('/');
-        }
-
-        $testId = null;
-
-        if (Yii::$app->session->has('xClassLineTestId')){
-            $testId = Yii::$app->session->get('xClassLineTestId');
-        }else{
-            $testId = array_rand($idArr, 1);
-        }
-
-        $model = XClassLineTest::find()
-            ->where(['id' => $testId])
-            ->with([
-                'xClassLineQuestions' => function (\yii\db\ActiveQuery $query) {
-                    $query->andWhere('answerCount > 1')
-                        ->with([ 'xClassLineAnswers' ]);
-                },
-            ])
-            ->one();
-        /* @var $model XClassLineTest */
-        if (!Yii::$app->session->has('xClassLineTestId')){
-            Yii::$app->session->set('xClassLineTestId', $model->id);
-        }
-
-        $questionModel = null;
-
-        foreach ($model->xClassLineQuestions as $question){
-            if (!$question->isUserAnswer(Yii::$app->user->id)) {
-                $questionModel = $question;
-                break;
-            }
-        }
-
-        if (!$questionModel){
-            $maxPoint = Yii::$app->params['PointTest']['xClassLine'];
-
-            $totalQuestion = count($model->xClassLineQuestions)*2;
-
-            $pointStep = $maxPoint/$totalQuestion;
-
-            $point = ceil(Yii::$app->session->get('trueAnswersXClassLine')*$pointStep);
-
-            $this->setEndQuest($userModel, 'xClassLine');
-
-            $userModel->xClassLine = $point;
-            $userModel->save();
-
-            Yii::$app->session->setFlash('popupEndTest', [
-                'point' => $point,
-                'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswersXClassLine'),
-                    'total' => $totalQuestion,
-                ]
-            ]);
-
-            Yii::$app->session->remove('point');
-            Yii::$app->session->remove('xClassLineTestId');
-            Yii::$app->session->remove('trueAnswersXClassLine');
-
-            return $this->redirect('/');
-        }
 
         return $this->render('x-class-line', [
-            'questionModel' => $questionModel,
+            'userModels' => $userModels,
+            'maxPoint' => $maxPoint,
         ]);
+
     }
 
+    /**
+     * Displays intelligent Page.
+     *
+     * @var $userModels User
+     *
+     * @return mixed
+     */
+    public function actionIntelligent()
+    {
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->orderBy(['intelligent' => SORT_DESC])->all();
+
+        $maxPoint = (integer)Yii::$app->params['PointTest']['intelligent'];
+
+
+        return $this->render('intelligent', [
+            'userModels' => $userModels,
+            'maxPoint' => $maxPoint,
+        ]);
+
+    }
 
     /**
      * Displays amg-drive Page.
@@ -617,90 +483,6 @@ class TrainerController extends Controller
             'userModels' => $userModels,
             'maxPoint' => $maxPoint,
             'quizCount' => $quizCount,
-        ]);
-    }
-
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-            }
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
         ]);
     }
 

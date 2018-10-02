@@ -13,11 +13,11 @@ use yii\widgets\ActiveForm;
 /* @var $userModels \common\models\User */
 /* @var $maxPoint \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто X-Класс линии исполнения';
+$this->title = 'ABS Авто Intelligent Drive';
 ?>
-<div class = "info info_trenr_group_viktorina">
+<div class = "info info_trenr_group in_drive">
     <?= $this->render('_top-line', [
-        'title' => 'X-Класс линии исполнения',
+        'title' => 'Intelligent Drive',
         'link' => '/trainer/index',
     ]) ?>
 
@@ -46,7 +46,7 @@ $this->title = 'ABS Авто X-Класс линии исполнения';
                     <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
                 </div>
                 <div class = "group_bal">
-                    <p class = "group_bal_number" data-value="<?= $userModel->xClassLine ?>"><?= $userModel->xClassLine ?></p>
+                    <p class = "group_bal_number" data-value="<?= $userModel->intelligent ?>"><?= $userModel->intelligent ?></p>
                 </div>
             </div>
         <?}?>

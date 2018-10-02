@@ -60,11 +60,14 @@ $this->title = 'ABS Авто раздел тренера список учасн
 
 <script>
     window.onload = function () {
+
+        var maxPoint = <?= $maxPoint ?>;
+
         $('.group_bal').each(function () {
 
             $(this).progressbar({
                 value: $(this).data('value'),
-                max: <?= $maxPoint ?>
+                max: maxPoint
             })
         });
 
@@ -76,7 +79,44 @@ $this->title = 'ABS Авто раздел тренера список учасн
         $('#groupSelect_2').on('click', function () {
             $('#group_1_block').hide();
             $('#group_2_block').show();
-        })
+        });
+
+        function connect () {
+            // var chat = new WebSocket('ws://188.225.10.52:1024');
+            var chat = new WebSocket('ws://localhost:8081');
+            chat.onmessage = function(e) {
+
+                var response = JSON.parse(e.data);
+                if (response.type && response.type === 'changePoint') {
+                    console.log(response);
+                    var messClass = +response.from.id === +$sendMessage.data('id') ? ' messege_user' : '';
+                    var messName = +response.from.id === +$sendMessage.data('id') ? 'Вы' : response.from.name;
+                    $chatBlock.append( '<div class="messege' + messClass + '"><h3>' + messName + '</h3> <p>' + response.message + '</p></div>' );
+                    $chatWrap.scrollTop($chatBlock.height());
+                } else if (response.message) {
+                    console.log(response.message);
+                }
+            };
+            chat.onopen = function(e) {
+                chat.send( JSON.stringify({'action' : 'setName', 'name' : $sendMessage.data('name'), 'id' : $sendMessage.data('id')}) );
+                console.log('connect')
+            };
+            $('#send').click(function() {
+                if ($sendMessage.val()) {
+                    chat.send( JSON.stringify({'action' : 'chat', 'message' : $sendMessage.val()}) );
+                    $sendMessage.val('');
+                } else {
+                    alert('Enter the message')
+                }
+            });
+
+            chat.onclose = function () {
+                connect()
+            };
+        }
+
+        connect();
+
     }
 </script>
 

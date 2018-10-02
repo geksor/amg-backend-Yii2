@@ -21,7 +21,7 @@ $this->title = 'ABS Авто Mix статика';
     ]) ?>
 
     <? foreach ($models as $model) {?>
-        <div class="x-class_content">
+        <div id="gallery_<?= $model->id ?>" class="x-class_content">
             <div class = "trenr_group_opros">
                 <div class = "trenr_group_opros_name linkWrap">
                     <h2><?= $model->title ?></h2>
@@ -35,32 +35,14 @@ $this->title = 'ABS Авто Mix статика';
                 ?>
                 <div class = "trenr_group_opros_progres">
                     <ul class="ul_bal_12">
-                        <li class ="item_1"></li>
-                        <li class ="item_2"></li>
-                        <li class ="item_3"></li>
-                        <li class ="item_4"></li>
-                        <li class ="item_5"></li>
-                        <li class ="item_6"></li>
-                        <li class ="item_7"></li>
-                        <li class ="item_8"></li>
-                        <li class ="item_9"></li>
-                        <li class ="item_10"></li>
-                        <li class ="item_11"></li>
-                        <li class ="item_12"></li>
+                        <? for ($item = 1; $item<=12; $item++) {?>
+                            <li class ="item_<?=$item?> <?= $item <= $userCount ? 'active' : '' ?>"></li>
+                        <?}?>
                     </ul>
                     <ul class="ul_bal_12">
-                        <li class ="item_13"></li>
-                        <li class ="item_14"></li>
-                        <li class ="item_15"></li>
-                        <li class="item_16 "></li>
-                        <li class="item_17 "></li>
-                        <li class="item_18 "></li>
-                        <li class="item_19 "></li>
-                        <li class="item_20 "></li>
-                        <li class="item_21 "></li>
-                        <li class="item_22 "></li>
-                        <li class="item_23 "></li>
-                        <li class="item_24 "></li>
+                        <? for ($item = 13; $item<=24; $item++) {?>
+                            <li class ="item_<?=$item?> <?= $item <= $userCount ? 'active' : '' ?>"></li>
+                        <?}?>
                     </ul>
                 </div>
                 <p><?= $userCount ?>/24</p>
@@ -73,11 +55,7 @@ $this->title = 'ABS Авто Mix статика';
 
 <script>
     window.onload = function () {
-        var userCount = <?= $userCount ?>;
 
-        for (var item = 1; item <= userCount; item++) {
-            $('.item_' + item).addClass('active');
-        }
     }
 </script>
 
