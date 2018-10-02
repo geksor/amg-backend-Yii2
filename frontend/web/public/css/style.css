@@ -742,12 +742,12 @@ body {
 	background: rgba(0, 152, 141, 0.1);
 }
 .schedule_data{
-	width: 25%;
+	width: 34%;
 	color: #00988d;
 	text-align: center;
 }
 .schedule_read{
-	width: 75%;
+	width: 65%;
 }
 
 .timetableDayWrap{
