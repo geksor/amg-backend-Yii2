@@ -35,13 +35,13 @@ $this->title = 'ABS Авто MIX Тест-Драйв';
                     <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
                 </div>
                 <div class = "group_bal">
-                    <? if ($endQuests->mixDrive) {?>
+                    <? if ($endQuests !== null && $endQuests->mixDrive) {?>
                         <p class = "test_ok">Тест завершен</p>
                     <?}else{?>
                         <p class = "test_no">Нет данных</p>
                     <?}?>
                 </div>
-                <? if ($endQuests->mixDrive) {
+                <? if ($endQuests !== null && $endQuests->mixDrive) {
                     echo Html::a('', ['/trainer/mix-drive-view', 'id' => $userModel->id]);
                 }?>
             </div>

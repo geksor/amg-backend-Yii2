@@ -24,8 +24,7 @@ $this->title = "ABS Авто $title";
 
     <div class="x-class_content">
         <p class = "mix_ul_p"><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
-        <img src = "images/noimage.svg" class = "mix_img">
-        <?= Html::img($driveModel->getPhoto()) ?>
+        <?= Html::img($driveModel->getPhoto(), ['class' => 'mix_img']) ?>
     </div>
 
     <?= $this->render('_footer') ?>

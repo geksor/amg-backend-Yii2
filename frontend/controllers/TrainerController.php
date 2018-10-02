@@ -346,99 +346,6 @@ class TrainerController extends Controller
         ]);
     }
 
-    /**
-     * Displays amg-drive Page.
-     *
-     * @var $userModels User
-     *
-     * @return mixed
-     */
-    public function actionAmgDrive()
-    {
-        $userModels = User::find()
-            ->where([
-                'training_id' => Yii::$app->user->identity->training_id,
-                'group' => Yii::$app->user->identity->group,
-                'role' => [4,3],
-            ])
-            ->with(['endQuests', 'amgDrives'])
-            ->orderBy(['totalPoint' => SORT_DESC])->all();
-
-        return $this->render('amg-drive', [
-            'userModels' => $userModels,
-        ]);
-    }
-
-    /**
-     * Displays mix-drive Page.
-     *
-     * @var $userModels User
-     *
-     * @return mixed
-     */
-    public function actionMixDrive()
-    {
-        $userModels = User::find()
-            ->where([
-                'training_id' => Yii::$app->user->identity->training_id,
-                'group' => Yii::$app->user->identity->group,
-                'role' => [4,3],
-            ])
-            ->with(['endQuests', 'mixDrives'])
-            ->orderBy(['totalPoint' => SORT_DESC])->all();
-
-        return $this->render('mix-drive', [
-            'userModels' => $userModels,
-        ]);
-    }
-
-    /**
-     * Displays mix-drive-view Page.
-     *
-     * @var $userModel User
-     * @var $driveModel MixDrive
-     *
-     * @param $driveId
-     * @param $userId
-     *
-     * @return mixed
-     */
-    public function actionMixDriveView($id)
-    {
-        $userModel = User::findOne($id);
-
-        $driveModel = MixDrive::findOne(['user_id' => $id]);
-
-        return $this->render('drive-view', [
-            'userModel' => $userModel,
-            'driveModel' => $driveModel,
-            'title' => 'MIX Тест-Драйв',
-        ]);
-    }
-
-    /**
-     * Displays amg-drive-view Page.
-     *
-     * @var $userModel User
-     * @var $driveModel MixDrive
-     *
-     * @param $driveId
-     * @param $userId
-     *
-     * @return mixed
-     */
-    public function actionAmgDriveView($id)
-    {
-        $userModel = User::findOne($id);
-
-        $driveModel = AmgDrive::findOne(['user_id' => $id]);
-
-        return $this->render('drive-view', [
-            'userModel' => $userModel,
-            'driveModel' => $driveModel,
-            'title' => 'AMG Тест-Драйв',
-        ]);
-    }
 
     /**
      * Displays x-class-line Page.
@@ -563,6 +470,101 @@ class TrainerController extends Controller
 
         return $this->render('x-class-line', [
             'questionModel' => $questionModel,
+        ]);
+    }
+
+
+    /**
+     * Displays amg-drive Page.
+     *
+     * @var $userModels User
+     *
+     * @return mixed
+     */
+    public function actionAmgDrive()
+    {
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->with(['endQuests', 'amgDrives'])
+            ->orderBy(['totalPoint' => SORT_DESC])->all();
+
+        return $this->render('amg-drive', [
+            'userModels' => $userModels,
+        ]);
+    }
+
+    /**
+     * Displays mix-drive Page.
+     *
+     * @var $userModels User
+     *
+     * @return mixed
+     */
+    public function actionMixDrive()
+    {
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->with(['endQuests', 'mixDrives'])
+            ->orderBy(['totalPoint' => SORT_DESC])->all();
+
+        return $this->render('mix-drive', [
+            'userModels' => $userModels,
+        ]);
+    }
+
+    /**
+     * Displays mix-drive-view Page.
+     *
+     * @var $userModel User
+     * @var $driveModel MixDrive
+     *
+     * @param $driveId
+     * @param $userId
+     *
+     * @return mixed
+     */
+    public function actionMixDriveView($id)
+    {
+        $userModel = User::findOne($id);
+
+        $driveModel = MixDrive::findOne(['user_id' => $id]);
+
+        return $this->render('drive-view', [
+            'userModel' => $userModel,
+            'driveModel' => $driveModel,
+            'title' => 'MIX Тест-Драйв',
+        ]);
+    }
+
+    /**
+     * Displays amg-drive-view Page.
+     *
+     * @var $userModel User
+     * @var $driveModel MixDrive
+     *
+     * @param $driveId
+     * @param $userId
+     *
+     * @return mixed
+     */
+    public function actionAmgDriveView($id)
+    {
+        $userModel = User::findOne($id);
+
+        $driveModel = AmgDrive::findOne(['user_id' => $id]);
+
+        return $this->render('drive-view', [
+            'userModel' => $userModel,
+            'driveModel' => $driveModel,
+            'title' => 'AMG Тест-Драйв',
         ]);
     }
 
