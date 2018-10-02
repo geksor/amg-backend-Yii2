@@ -181,7 +181,7 @@ class User extends ActiveRecord implements IdentityInterface
             'mixDrive' => 'Mix Тест-Драйв',
             'xClassLine' => 'X-Класс линии исполнения',
             'quiz' => 'Викторина',
-            'moderatorPoints' => 'Очки от модератора',
+            'moderatorPoints' => 'Intelligent Drive',
             'totalPoint' => 'Всего очков',
             'command_id' => 'Command ID',
         ];
