@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Training;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
@@ -90,8 +91,20 @@ class UserController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $trainings = Training::find()->select(['id', 'date'])->asArray()->all();
+
+        $trainingsArr = [];
+
+        if (!empty($trainings)){
+            foreach ($trainings as $training){
+                $value = date("d.m.Y", (integer) $training['date']);
+                $trainingsArr[$training['id']] = $value;
+            }
+        }
+
         return $this->render('update', [
             'model' => $model,
+            'trainingsArr' => $trainingsArr,
         ]);
     }
 

@@ -171,7 +171,7 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => 'Дата регистрации',
             'updated_at' => 'Дата редактирования',
             'group' => 'Группа',
-            'training_id' => 'Training ID',
+            'training_id' => 'Тренинг',
             'dealer_center_id' => 'Dealer Center ID',
             'amgStatic' => 'AMG статика',
             'mixStatic' => 'Mix статика',
