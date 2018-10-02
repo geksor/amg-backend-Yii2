@@ -92,13 +92,13 @@ $this->title = 'ABS Авто Чат';
                     chat.send( JSON.stringify({'action' : 'chat', 'message' : $sendMessage.val()}) );
                     $sendMessage.val('');
                 } else {
-                    alert('Enter the message')
+                    // alert('Enter the message')
                 }
             });
 
-            chat.onclose = function () {
-                connect()
-            };
+            // chat.onclose = function () {
+            //     connect()
+            // };
         }
 
         connect();
