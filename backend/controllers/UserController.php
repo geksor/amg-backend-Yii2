@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\DealerCenter;
 use common\models\Training;
 use Yii;
 use common\models\User;
@@ -102,9 +103,21 @@ class UserController extends Controller
             }
         }
 
+        $dealerCenters = DealerCenter::find()->select(['id', 'title'])->asArray()->all();
+
+        $dealerCentersArr = [];
+
+        if (!empty($dealerCenters)){
+            foreach ($dealerCenters as $dealerCenter){
+                $value = $dealerCenter['title'];
+                $dealerCentersArr[$dealerCenter['id']] = $value;
+            }
+        }
+
         return $this->render('update', [
             'model' => $model,
             'trainingsArr' => $trainingsArr,
+            'dealerCentersArr' => $dealerCentersArr,
         ]);
     }
 
