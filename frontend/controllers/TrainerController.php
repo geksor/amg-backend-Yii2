@@ -293,254 +293,56 @@ class TrainerController extends Controller
         ]);
     }
 
-    public function setRatingImage($id, $stars)
-    {
-        $model = GalleryImage::findOne($id);
-
-        $model->rating = $model->rating + (int) $stars;
-        $model->voteCount = ++$model->voteCount;
-
-        if ($model->save()){
-            return true;
-        };
-
-        return false;
-    }
-
-    /**
-     * isImageVote ?
-     *
-     * @var $userModel User
-     *
-     * @return boolean
-     *
-     */
-    public function isImageVote($imageId, $userModel)
-    {
-        if (!empty($userModel->galleryImages)){
-            foreach ($userModel->galleryImages as $image)
-            {
-                if ($image->id === (integer)$imageId)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     /**
      * Displays amg-static Page.
      *
-     * @var $models AmgStaticTest
-     * @var $model AmgStaticTest
+     * @var $userModels User
+     * @var $maxPoint
      *
      * @return mixed
      */
-    public function actionAmgStatic($questId = null, $img_1 = null, $img_2 = null, $img_3 = null)
+    public function actionAmgStatic()
     {
-        $userModel = User::findOne(Yii::$app->user->id);
-
-        if ($questId){
-            $userModel->saveAmgTest($questId);
-
-            $trueAnswer = 0;
-
-            $img_1_answer = AmgStaticAnswer::findOne($img_1);
-            $img_2_answer = AmgStaticAnswer::findOne($img_2);
-            $img_3_answer = AmgStaticAnswer::findOne($img_3);
-
-            if ((integer)$img_1_answer->trueImage === 1){
-                ++$trueAnswer;
-            }
-            if ((integer)$img_2_answer->trueImage === 2){
-                ++$trueAnswer;
-            }
-            if ((integer)$img_3_answer->trueImage === 3){
-                ++$trueAnswer;
-            }
-
-            if (Yii::$app->session->has('trueAnswersAmgStatic')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersAmgStatic') + $trueAnswer;
-                Yii::$app->session->set('trueAnswersAmgStatic', $trueAnswerFromSession);
-            }else{
-                Yii::$app->session->set('trueAnswersAmgStatic', $trueAnswer);
-            }
-
-        }
-
-        $models = AmgStaticTest::find()
-            ->select('id')
-            ->with([
-                'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
-                    $query->andWhere(['answerCount' => 3]);
-                },
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
             ])
-            ->asArray()
-            ->all();
+            ->orderBy(['amgStatic' => SORT_DESC])->all();
 
-        $tempArr = [];
+        $maxPoint = (integer)Yii::$app->params['PointTest']['amgStatic'];
 
-        foreach ($models as $model){
-            if (!empty($model['amgStaticQuestions'])){
-                $tempArr[] = $model;
-            }
-        }
-
-        $idArr = ArrayHelper::index($tempArr, 'id');
-
-        if (empty($idArr))
-        {
-            return $this->redirect('/');
-        }
-
-        $testId = null;
-
-        if (Yii::$app->session->has('amgStaticTestId')){
-            $testId = Yii::$app->session->get('amgStaticTestId');
-        }else{
-            $testId = array_rand($idArr, 1);
-        }
-
-        $model = AmgStaticTest::find()
-            ->where(['id' => $testId])
-            ->with([
-                'amgStaticQuestions' => function (\yii\db\ActiveQuery $query) {
-                    $query->andWhere(['answerCount' => 3])
-                    ->with([
-                        'amgStaticAnswers' => function (\yii\db\ActiveQuery $query) {
-                            $query->orderBy('rank');
-                        }
-                    ]);
-                },
-            ])
-            ->one();
-        /* @var $model AmgStaticTest */
-        if (!Yii::$app->session->has('amgStaticTestId')){
-            Yii::$app->session->set('amgStaticTestId', $model->id);
-        }
-
-        $questionModel = null;
-
-        foreach ($model->amgStaticQuestions as $question){
-            if (!$question->isUserAnswer(Yii::$app->user->id)) {
-                $questionModel = $question;
-                break;
-            }
-        }
-
-        if (!$questionModel){
-            $maxPoint = Yii::$app->params['PointTest']['amgStatic'];
-
-            $totalQuestion = count($model->amgStaticQuestions)*3;
-
-            $pointStep = $maxPoint/$totalQuestion;
-
-            $point = ceil(Yii::$app->session->get('trueAnswersAmgStatic')*$pointStep);
-
-            $this->setEndQuest($userModel, 'amgStatic');
-
-            $userModel->amgStatic = $point;
-            $userModel->save();
-
-            Yii::$app->session->setFlash('popupEndTest', [
-                'point' => $point,
-                'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswersAmgStatic'),
-                    'total' => $totalQuestion,
-                ]
-            ]);
-
-            Yii::$app->session->remove('point');
-            Yii::$app->session->remove('amgStaticTestId');
-            Yii::$app->session->remove('trueAnswers');
-
-            return $this->redirect('/');
-        }
 
         return $this->render('amg-static', [
-            'questionModel' => $questionModel,
+            'userModels' => $userModels,
+            'maxPoint' => $maxPoint,
         ]);
     }
 
     /**
      * Displays mbux Page.
      *
-     * @var $models MbuxTest
+     * @var $userModels User
      *
      * @return mixed
      */
     public function actionMbux()
     {
-        if (Yii::$app->request->post('userId') && Yii::$app->request->post('end')){
+        $userModels = User::find()
+            ->where([
+                'training_id' => Yii::$app->user->identity->training_id,
+                'group' => Yii::$app->user->identity->group,
+                'role' => [4,3],
+            ])
+            ->orderBy(['mbux' => SORT_DESC])->all();
 
-            $point = Yii::$app->params['PointTest']['mbux'];
+        $maxPoint = (integer)Yii::$app->params['PointTest']['mbux'];
 
-            $userModel = User::findOne(Yii::$app->request->post('userId'));
-
-            $userModel->mbux = $point;
-
-            if ($userModel->save()){
-                $this->setEndQuest($userModel, 'mbux');
-                Yii::$app->session->setFlash('popupEndTest', [
-                    'point' => $point,
-                ]);
-
-                return $this->goHome();
-            }
-
-            return $this->redirect('/site/mbux');
-        }
-
-        $models = MbuxTest::find()
-            ->select('id')
-            ->with('mbuxQuestions')
-            ->asArray()
-            ->all();
-
-        $tempArr = [];
-
-        foreach ($models as $model){
-            if (!empty($model['mbuxQuestions'])){
-                $tempArr[] = $model;
-            }
-        }
-
-        $idArr = ArrayHelper::index($tempArr, 'id');
-
-        if (empty($idArr))
-        {
-            return $this->redirect('/');
-        }
-
-        $testId = null;
-
-        if (Yii::$app->session->has('mbuxId')){
-            $testId = Yii::$app->session->get('mbuxId');
-        }else{
-            $testId = array_rand($idArr, 1);
-        }
-
-
-            $model = MbuxTest::find()
-                ->where(['id' => $testId])
-                ->with('mbuxQuestions')
-                ->one();
-        if (!$model){
-            if (Yii::$app->session->has('mbuxId')){
-                Yii::$app->session->remove('mbuxId');
-            }
-            return $this->redirect('/site/mbux');
-        }
-
-
-        /* @var $model AmgStaticTest */
-        if (!Yii::$app->session->has('mbuxId')){
-            Yii::$app->session->set('mbuxId', $model->id);
-        }
 
         return $this->render('mbux', [
-            'model' => $model,
+            'userModels' => $userModels,
+            'maxPoint' => $maxPoint,
         ]);
     }
 
@@ -802,7 +604,7 @@ class TrainerController extends Controller
                 'role' => [4,3],
             ])
             ->with('userQuizzes')
-            ->orderBy(['totalPoint' => SORT_DESC])->all();
+            ->orderBy(['quiz' => SORT_DESC])->all();
 
         $quizCount = Quiz::find()->count();
 
