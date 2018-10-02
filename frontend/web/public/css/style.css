@@ -269,6 +269,7 @@ body {
 	padding: 15px 20px;
 	border: none;
 	height: 48px;
+	font-size: 16px;
 }
 .button_back{
 	width: 50%;
@@ -418,7 +419,7 @@ body {
 }
 .test h3{
 	font-family: CorporateA-Demi, sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	padding: 16px 0 16px 16px;
 }
 .test p{
@@ -440,7 +441,7 @@ body {
 	background-color: rgba(232, 232, 232, 1);
 }
 .test_1 h3{
-	color: #000;
+	color: #fff;
 }
 .test_2{
 	background-color: rgba(255, 213, 100, 0.3);
@@ -449,7 +450,7 @@ body {
 	background-color: rgba(255, 213, 100, 1);
 }
 .test_2 h3{
-	color: #000;
+	color: #fff;
 }
 .test_3{
 	background-color: rgba(243, 138, 66, 0.3);
@@ -892,6 +893,9 @@ body {
 }
 .mixStatic__imageName{
 	margin-bottom: 10px;
+}
+.popup_p{
+	margin-top: 10px;
 }
 /* Mix статика
 -----------------------------------------------------------------------------*/
