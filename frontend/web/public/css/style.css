@@ -578,14 +578,17 @@ body {
 	overflow-y: auto;
 }
 .back img{
-	width: 9px;
-	margin-right: 10px;
+	width: 3%;
+	margin-right: 5%;
 }
 .back{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
+}
+.back p{
+	width: 92%;
 }
 .forum_block_1{
 	flex-flow: row wrap;
@@ -742,12 +745,13 @@ body {
 	background: rgba(0, 152, 141, 0.1);
 }
 .schedule_data{
-	width: 34%;
+	width: 27%;
 	color: #00988d;
-	text-align: center;
+	text-align: left;
+	font-size: 12px;
 }
 .schedule_read{
-	width: 65%;
+	width: 73%;
 }
 
 .timetableDayWrap{
