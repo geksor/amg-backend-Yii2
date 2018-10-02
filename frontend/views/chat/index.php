@@ -46,15 +46,9 @@ $this->title = 'ABS Авто Чат';
             <?}?>
         </div>
     </div>
-    <p>
-        <input id="sendMessage" type="text" name="text" class = "textarea" placeholder = "Написать сообщение.."
-
-               data-name="<?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?>"
-
-               data-id="<?= $userModel->id ?>"
-        >
-    </p>
-    <?= $this->render('_footer') ?>
+    <?= $this->render('_footer', [
+            'userModel' => $userModel,
+    ]) ?>
 </div>
 
 <script>

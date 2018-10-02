@@ -1,10 +1,16 @@
 <?php
 /* @var $this yii\web\View */
-
+/* @var $userModel \common\models\User */
 
 ?>
 
 <div class = "home_footer">
+    <input id="sendMessage" type="text" name="text" class = "textarea" placeholder = "Написать сообщение.."
+
+           data-name="<?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?>"
+
+           data-id="<?= $userModel->id ?>"
+    >
     <div class = "forum_block_1 footerLinkWrap">
         <?= \yii\helpers\Html::a('', '/site/timetable') ?>
         <img src = "/public/images/clock.svg" class = "block_3_img" alt = "настройки">
