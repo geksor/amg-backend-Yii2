@@ -890,6 +890,9 @@ body {
 	font-size: 12px;
 	margin-bottom: 20px;
 }
+.mixStatic__imageName{
+	margin-bottom: 10px;
+}
 /* Mix статика
 -----------------------------------------------------------------------------*/
 .mix_amg{
