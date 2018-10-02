@@ -20,6 +20,7 @@ $this->title = 'ABS Авто раздел тренера главная';
             <p>Группа: <?= $userModel->group ?> </p>
         </div>
     </div>
+    <div class = "flex_1">
     <div class = "home_content test_trener">
         <div data-value="<?= $userModel->xClassDrive ?>" class="test test_1">
             <?= \yii\helpers\Html::a('', '/trainer/xclass-drive') ?>
@@ -64,6 +65,7 @@ $this->title = 'ABS Авто раздел тренера главная';
                 <?= \yii\helpers\Html::a('', '/trainer/intelligent') ?>
             <h3>Intelligent Drive</h3>
         </div>
+    </div>
     </div>
     <?= $this->render('_footer') ?>
 </div>

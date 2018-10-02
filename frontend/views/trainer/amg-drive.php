@@ -19,8 +19,8 @@ $this->title = 'ABS Авто AMG Тест-Драйв';
         'title' => 'AMG Тест-Драйв',
         'link' => '/trainer/index',
     ]) ?>
-
-    <div class = "trenr_groups">
+    <div class = "flex_1">
+        <div class = "trenr_groups">
         <? foreach ($userModels as $key => $userModel) {?>
             <?
                 /* @var $userModel \common\models\User */
@@ -47,7 +47,7 @@ $this->title = 'ABS Авто AMG Тест-Драйв';
             </div>
         <?}?>
     </div>
-
+    </div>
     <?= $this->render('_footer') ?>
 </div> <!-- -->
 
