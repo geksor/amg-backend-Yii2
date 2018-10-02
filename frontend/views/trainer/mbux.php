@@ -6,46 +6,65 @@
  * Time: 11:29
  */
 
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
-/* @var $model \common\models\MbuxTest */
+/* @var $userModels \common\models\User */
+/* @var $maxPoint \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто MBUX теория и практика';
+$this->title = 'ABS Авто MBUX';
 ?>
-
-<div class="info">
+<div class = "info info_trenr_group_viktorina">
     <?= $this->render('_top-line', [
-        'title' => 'MBUX теория и практика',
-        'link' => Yii::$app->homeUrl,
-   ]) ?>
-    <div class="x-class_content">
-        <div class="mbux_slick">
-            <? foreach ($model->mbuxQuestions as $question) {?>
-                <div class="mbux__slide">
-                    <img src = "<?= $question->getPhotos()['image_1'] ?>" class = "mix_img">
-                    <p class = "mix_ul_p"><?= $question->title ?></p>
-                    <p class="mbux__help" style="display: none"><?= $question->description ?></p>
+        'title' => 'MBUX',
+        'link' => '/trainer/index',
+    ]) ?>
+
+    <div class = "trenr_groups">
+        <? foreach ( $userModels as $key => $userModel ) {?>
+            <?
+            /* @var $userModel \common\models\User */
+            $placeClass = '';
+            switch ($key + 1){
+                case 1:
+                    $placeClass = 'gold';
+                    break;
+                case 2:
+                    $placeClass = 'silver';
+                    break;
+                case 3:
+                    $placeClass = 'bronze';
+                    break;
+            }
+            ?>
+            <div class = "trenr_group">
+                <div class = "group_place">
+                    <p class = "group_place_number <?= $placeClass ?>"><?= ++$key ?></p>
                 </div>
-            <?}?>
-        </div>
-        <div class="dotsAppend"></div>
-    </div>
-    <div class="button_next_back">
-        <a class="button_help mbux__helpShow">Подсказка</a>
-        <a class="button_next mbux__next">Далее<img src="/public/images/right-arrow.svg"></a>
-        <?= \yii\helpers\Html::a('Завершить',
-            ['/site/mbux'],
-            [
-                'class' => 'button_next mbux__end',
-                'style' => 'display:none',
-                'data-method' => 'POST',
-                'data-params' => [
-                    'userId' => Yii::$app->user->id,
-                    'end' => true,
-                ]
-            ]) ?>
+                <div class = "group_name">
+                    <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
+                </div>
+                <div class = "group_bal">
+                    <p class = "group_bal_number" data-value="<?= $userModel->mbux ?>"><?= $userModel->mbux ?></p>
+                </div>
+            </div>
+        <?}?>
     </div>
 
     <?= $this->render('_footer') ?>
-</div>
+</div> <!-- -->
 
+<script>
+    window.onload = function () {
+        $('.group_bal_number').each(function () {
+
+            $(this).progressbar({
+                value: $(this).data('value'),
+                max: <?= $maxPoint ?>
+            })
+        });
+
+    }
+</script>
 
