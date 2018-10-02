@@ -1,6 +1,6 @@
 <?php
 namespace frontend\controllers;
-//WV]rlqm&C4qU!y!M03
+
 use common\models\AmgDrive;
 use common\models\AmgStaticAnswer;
 use common\models\AmgStaticTest;

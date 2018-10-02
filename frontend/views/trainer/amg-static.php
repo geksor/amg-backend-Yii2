@@ -21,35 +21,37 @@ $this->title = 'ABS Авто AMG статика';
         'link' => '/trainer/index',
     ]) ?>
 
-    <div class = "trenr_groups">
-        <? foreach ( $userModels as $key => $userModel ) {?>
-            <?
-            /* @var $userModel \common\models\User */
-            $placeClass = '';
-            switch ($key + 1){
-                case 1:
-                    $placeClass = 'gold';
-                    break;
-                case 2:
-                    $placeClass = 'silver';
-                    break;
-                case 3:
-                    $placeClass = 'bronze';
-                    break;
-            }
-            ?>
-            <div class = "trenr_group">
-                <div class = "group_place">
-                    <p class = "group_place_number <?= $placeClass ?>"><?= ++$key ?></p>
+    <div class="flex_1">
+        <div class = "trenr_groups">
+            <? foreach ( $userModels as $key => $userModel ) {?>
+                <?
+                /* @var $userModel \common\models\User */
+                $placeClass = '';
+                switch ($key + 1){
+                    case 1:
+                        $placeClass = 'gold';
+                        break;
+                    case 2:
+                        $placeClass = 'silver';
+                        break;
+                    case 3:
+                        $placeClass = 'bronze';
+                        break;
+                }
+                ?>
+                <div class = "trenr_group">
+                    <div class = "group_place">
+                        <p class = "group_place_number <?= $placeClass ?>"><?= ++$key ?></p>
+                    </div>
+                    <div class = "group_name">
+                        <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
+                    </div>
+                    <div class = "group_bal">
+                        <p class = "group_bal_number" data-value="<?= $userModel->amgStatic ?>"><?= $userModel->amgStatic ?></p>
+                    </div>
                 </div>
-                <div class = "group_name">
-                    <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
-                </div>
-                <div class = "group_bal">
-                    <p class = "group_bal_number" data-value="<?= $userModel->amgStatic ?>"><?= $userModel->amgStatic ?></p>
-                </div>
-            </div>
-        <?}?>
+            <?}?>
+        </div>
     </div>
 
     <?= $this->render('_footer') ?>
