@@ -87,12 +87,13 @@ $this->title = 'ABS Авто главная';
     </div>
     <?= $this->render('_footer') ?>
 </div>
+<? $truAnswers = false; ?>
 <? if (Yii::$app->session->hasFlash('popupEndTest')) { ?>
     <? $truAnswers = [];
             if (!empty(Yii::$app->session->getFlash('popupEndTest')['truAnswers'])) {
                 $truAnswers = Yii::$app->session->getFlash('popupEndTest')['truAnswers'];
             }else{
-                $truAnswers = null;
+                $truAnswers = false;
             }
         ?>
         <?= $this->render('_popup-point-count', [
