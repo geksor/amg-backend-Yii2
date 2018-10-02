@@ -846,6 +846,8 @@ body {
 	display: block;
 	width: 100%;
 	margin-bottom: 10px;
+	position: relative;
+	z-index: 3;
 }
 .mix_ul{
 	display: flex;
@@ -934,27 +936,36 @@ body {
 	flex: 1;
 }
 .x-class_left{
-	width: 30%
+	width: 15%;
+	z-index: 2;
+}
+.x-class_left img{
+	width: 200%;
 }
 .x-class_left p{
-	width: 100%;
+	width: 200%;
 	color: #fff;
 	padding: 20px 0;
 	background: #ff7744;
 	text-align: center;
 }
 .x-class_right{
-	width: 30%
+	width: 15%
+}
+.x-class_right img{
+	width: 200%;
+	float: right;
 }
 .x-class_right p{
-	width: 100%;
+	width: 200%;
 	color: #fff;
 	padding: 20px 0;
 	background: #555fe9;
 	text-align: center;
+	float: right;
 }
 .x-class_center{
-	width: 40%
+	width: 70%
 }
 .x-class_center p{
 	width: 100%;
@@ -1372,9 +1383,10 @@ body {
 .group_name{
 	line-height: 20px;
 	color: #fff;
+	width: 35%;
 }
 .group_bal{
-	width: 220px;
+	width: 45%;
 }
 .group_bal_number{
 	background-color: #ffff00;
