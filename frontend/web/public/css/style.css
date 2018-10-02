@@ -434,6 +434,9 @@ body {
 	position: absolute;
 	z-index: -1;
 }
+.flex_1{
+	flex: 1;
+}
 .test_1{
 	background-color: rgba(232, 232, 232, 0.3);
 }
@@ -649,7 +652,8 @@ body {
 	background: #fff;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	height: auto;
+	min-height: 100vh;
 }
 .info_button{
 	margin: 40% 5%;
