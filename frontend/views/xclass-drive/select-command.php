@@ -75,8 +75,8 @@ $this->title = 'ABS Авто Выбор команды';
 
 
         function connect () {
-            // var chat = new WebSocket('ws://188.225.10.52:1024');
-            var socket = new WebSocket('ws://localhost:8081');
+            var chat = new WebSocket('ws://188.225.10.52:1024');
+            // var socket = new WebSocket('ws://localhost:8081');
 
             socket.onmessage = function(e) {
 
