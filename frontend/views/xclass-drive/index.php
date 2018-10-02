@@ -17,7 +17,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
 
 <div class = "info x-class">
     <?= $this->render('_top-line', [
-        'title' => 'X-Class тест драйв выбор капитанов',
+        'title' => 'X-Class Выбор капитанов',
         'link' => Yii::$app->homeUrl,
     ]) ?>
     <div class = "x-class_content">
