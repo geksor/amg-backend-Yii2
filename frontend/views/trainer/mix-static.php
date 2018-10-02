@@ -26,7 +26,7 @@ $this->title = 'ABS Авто Mix статика';
                 <div class = "trenr_group_opros_name linkWrap">
                     <h2><?= $model->title ?></h2>
                     <?= \yii\helpers\Html::img($model->getThumbPhoto()) ?>
-                    <?= \yii\helpers\Html::a('', ['/trainer/mix-static', 'id' => $model->id]) ?>
+                    <?= \yii\helpers\Html::a('', ['/trainer/mix-static-gallery', 'id' => $model->id]) ?>
                 </div>
                 <?
                     $mixStaticUsers = $model->mixStaticUsers;

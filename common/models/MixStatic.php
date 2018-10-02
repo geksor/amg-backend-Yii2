@@ -5,6 +5,7 @@ namespace common\models;
 use common\models\ImageUpload;
 use Yii;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
+use common\behavior\RankGalleryBehavior;
 
 /**
  * This is the model class for table "mixStatic".
@@ -43,7 +44,7 @@ class MixStatic extends \yii\db\ActiveRecord
     {
         return [
             'galleryBehavior' => [
-                'class' => GalleryBehavior::className(),
+                'class' => RankGalleryBehavior::className(),
                 'type' => 'mix-static',
                 'extension' => 'jpg',
                 'directory' => Yii::getAlias('@uploads') . '/images/gallery',

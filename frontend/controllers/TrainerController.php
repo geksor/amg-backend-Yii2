@@ -278,9 +278,8 @@ class TrainerController extends Controller
     /**
      * Displays mix-static-gallery Page.
      *
-     * @var $model Timetable
+     * @var $model MixStatic
      * @var $images GalleryImage
-     * @var $userModel User
      *
      * @return mixed
      */

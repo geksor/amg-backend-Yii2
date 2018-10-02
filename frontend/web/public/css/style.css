@@ -1139,8 +1139,17 @@ body {
 .mix_star_img{
 	background-image: url("../images/star.svg");
 	background-position: center;
-}.mix_star_img_empty{
+}
+.mix_star_img.trainer{
+	background-image: url("../images/star-trener.svg");
+	background-position: center;
+}
+.mix_star_img_empty{
 	 background-image: url("../images/star_off.svg");
+	 background-position: center;
+ }
+.mix_star_img_empty.trainer{
+	 background-image: url("../images/no-star-trener.svg");
 	 background-position: center;
  }
 .mix_star .rating-container .star{
