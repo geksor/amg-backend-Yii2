@@ -6,6 +6,7 @@ use common\models\User;
 use consik\yii2websocket\events\WSClientEvent;
 use consik\yii2websocket\WebSocketServer;
 use Ratchet\ConnectionInterface;
+use yii\db\Exception;
 
 class ChatServer extends WebSocketServer
 {
@@ -34,15 +35,17 @@ class ChatServer extends WebSocketServer
 
         if (!empty($request['message']) && $message = trim($request['message']) ) {
 
-//            //save from DB
-//            $userModel = User::findOne($client->id);
-//            $model = new Chat();
-//            $model->message = $message;
-//            $model->create_at = time();
-//            $model->user_id = $userModel->id;
-//            $model->training_id = $userModel->training_id;
-//            $model->save();
-//            //end Save from Db
+            //save from DB
+            try {
+                $userModel = User::findOne($client->id);
+                $model = new Chat();
+                $model->message = $message;
+                $model->create_at = time();
+                $model->user_id = $userModel->id;
+                $model->training_id = $userModel->training_id;
+                $model->save();
+            }catch (Exception $e){}
+            //end Save from Db
 
             foreach ($this->clients as $chatClient) {
                 $chatClient->send( json_encode([
