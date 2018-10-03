@@ -67,7 +67,7 @@ class XClassDriveQuestionSearch extends XClassDriveQuestion
             ->andFilterWhere(['like', 'question', $this->question])
             ->andFilterWhere(['like', 'question_image', $this->question_image])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'request', $this->request])
+//            ->andFilterWhere(['like', 'request', $this->request])
             ->andFilterWhere(['like', 'answer_var_1', $this->answer_var_1])
             ->andFilterWhere(['like', 'answer_var_2', $this->answer_var_2])
             ->andFilterWhere(['like', 'answer_var_3', $this->answer_var_3])
