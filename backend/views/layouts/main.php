@@ -111,7 +111,7 @@ desired effect
             \yiister\adminlte\widgets\Menu::widget(
                 [
                     "items" => [
-                        ["label" => "Главная", "url" => "/admin", "icon" => "home"],
+                        ["label" => "Главная", "url" => "/admin", "icon" => "home", "active" => Yii::$app->controller->id === 'site',],
                         ["label" => "Пользователи", "url" => ["/user/index"], "icon" => "users", "active" => Yii::$app->controller->id === 'user',],
                         [
                             "label" => "Организация",
@@ -406,7 +406,7 @@ desired effect
                         'encodeLabels' => false,
                         'homeLink' => [
                             'label' => new \rmrevin\yii\fontawesome\component\Icon('home') . ' Главная',
-                            'url' => '/',
+                            'url' => '/admin',
                         ],
                         'links' => $this->params['breadcrumbs'],
                     ]
