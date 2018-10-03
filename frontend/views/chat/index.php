@@ -95,6 +95,12 @@ $this->title = 'ABS Авто Чат';
                     // alert('Enter the message')
                 }
             });
+            $sendMessage.keypress(function(e){
+                if(e.keyCode === 13){
+                    chat.send( JSON.stringify({'action' : 'chat', 'message' : $sendMessage.val()}) );
+                    $sendMessage.val('');
+                }
+            });
 
             // chat.onclose = function () {
             //     connect()
