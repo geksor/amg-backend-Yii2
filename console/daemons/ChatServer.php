@@ -118,6 +118,18 @@ class ChatServer extends WebSocketServer
                         'from' =>  $client->id,
                         'message' => 1,
                     ]));
+                    if ($commandCount + 1 >= 1){//1 is temp use 6
+                        foreach ($this->clients as $amgClient){
+                            $user = User::findOne($amgClient->id);
+                            if ($user->role === 4){
+                                $amgClient->send(json_encode([
+                                    'type' => 'setCaptain',
+                                    'from' =>  0,
+                                    'message' => 0,
+                                ]));
+                            }
+                        }
+                    }
                 }
             }else{
                 foreach ($this->clients as $amgClient){
