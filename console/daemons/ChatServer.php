@@ -68,14 +68,14 @@ class ChatServer extends WebSocketServer
 
         if (!empty($request['name']) && !empty($request['id']) && ($name = trim($request['name'])) && $id = trim($request['id'])) {
             $usernameFree = true;
-            foreach ($this->clients as $chatClient) {
-                if ($chatClient != $client && $chatClient->id == $id) {
-                    $result['message'] = 'This id is used by other user';
-                    $usernameFree = false;
-                    break;
-                }
-            }
-
+//            foreach ($this->clients as $chatClient) {
+//                if ($chatClient != $client && $chatClient->id == $id) {
+//                    $result['message'] = 'This id is used by other user';
+//                    $usernameFree = false;
+//                    break;
+//                }
+//            }
+//
             if ($usernameFree) {
                 $client->name = $name;
                 $client->id = $id;
