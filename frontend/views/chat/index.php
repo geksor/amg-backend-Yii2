@@ -69,7 +69,7 @@ $this->title = 'ABS Авто Чат';
 
         function connect () {
             var chat = new WebSocket('ws://188.225.10.52:1024');
-            // var chat = new WebSocket('ws://localhost:8081');
+            // var chat = new WebSocket('ws://localhost:1024');
             chat.onmessage = function(e) {
 
                 var response = JSON.parse(e.data);

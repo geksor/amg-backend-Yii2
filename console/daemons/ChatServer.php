@@ -31,6 +31,7 @@ class ChatServer extends WebSocketServer
     public function commandChat(ConnectionInterface $client, $msg)
     {
         $request = json_decode($msg, true);
+        $request['message'] = strip_tags($request['message']);
         $result = ['message' => ''];
 
         if (!empty($request['message']) && $message = trim($request['message']) ) {
