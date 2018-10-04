@@ -19,15 +19,12 @@ $this->title = 'ABS Авто MBUX теория и практика';
    ]) ?>
     <div class="x-class_content">
         <div class="mbux_slick">
-            <? foreach ($model->mbuxQuestions as $question) {?>
+            <? foreach ($model->mbuxQuestions as $key => $question) {?>
                 <div class="mbux__slide">
                     <img src = "<?= $question->getPhotos()['image_1'] ?>" class = "mix_img">
                     <p class = "mix_ul_p"><?= $question->title ?></p>
-                    <div class="popupWrap mbux__help" style="display: none; z-index: 100">
-                        <div class="popup">
-                            <p class = "popup_heppy"><?= $question->description ?></p>
-                            <a class="submit mbux__helpHide">Закрыть</a>
-                        </div>
+                    <div id="help_<?= $key ?>" style="display: none">
+                            <?= $question->description ?>
                     </div>
                 </div>
             <?}?>
@@ -52,6 +49,21 @@ $this->title = 'ABS Авто MBUX теория и практика';
 
     <?= $this->render('_footer') ?>
 </div>
+<div class="popupWrap mbux__help" style="display: none; z-index: 100">
+    <div class="popup">
+        <p id="insertText" class = "popup_heppy">
+            <? foreach ($model->mbuxQuestions as $key => $question) {?>
+                <? if ($key === 0) {
+                    echo $question->description;
+                }else{
+                    break;
+                }?>
+            <?}?>
+        </p>
+        <a class="submit mbux__helpHide">Закрыть</a>
+    </div>
+</div>
+
 
 
 

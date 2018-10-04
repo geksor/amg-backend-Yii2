@@ -132,6 +132,7 @@ $( function() {
 
     $('.mbux_slick').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         $('.mbux__helpHide').trigger('click');
+        $('#insertText').text($('#help_' + nextSlide).text());
         if ($('.mbux_slick').slick('getSlick').slideCount === ++nextSlide){
             $('.button_next.mbux__next').hide();
             $('.button_next.mbux__end').show();
