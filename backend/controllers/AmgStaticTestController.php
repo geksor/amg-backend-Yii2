@@ -7,9 +7,11 @@ use common\models\AmgStaticAnswerSearch;
 use common\models\AmgStaticQuestion;
 use common\models\AmgStaticQuestionSearch;
 use common\models\ImageUpload;
+use common\models\User;
 use Yii;
 use common\models\AmgStaticTest;
 use common\models\AmgStaticTestSearch;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -27,6 +29,40 @@ class AmgStaticTestController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+
+                    ],
+                    [
+                        'actions' => [
+                            'logout',
+                            'error',
+                            'index',
+                            'view',
+                            'create',
+                            'update',
+                            'question-index',
+                            'question-view',
+                            'question-create',
+                            'question-update',
+                            'answer-create',
+                            'answer-update',
+                            'set-photo',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin(Yii::$app->user->identity->username);
+                        }
+                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

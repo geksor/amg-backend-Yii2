@@ -3,12 +3,14 @@
 namespace backend\controllers;
 
 use common\models\ImageUpload;
+use common\models\User;
 use common\models\XClassLineAnswer;
 use common\models\XClassLineQuestion;
 use common\models\XClassLineQuestionTestSearch;
 use Yii;
 use common\models\XClassLineTest;
 use common\models\XClassLineTestSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +27,38 @@ class XclassLineController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+
+                    ],
+                    [
+                        'actions' => [
+                            'logout',
+                            'error',
+                            'index',
+                            'view',
+                            'create',
+                            'update',
+                            'question-view',
+                            'question-create',
+                            'question-update',
+                            'answer-create',
+                            'answer-update',
+                            'set-photo',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin(Yii::$app->user->identity->username);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
