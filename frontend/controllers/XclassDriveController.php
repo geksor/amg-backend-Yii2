@@ -31,14 +31,29 @@ class XclassDriveController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
+                        'actions' => ['error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => [
                             'index',
+                            'error',
                             'captain-command',
                             'select-command',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'question',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isCaptain(Yii::$app->user->identity->username);
+                        }
                     ],
                 ],
             ],

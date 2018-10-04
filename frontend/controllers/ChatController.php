@@ -24,6 +24,12 @@ class ChatController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
+                        'actions' => ['error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+
+                    [
                         'actions' => [
                             'index',
                         ],
@@ -63,6 +69,9 @@ class ChatController extends Controller
     {
         if (Yii::$app->user->isGuest){
             return $this->redirect('/');
+        }
+        if (User::isAdmin(Yii::$app->user->identity->username)){
+            return $this->redirect('/admin');
         }
 
         $userModel = User::findOne(Yii::$app->user->id);

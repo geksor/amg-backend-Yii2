@@ -20,6 +20,7 @@ use common\models\User;
 use common\models\XClassLineAnswer;
 use common\models\XClassLineTest;
 use frontend\models\ImageUpload;
+use frontend\models\SelectTrainingForm;
 use frontend\models\SignupFormStep2;
 use frontend\models\SignupFormStep3;
 use vova07\console\ConsoleRunner;
@@ -57,9 +58,21 @@ class TrainerController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
+                        'actions' => ['error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'actions' => [
                             'logout',
+                            'error',
                             'index',
+                            'select-training',
                             'user-table',
                             'timetable',
                             'mix-static',
@@ -118,14 +131,52 @@ class TrainerController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
+        if ($userModel->training_id === null){
+            return $this->redirect('select-training');
+        }
+
         return $this->render('index', [
             'userModel' => $userModel,
         ]);
     }
 
     /**
+     * Displays homepage.
+     *
+     * @var $userModel User
+     * @return mixed
+     */
+    public function actionSelectTraining()
+    {
+        $selectModel = new SelectTrainingForm();
+
+        if ($selectModel->load(Yii::$app->request->post())){
+            if ($this->setTraining($selectModel->training_id)){
+                return $this->redirect('index');
+            }
+        }
+
+        $trainings = Training::find()->select(['id', 'date'])->asArray()->all();
+
+        $trainingsArr = [];
+
+        if (!empty($trainings)){
+            foreach ($trainings as $training){
+                $value = date("d.m.Y", (integer) $training['date']);
+                $trainingsArr[$training['id']] = $value;
+            }
+        }
+
+        return $this->render('select-training', [
+            'trainingsArr' => $trainingsArr,
+            'selectModel' => $selectModel,
+        ]);
+    }
+
+    /**
      * @param $trainingId
      *
+     * @return bool
      */
     public function setTraining($trainingId)
     {
@@ -133,7 +184,10 @@ class TrainerController extends Controller
         $userModel = User::findOne(Yii::$app->user->id);
 
         $userModel->training_id = $trainingId;
-        $userModel->save();
+        if ($userModel->save()){
+            return true;
+        }
+        return false;
     }
 
     /**

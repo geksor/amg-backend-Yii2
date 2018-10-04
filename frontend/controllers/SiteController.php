@@ -128,6 +128,11 @@ class SiteController extends Controller
             return $this->redirect('/trainer/index');
         }
 
+        if (User::isAdmin(Yii::$app->user->identity->username)){
+            return $this->redirect('/admin');
+        }
+
+
         if (empty($userModel->endQuests)){
             $endQuestsModel = new EndQuest();
             $endQuestsModel->user_id = $userModel->id;

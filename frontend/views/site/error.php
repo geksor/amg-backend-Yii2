@@ -9,19 +9,11 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error">
+<div class="popupWrap">
+    <div class="popup">
+        <p class = "popup_ball"><?= Html::encode($this->title) ?></p>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        <p class = "popup_heppy"><?= nl2br(Html::encode($message)) ?></p>
+        <a href="/" class="submit">ОК</a>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>

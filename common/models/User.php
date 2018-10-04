@@ -133,6 +133,24 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
+    /**
+     * @param $userName
+     * @return bool
+     */
+    public static function isUser($userName)
+    {
+        if (static::findOne(['username' => $userName, 'role' => self::ROLE_CAPTAIN]))
+        {
+            return true;
+        }
+        if (static::findOne(['username' => $userName, 'role' => self::ROLE_USER]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * {@inheritdoc}
