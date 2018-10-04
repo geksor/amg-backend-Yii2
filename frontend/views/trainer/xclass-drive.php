@@ -10,6 +10,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $commandModels \common\models\Command */
+/* @var $isRunDrive bool */
 
 $this->title = 'ABS Авто X-Класс Тест-Драйв';
 ?>
@@ -40,6 +41,9 @@ $this->title = 'ABS Авто X-Класс Тест-Драйв';
                     <?}?>
                 </div>
             </div>
+        <?}?>
+        <? if (!$isRunDrive) {?>
+                <?= \yii\helpers\Html::a('Активировать', '/trainer/run-xclass-drive', ['class' => 'submit', 'style' => 'background-color: #00675f;']) ?>
         <?}?>
     </div>
 

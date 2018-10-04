@@ -4,6 +4,7 @@
 /* @var $userModel \common\models\User */
 /* @var $place \common\models\User */
 /* @var $totalCount \frontend\controllers\SiteController */
+/* @var $isRunDrive bool */
 
 $this->title = 'ABS Авто главная';
 ?>
@@ -23,7 +24,7 @@ $this->title = 'ABS Авто главная';
     </div>
     <div class = "home_content">
         <div data-value="<?= $userModel->xClassDrive ?>" data-max="<?= (integer)Yii::$app->params['PointTest']['amgDrive']/4 ?>" class="progressBar test test_1">
-            <? if (!$userModel->endQuests->xClassDrive) {?>
+            <? if (!$userModel->endQuests->xClassDrive && $isRunDrive ) {?>
                 <?= \yii\helpers\Html::a('', '/xclass-drive/index') ?>
             <?}?>
             <h3><?= $userModel->getAttributeLabel('xClassDrive') ?></h3>

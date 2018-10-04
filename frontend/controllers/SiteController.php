@@ -13,6 +13,7 @@ use common\models\MixDrive;
 use common\models\MixStatic;
 use common\models\Quiz;
 use common\models\RulesTraining;
+use common\models\RunDrive;
 use common\models\Timetable;
 use common\models\Training;
 use common\models\User;
@@ -148,10 +149,19 @@ class SiteController extends Controller
             return $this->redirect('signup-step-3');
         }
 
+        $modelsRunDrive = RunDrive::find()
+            ->where(['training_id' => Yii::$app->user->identity->training_id, 'group' => Yii::$app->user->identity->group])
+            ->all();
+        $isRunDrive = false;
+        if (!empty($modelsRunDrive)){
+            $isRunDrive = true;
+        }
+
         return $this->render('index', [
             'userModel' => $userModel,
             'totalCount' => $userModel->totalPoint,
             'place' => $userModel->getPlace(),
+            'isRunDrive' => $isRunDrive,
         ]);
     }
 

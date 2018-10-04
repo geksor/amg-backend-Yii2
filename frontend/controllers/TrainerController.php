@@ -14,6 +14,8 @@ use common\models\MixDrive;
 use common\models\MixStatic;
 use common\models\Quiz;
 use common\models\RulesTraining;
+use common\models\RunDrive;
+use common\models\RunXclassDrive;
 use common\models\Timetable;
 use common\models\Training;
 use common\models\User;
@@ -87,6 +89,7 @@ class TrainerController extends Controller
                             'quiz',
                             'xclass-drive',
                             'intelligent',
+                            'run-xclass-drive',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -505,9 +508,42 @@ class TrainerController extends Controller
             ->with(['captain'])
             ->all();
 
+        $modelsRunDrive = RunDrive::find()
+            ->where(['training_id' => Yii::$app->user->identity->training_id, 'group' => Yii::$app->user->identity->group])
+            ->all();
+        $isRunDrive = false;
+        if (!empty($modelsRunDrive)){
+            $isRunDrive = true;
+        }
+
         return $this->render('xclass-drive', [
             'commandModels' => $commandModels,
+            'isRunDrive' => $isRunDrive,
         ]);
+    }
+
+    /**
+     * Displays run-xclass-drive Page.
+     *
+     * @var $commandModels Command
+     *
+     * @return mixed
+     */
+    public function actionRunXclassDrive()
+    {
+        $modelsRunDrive = RunDrive::find()
+            ->where(['training_id' => Yii::$app->user->identity->training_id, 'group' => Yii::$app->user->identity->group])
+            ->one();
+
+        if ($modelsRunDrive !== null){
+            return $this->redirect('index');
+        }
+
+        $newRun = new RunDrive();
+        $newRun->training_id = Yii::$app->user->identity->training_id;
+        $newRun->group = Yii::$app->user->identity->group;
+        $newRun->save();
+        return $this->redirect('xclass-drive');
     }
 
     /**
