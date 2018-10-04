@@ -112,6 +112,7 @@ desired effect
                 [
                     "items" => [
                         ["label" => "Главная", "url" => "/admin", "icon" => "home", "active" => Yii::$app->controller->id === 'site',],
+                        ["label" => "Тренеры", "url" => ["/trainer/index"], "icon" => "users", "active" => Yii::$app->controller->id === 'trainer',],
                         ["label" => "Пользователи", "url" => ["/user/index"], "icon" => "users", "active" => Yii::$app->controller->id === 'user',],
                         [
                             "label" => "Организация",
