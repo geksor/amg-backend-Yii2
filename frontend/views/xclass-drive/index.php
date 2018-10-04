@@ -49,7 +49,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
         var group = <?= $userModel->group ?>;
 
         function connect () {
-            var socket = new WebSocket('ws://188.225.10.52:1024');
+            var socket = new WebSocket('ws://176.57.214.45:1024');
             // var socket = new WebSocket('ws://localhost:8081');
 
             socket.onmessage = function(e) {
