@@ -40,7 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Дата тренинга',
                     'value' => function ($data){
                     /* @var $data \common\models\User */
-                        return date('d.m.y', $data->training->date);
+                        if ($data->training->date){
+                            return date('d.m.y', $data->training->date);
+                        }
+                        return null;
                     }
                 ],
                 'group',
