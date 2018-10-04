@@ -18,8 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'role', 'created_at', 'updated_at', 'group', 'dealer_center_id', 'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint', 'command_id'], 'integer'],
-            [['username', 'surname', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['id', 'status', 'role', 'created_at', 'updated_at',  'amgStatic', 'mixStatic', 'mbux', 'xClassDrive', 'amgDrive', 'intelligent', 'mixDrive', 'xClassLine', 'quiz', 'moderatorPoints', 'totalPoint', 'command_id'], 'integer'],
+            [['username', 'surname', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'group', 'dealer_center_id', 'email'], 'safe'],
         ];
     }
 
