@@ -36,20 +36,5 @@ class ServerController extends Controller
         });
 
         $ChatServer->start();
-
-//        $testServer = new TestServer();
-//        $testServer->port = 1024; //This port must be busy by WebServer and we handle an error
-//
-//        $testServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN_ERROR, function($e) use($testServer) {
-//            echo "Error opening port " . $testServer->port . "\n";
-//            $testServer->port += 1; //Try next port to open
-//            $testServer->start();
-//        });
-//
-//        $testServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN, function($e) use($testServer) {
-//            echo "Server started at port " . $testServer->port;
-//        });
-
-//        $testServer->start();
     }
 }
