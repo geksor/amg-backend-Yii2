@@ -1,12 +1,11 @@
 <?php
 namespace backend\models;
 
-use common\models\XClassDriveQuestion;
 use yii\base\Model;
 
 
 /**
- * AmswerForm form
+ * IntelligentSelect form
  *
  * @property int $training_id
 

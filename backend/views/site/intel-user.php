@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(
                 'Выбрать',
-                'index',
+                'intel-user-point',
                 [
                     'class' => 'btn btn-primary',
                     'id' => 'buttonNext',
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <script>
     window.onload = function () {
-        var userCountForCheck = 4; //4 is temp need 6
+        var userCountForCheck = 6; //4 is temp need 6
         $('#buttonNext').on('click', function (ev) {
             ev.preventDefault();
             var arr = [];
@@ -89,7 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     arr.push($(this).val());
                 }
             });
-            $(this).attr('data-params', JSON.stringify(arr));
+            var params = {'checkUsers': arr};
+            $(this).attr('data-params', JSON.stringify(params));
             if (arr.length === userCountForCheck){
                 $(this).attr('data-method', 'POST');
             }

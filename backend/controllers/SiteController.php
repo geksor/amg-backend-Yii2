@@ -2,11 +2,13 @@
 namespace backend\controllers;
 
 use backend\models\IntelligentSelectForm;
+use backend\models\IntelligentUserPointForm;
 use common\models\Training;
 use common\models\User;
 use common\models\UserSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -91,9 +93,8 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Displays intel-user.
      *
-     * @var $selectModel IntelligentSelectForm
      *
      * @return string
      */
@@ -110,8 +111,55 @@ class SiteController extends Controller
             'query' => $query,
         ]);
 
+        Yii::$app->session->set('backIntelUser', ['intel-user', 'trainingId' => $trainingId]);
+
         return $this->render('intel-user', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays intel-user-point.
+     *
+     * @var $selectModel IntelligentSelectForm
+     *
+     * @return string
+     */
+    public function actionIntelUserPoint()
+    {
+        $intelPointForm = new IntelligentUserPointForm();
+        if (Yii::$app->request->post('checkUsers')){
+            $usersId = explode(',', Yii::$app->request->post('checkUsers'));
+
+            $intelPointForm->usersId = Yii::$app->request->post('checkUsers');
+
+            $query = User::find()->where(['role' => [3,4], 'id' => $usersId]);
+            $query->orderBy(['totalPoint' => SORT_DESC]);
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+        }
+
+        if ($intelPointForm->load(Yii::$app->request->post())){
+
+            $usersId = explode(',', $intelPointForm->usersId);
+
+            $userModels = User::find()->where(['id' => $usersId])->all();
+
+            foreach ($userModels as $userModel){
+                /* @var $userModel User */
+                $userModel->moderatorPoints = $intelPointForm->point;
+                $userModel->save();
+            }
+
+            return $this->redirect(Yii::$app->session->get('backIntelUser'));
+
+        }
+
+        return $this->render('intel-user-point', [
+            'dataProvider' => $dataProvider,
+            'intelPointForm' => $intelPointForm,
         ]);
     }
 
