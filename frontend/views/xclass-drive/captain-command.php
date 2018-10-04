@@ -29,25 +29,19 @@ $this->title = 'ABS Авто Список членов команды';
         <p class = "x-class_number"><span class = "orange">Капитан команды</span></p>
     </div>
     <div id="player1" class = "x-class_content_1 schedule_content">
-        <p class = "x-class_name">
             <?= $commandModel->player1 !== null
                 ? $commandModel->player1->surname . ' ' . $commandModel->player1->first_name . ' ' . $commandModel->player1->last_name
                 : ''?>
-        </p>
     </div>
     <div id="player2" class = "x-class_content_1 schedule_content">
-        <p class = "x-class_name">
             <?= $commandModel->player2 !== null
                 ? $commandModel->player2->surname . ' ' . $commandModel->player2->first_name . ' ' . $commandModel->player2->last_name
                 : ''?>
-        </p>
     </div>
     <div id="player3" class = "x-class_content_1 schedule_content">
-        <p class = "x-class_name">
             <?= $commandModel->player3 !== null
                 ? $commandModel->player3->surname . ' ' . $commandModel->player3->first_name . ' ' . $commandModel->player3->last_name
                 : ''?>
-        </p>
     </div>
 
     <div class="x-class_content comand_content">
