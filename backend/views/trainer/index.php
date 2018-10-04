@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     //            'id',
                 'username',
-                'surname',
+//                'surname',
                 'first_name',
-                'last_name',
+//                'last_name',
                 //'auth_key',
                 //'password_hash',
                 //'password_reset_token',
