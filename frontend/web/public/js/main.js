@@ -138,31 +138,16 @@ $( function() {
         }
     });
 
-    function showOn(){
         $('.mbux__helpShow').on('click', function (e) {
             e.preventDefault;
             $('.mbux__help').show('fade', 300);
-            $(this).text('Скрыть подсказку').addClass('mbux__helpHide', function () {
-                $(this).removeClass('mbux__helpShow');
-                $(this).unbind('click');
-                showOff();
-            });
         });
-    }
 
-    function showOff(){
         $('.mbux__helpHide').on('click', function (e) {
             e.preventDefault;
             $('.mbux__help').hide('fade', 300);
-            $(this).text('Подсказка').addClass('mbux__helpShow', function () {
-                $(this).removeClass('mbux__helpHide');
-                $(this).unbind('click');
-                showOn()
-            });
         });
-    }
 
-    showOn();
 
     //amgDrive end mixDrive
     function readURL(input) {
