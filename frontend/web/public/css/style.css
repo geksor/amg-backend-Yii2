@@ -317,7 +317,7 @@ body {
 	border-radius: 100px;
 	color: #000;
 }
-.step_2_group .radio:active, .step_2_group .radio:hover, .step_2_group .radio:focus {
+.step_2_group .radio.active {
 	background: #00988d;
 	display: block;
 	color: #fff;
@@ -337,10 +337,12 @@ body {
 /* Step_3
 -----------------------------------------------------------------------------*/
 .mail_send{
-	background: url(../images/mail_send.png) #00988d;
+	background: url(../images/endSignUp.png) #00988d;
 	background-repeat: no-repeat;
 	background-position: 30% center;
 	padding-bottom: 80px;
+	max-height: 100vh;
+	min-height: 100vh;
 }
 .mail_send_in img{
 	margin: 35% 35% 10px 35%;
@@ -444,7 +446,10 @@ body {
 	background-color: rgba(232, 232, 232, 1);
 }
 .test_1 h3{
-	color: #fff;
+	color: #000000;
+}
+.test_1 p{
+	color: #000000;
 }
 .test_2{
 	background-color: rgba(255, 213, 100, 0.3);

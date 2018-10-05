@@ -38,3 +38,12 @@ $this->title = 'Регистрация';
 
         <?php ActiveForm::end(); ?>
     </div> <!-- -->
+
+<script>
+    window.onload = function () {
+        $('.step_2_group .radio').on('click', function () {
+            $('.step_2_group .radio').removeClass('active');
+            $(this).addClass('active')
+        })
+    }
+</script>
