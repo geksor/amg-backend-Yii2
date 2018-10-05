@@ -185,6 +185,10 @@ class XclassDriveController extends Controller
      */
     public function actionQuestion()
     {
+        if (Yii::$app->user->identity->xClassDrive  !== 0){
+            return $this->redirect('/site/index');
+        }
+
         if (Yii::$app->user->isGuest){
             return $this->redirect('/');
         }

@@ -275,6 +275,9 @@ class SiteController extends Controller
      */
     public function actionMixStatic()
     {
+        if (Yii::$app->user->identity->mixStatic !== 0){
+            return $this->redirect('/site/index');
+        }
         $models = MixStatic::find()->with('users')->all();
         $viewedCount = 0;
         foreach ($models as $model)
@@ -416,6 +419,10 @@ class SiteController extends Controller
      */
     public function actionAmgStatic($questId = null, $img_1 = null, $img_2 = null, $img_3 = null)
     {
+        if (Yii::$app->user->identity->amgStatic !== 0){
+            return $this->redirect('/site/index');
+        }
+
         $userModel = User::findOne(Yii::$app->user->id);
 
         if ($questId){
@@ -549,6 +556,10 @@ class SiteController extends Controller
      */
     public function actionMbux()
     {
+        if (Yii::$app->user->identity->mbux !== 0){
+            return $this->redirect('/site/index');
+        }
+
         if (Yii::$app->request->post('userId') && Yii::$app->request->post('end')){
 
             $point = Yii::$app->params['PointTest']['mbux'];
@@ -631,6 +642,10 @@ class SiteController extends Controller
      */
     public function actionAmgDrive()
     {
+        if (Yii::$app->user->identity->amgDrive !== 0){
+            return $this->redirect('/site/index');
+        }
+
         if (!$amgDriveModel = AmgDrive::find()->where(['user_id' => Yii::$app->user->id])->one()){
             $amgDriveModel = new AmgDrive();
             $amgDriveModel->user_id = Yii::$app->user->id;
@@ -680,6 +695,10 @@ class SiteController extends Controller
      */
     public function actionMixDrive()
     {
+        if (Yii::$app->user->identity->mixDrive !== 0){
+            return $this->redirect('/site/index');
+        }
+
         if (!$mixDriveModel = MixDrive::find()->where(['user_id' => Yii::$app->user->id])->one()){
             $mixDriveModel = new MixDrive();
             $mixDriveModel->user_id = Yii::$app->user->id;
@@ -729,6 +748,10 @@ class SiteController extends Controller
      */
     public function actionXClassLine()
     {
+        if (Yii::$app->user->identity->xClassLine  !== 0){
+            return $this->redirect('/site/index');
+        }
+
         $userModel = User::findOne(Yii::$app->user->id);
 
         if (Yii::$app->request->isAjax){
@@ -863,6 +886,10 @@ class SiteController extends Controller
      */
     public function actionQuiz()
     {
+        if (Yii::$app->user->identity->quiz  !== 0){
+            return $this->redirect('/site/index');
+        }
+
         $userModel = User::findOne(Yii::$app->user->id);
 
         if (Yii::$app->request->isPost){
