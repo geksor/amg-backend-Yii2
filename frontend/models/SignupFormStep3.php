@@ -35,7 +35,7 @@ class SignupFormStep3 extends Model
           'surname' => 'Фамилия',
           'first_name' => 'Имя',
           'last_name' => 'Отчество',
-          'dealer_center_id' => 'Диллерский центр',
+          'dealer_center_id' => 'Дилерский центр',
         ];
     }
 

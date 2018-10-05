@@ -49,7 +49,12 @@ class SignupForm extends Model
     {
         return [
           'conformPassword' => 'Подтверждение пароля',
-          'password' => 'Пароль'
+          'password' => 'Пароль',
+          'surname' => 'Фамилия',
+          'first_name' => 'Имя',
+          'last_name' => 'Отчество',
+          'group' => 'Группа',
+          'training_id' => 'Тренинг',
         ];
     }
 

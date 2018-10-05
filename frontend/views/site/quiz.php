@@ -11,6 +11,8 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model \common\models\Quiz */
+/* @var $noAnswer bool */
+/* @var $userAnswer integer || bool */
 
 $this->title = 'ABS Авто Викторина';
 ?>
@@ -22,7 +24,7 @@ $this->title = 'ABS Авто Викторина';
    ]) ?>
     <?php $form = ActiveForm::begin(['id' => 'quiz-form', 'options' => ['class' => 'x-class_content']]); ?>
 
-    <? $model->trueAnswer = null ?>
+    <? if ($noAnswer){$model->trueAnswer = null;} ?>
 
     <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
 
@@ -38,13 +40,34 @@ $this->title = 'ABS Авто Викторина';
                             'class' => 'container quiz__answer'
                     ]
             ]
-        ])->label("<p> <span>Вопрос:</span> $model->question </p>") ?>
+        ])->label("<p> $model->question </p>") ?>
 
-    <?= Html::submitButton('Оветить', ['class' => 'submit']) ?>
+    <?= Html::submitButton('Ответить', ['class' => 'submit', 'style' => !$noAnswer ? 'display:none': '']) ?>
+    <?= Html::a('Далее', '/site/quiz', ['class' => 'submit', 'style' => $noAnswer ? 'display:none': '']) ?>
 
     <?php ActiveForm::end(); ?>
 
     <?= $this->render('_footer') ?>
 </div>
+
+<script>
+    window.onload = function () {
+        var userAnswer = <?= $userAnswer?$userAnswer:0 ?>;
+        var noAnswer = <?= $noAnswer?$noAnswer:0 ?>;
+        var truAnswer = <?= $model->trueAnswer?$model->trueAnswer:0 ?>;
+
+        if (+noAnswer === 0){
+            $('.quiz__answer').each(function () {
+                $(this).css('color', '#d8d8d8');
+                if (+$(this).find('input').val() === userAnswer){
+                    $(this).css('color', 'red')
+                }
+                if (+$(this).find('input').val() === truAnswer){
+                    $(this).css('color', 'green')
+                }
+            })
+        }
+    }
+</script>
 
 

@@ -175,6 +175,14 @@ $( function() {
     $('#personalDataClose').on('click', function () {
         $('.personal_data').hide('fade', 300);
     });
+    
+    $('#checkBoxAgree').on('change', function () {
+        if ($(this).prop('checked')){
+            $('#registerLink').show();
+        } else {
+            $('#registerLink').hide();
+        }
+    });
 
     //xClass
     var colLeft = null;

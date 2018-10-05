@@ -23,8 +23,8 @@ $this->title = 'Регистрация';
         <?= $form->field($model, 'training_id')->dropDownList($trainingsArr, [ 'class' => 'user calendar', 'prompt' => 'Выберите один вариант', ]) ?>
 
         <?= $form->field($model, 'group')->radioList([
-                '1' => '01',
-                '2' => '02',
+                '1' => '1',
+                '2' => '2',
         ], ['class' => 'step_2_group']) ?>
 
         <p>

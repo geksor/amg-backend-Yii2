@@ -880,6 +880,12 @@ class SiteController extends Controller
                 Yii::$app->session->set('trueAnswersQuiz', $trueAnswer);
             }
 
+            return $this->render('quiz', [
+                'model' => $quiz,
+                'noAnswer' => false,
+                'userAnswer' => $answer,
+            ]);
+
         }
 
         $modelsArr = Quiz::find()
@@ -932,6 +938,8 @@ class SiteController extends Controller
 
         return $this->render('quiz', [
             'model' => $model,
+            'noAnswer' => true,
+            'userAnswer' => false,
         ]);
     }
 
