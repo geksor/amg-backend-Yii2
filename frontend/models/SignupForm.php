@@ -89,13 +89,13 @@ class SignupForm extends Model
      */
     public function sendEmail()
     {
-        $body = 'Логин: '.$this->email.' Пароль: '.$this->password;
+        $body = '<h1>Вы зарегистрировались</h1><p> Логин: '.$this->email.'</p> <p> Пароль: '.$this->password . '</p>';
 
         return Yii::$app->mailer->compose()
-            ->setTo('to@domain.com')
-            ->setFrom('support@abs.ru')
+            ->setTo($this->email)
+            ->setFrom(['support@mynt2018.ru' => 'ABS-Auto'])
             ->setSubject('Регистрация')
-            ->setTextBody('dsfsdfds')
+            ->setHtmlBody($body)
             ->send();
     }
 }
