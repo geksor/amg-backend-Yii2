@@ -1190,7 +1190,7 @@ body {
 .mix__imageWrap{
 	position: relative;
 	width: 100%;
-	padding-top: 100%;
+	padding-top: 76%;
 	margin-bottom: 10px;
 }
 .mix__imageAbsolute{
@@ -1199,7 +1199,7 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 	object-position: center;
 }
 .mix__link.viewed .mix_img{
