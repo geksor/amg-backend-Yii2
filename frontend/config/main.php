@@ -56,10 +56,6 @@ return [
                 '<controller>/<action>' => '<controller>/<action>',
             ],
         ],
-//        'consoleRunner' => [
-//            'class' => 'vova07\console\ConsoleRunner',
-//            'file' => '@app/' // or an absolute path to console file
-//        ]
     ],
     'params' => $params,
     'language' => 'ru-RU',

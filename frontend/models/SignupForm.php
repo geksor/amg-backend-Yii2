@@ -76,7 +76,7 @@ class SignupForm extends Model
         $user->generatePasswordResetToken();
         $user->generateAuthKey();
 
-        $this->sendEmail($this->email);
+        $this->sendEmail();
         
         return $user->save() ? $user : null;
     }
@@ -87,15 +87,15 @@ class SignupForm extends Model
      * @param string $email the target email address
      * @return bool whether the email was sent
      */
-    public function sendEmail($email)
+    public function sendEmail()
     {
-        $body = 'Логин: '.$email.' Пароль: '.$this->password;
+        $body = 'Логин: '.$this->email.' Пароль: '.$this->password;
 
         return Yii::$app->mailer->compose()
-            ->setTo($email)
-            ->setFrom(['support@abs.ru' => 'ABS-Auto'])
+            ->setTo('to@domain.com')
+            ->setFrom('support@abs.ru')
             ->setSubject('Регистрация')
-            ->setTextBody($body)
+            ->setTextBody('dsfsdfds')
             ->send();
     }
 }

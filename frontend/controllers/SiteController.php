@@ -125,6 +125,13 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
+        Yii::$app->mailer->compose()
+            ->setTo('geksor@gmail.com')
+            ->setFrom('support@abs.ru')
+            ->setSubject('Регистрация')
+            ->setTextBody('dsfsdfds')
+            ->send();
+
         if (User::isTrainer(Yii::$app->user->identity->username)){
             return $this->redirect('/trainer/index');
         }
