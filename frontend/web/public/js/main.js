@@ -181,26 +181,49 @@ $( function() {
     var colRight = null;
     var end;
 
+
     $( "#sortable_left, #sortable_0, #sortable_right" ).sortable({
         connectWith: ".connectedSortable",
         items: "img",
         receive: function( event, ui ) {
+            if ($(this).hasClass('full')){
+                ui.sender.sortable("cancel");
+                return false;
+            }
             switch ($(this).data('column')) {
                 case 0:
                     colRight = ui.item.data('image_id');
+                    if (ui.item.hasClass('imageLeft')){
+                        ui.item.removeClass('imageLeft');
+                        ui.sender.removeClass('full');
+                        if (colLeft === ui.item.data('image_id')) {
+                            colLeft = null;
+                        }
+                    }
                     ui.item.addClass('imageRight');
+                    $(this).addClass('full');
                     break;
                 case 1:
                     colLeft = ui.item.data('image_id');
+                    if (ui.item.hasClass('imageRight')){
+                        ui.item.removeClass('imageRight');
+                        ui.sender.removeClass('full');
+                        if (colRight === ui.item.data('image_id')) {
+                            colRight = null;
+                        }
+                    }
                     ui.item.addClass('imageLeft');
+                    $(this).addClass('full');
                     break;
                 case 2:
                     end = false;
                     if (colRight === ui.item.data('image_id')){
                         colRight = null;
+                        $('#sortable_right').removeClass('full');
                     }
                     if (colLeft === ui.item.data('image_id')){
                         colLeft = null;
+                        $('#sortable_left').removeClass('full');
                     }
                     ui.item.removeClass('imageRight').removeClass('imageLeft');
             }
