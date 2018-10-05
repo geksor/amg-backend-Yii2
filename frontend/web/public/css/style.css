@@ -279,7 +279,7 @@ body {
 	justify-content: space-around;
 	align-items: center;
 	color: #fff;
-	padding: 15px 20px;
+	padding: 16px 20px;
 	text-decoration: none;
 }
 .button_help{
@@ -1201,6 +1201,10 @@ body {
 	height: 100%;
 	object-fit: contain;
 	object-position: center;
+}
+.mix__link{
+	display: block;
+	margin-bottom: 10px;
 }
 .mix__link.viewed .mix_img{
 	-webkit-filter: brightness(0.1);
