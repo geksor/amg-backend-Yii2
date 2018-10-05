@@ -179,6 +179,7 @@ $( function() {
     //xClass
     var colLeft = null;
     var colRight = null;
+    var end;
 
     $( "#sortable_left, #sortable_0, #sortable_right" ).sortable({
         connectWith: ".connectedSortable",
@@ -187,9 +188,11 @@ $( function() {
             switch ($(this).data('column')) {
                 case 0:
                     colRight = ui.item.data('image_id');
+                    ui.item.addClass('imageRight');
                     break;
                 case 1:
                     colLeft = ui.item.data('image_id');
+                    ui.item.addClass('imageLeft');
                     break;
                 case 2:
                     end = false;
@@ -199,12 +202,12 @@ $( function() {
                     if (colLeft === ui.item.data('image_id')){
                         colLeft = null;
                     }
+                    ui.item.removeClass('imageRight').removeClass('imageLeft');
             }
             if (colLeft && colRight){
                 var questId = $('#xclassSubmit').data('quest_id');
 
                 $('#xclassSubmit')
-                    .attr('data-method', 'POST')
                     .attr('data-params', '{ "questId":' + questId +',"colLeft":' + colLeft + ',"colRight":' + colRight + '}' )
                     .removeClass('mix__noStars');
             }else {
@@ -218,6 +221,29 @@ $( function() {
         if ($(this).hasClass('mix__noStars')){
             return false;
         }
+        var setData = $(this).data('params');
+
+        $.ajax({
+            url: '/site/x-class-line',
+            type: 'POST',
+            data: setData,
+            dataType: 'json',
+            success: function(data){
+                if (data.colLeft === true){
+                    $('.imageLeft').css('border', 'solid 4px #42b51a');
+                }else {
+                    $('.imageLeft').css('border', 'solid 4px #ff2020');
+                }
+                if (data.colRight === true){
+                    $('.imageRight').css('border', 'solid 4px #42b51a');
+                }else {
+                    $('.imageRight').css('border', 'solid 4px #ff2020');
+                }
+
+                $('#xclassSubmit').hide();
+                $('#xclassNext').show();
+            }
+        })
     });
 
     //quizPage

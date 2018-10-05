@@ -724,19 +724,24 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
-        if (Yii::$app->request->isPost){
+        if (Yii::$app->request->isAjax){
             $userModel->saveQuestion(Yii::$app->request->post('questId'));
 
             $trueAnswer = 0;
+
+            $colLeft = false;
+            $colRight = false;
 
             $colLeft_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colLeft'));
             $colRight_answer = XClassLineAnswer::findOne(Yii::$app->request->post('colRight'));
 
             if ((integer)$colLeft_answer->column === 1){
                 ++$trueAnswer;
+                $colLeft = true;
             }
             if ((integer)$colRight_answer->column === 0){
                 ++$trueAnswer;
+                $colRight = true;
             }
 
             if (Yii::$app->session->has('trueAnswersXClassLine')){
@@ -746,6 +751,9 @@ class SiteController extends Controller
                 Yii::$app->session->set('trueAnswersXClassLine', $trueAnswer);
             }
 
+            $answer = ['colLeft' => $colLeft, 'colRight' => $colRight];
+
+            return json_encode($answer);
         }
 
         $models = XClassLineTest::find()

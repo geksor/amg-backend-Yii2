@@ -34,7 +34,10 @@ $this->title = 'ABS Авто X-Класс линии исполнения';
             <p>Линия<br>Power</p>
         </div>
     </div>
-    <a id="xclassSubmit" href="/site/x-class-line" class="submit mix__noStars" data-quest_id="<?= $questionModel->id ?>">Ответить</a>
+
+    <span id="xclassSubmit" class="submit mix__noStars" data-quest_id="<?= $questionModel->id ?>">Ответить</span>
+
+    <a id="xclassNext" href="/site/x-class-line" class="submit" style="display: none; margin-bottom: 60px">Далее</a>
 
 
     <?= $this->render('_footer') ?>
