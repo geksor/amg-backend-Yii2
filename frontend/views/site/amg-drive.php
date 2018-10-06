@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model \frontend\models\ImageUpload */
 
-$this->title = 'ABS Авто AMG Тест-Драйв';
+$this->title = 'MyNT2018 AMG Тест-Драйв';
 ?>
 
 <div class="info">

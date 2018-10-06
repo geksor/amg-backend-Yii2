@@ -3,6 +3,8 @@
 /* @var $userModel \common\models\User */
 
 ?>
+<div class = "home_footer_fixed">
+</div>
 
 <div class = "home_footer">
     <textarea id="sendMessage" name="text" class = "textarea" placeholder = "Написать сообщение.."

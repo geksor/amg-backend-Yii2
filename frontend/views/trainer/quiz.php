@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $maxPoint \frontend\controllers\TrainerController */
 /* @var $quizCount \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто Викторина';
+$this->title = 'MyNT2018 Викторина';
 ?>
 <div class = "info info_trenr_group_viktorina">
     <?= $this->render('_top-line', [

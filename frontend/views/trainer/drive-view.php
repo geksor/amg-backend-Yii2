@@ -13,7 +13,7 @@ use yii\helpers\Html;
 /* @var $driveModel \common\models\MixDrive || \common\models\AmgDrive */
 /* @var $title \frontend\controllers\TrainerController */
 
-$this->title = "ABS Авто $title";
+$this->title = "MyNT2018 $title";
 ?>
 
 <div class = "info info_trenr_group_viktorina">

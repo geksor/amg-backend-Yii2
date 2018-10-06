@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $images \common\models\GalleryImage */
 /* @var $step */
 
-$this->title = 'ABS Авто Mix статика';
+$this->title = 'MyNT2018 Mix статика';
 
 $imageId = Yii::$app->session->get('images')[$step]['id'];
 

@@ -105,7 +105,7 @@ class ChatServer extends WebSocketServer
                 ->andWhere(['group' => $group])
                 ->count();
 
-            if ($commandCount < 6){//1 is temp use 6
+            if ($commandCount < 1){//1 is temp use 6
                 $newCommand = new Command();
                 $newCommand->capitan_id = $userId;
                 $newCommand->training_id = $trainingId;
@@ -119,7 +119,7 @@ class ChatServer extends WebSocketServer
                         'from' =>  $client->id,
                         'message' => 1,
                     ]));
-                    if ($commandCount + 1 >= 6){//1 is temp use 6
+                    if ($commandCount + 1 >= 1){//1 is temp use 6
                         foreach ($this->clients as $amgClient){
                             $user = User::findOne($amgClient->id);
                             if ($user->role === 4){

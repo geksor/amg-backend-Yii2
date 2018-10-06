@@ -5,7 +5,7 @@
 /* @var $place \common\models\User */
 /* @var $totalCount \frontend\controllers\SiteController */
 
-$this->title = 'ABS Авто раздел тренера главная';
+$this->title = 'MyNT2018 раздел тренера главная';
 ?>
 <div class = "home">
     <div class = "home_head home_head_test">

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $noAnswer bool */
 /* @var $userAnswer integer || bool */
 
-$this->title = 'ABS Авто Викторина';
+$this->title = 'MyNT2018 Викторина';
 ?>
 
 <div class="info">

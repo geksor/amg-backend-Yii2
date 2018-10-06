@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 /* @var $captain \common\models\User */
 
 $captain = $commandModel->captain;
-$this->title = 'ABS Авто Список членов команды';
+$this->title = 'MyNT2018 Список членов команды';
 ?>
 
 <div class = "schedule">

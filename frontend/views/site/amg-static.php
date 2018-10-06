@@ -9,7 +9,7 @@
 /* @var $this yii\web\View */
 /* @var $questionModel \common\models\AmgStaticQuestion */
 
-$this->title = 'ABS Авто Amg статика';
+$this->title = 'MyNT2018 Amg статика';
 ?>
 
 <div class="info">
