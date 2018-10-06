@@ -1313,7 +1313,7 @@ body {
 	margin: 20px 0px;
 }
 .home_head_test{
-	justify-content: flex-start;
+	justify-content: space-around;
 }
 .home_head_test .block_3_mersedes{
 	margin-right: 10px;
