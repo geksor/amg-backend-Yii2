@@ -9,7 +9,7 @@
 /* @var $this yii\web\View */
 /* @var $model \common\models\MbuxTest */
 
-$this->title = 'ABS Авто MBUX теория и практика';
+$this->title = 'MyNT2018 MBUX теория и практика';
 ?>
 
 <div class="info">

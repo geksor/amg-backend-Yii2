@@ -6,7 +6,7 @@
 /* @var $totalCount \frontend\controllers\SiteController */
 /* @var $isRunDrive bool */
 
-$this->title = 'ABS Авто главная';
+$this->title = 'MyNT2018 главная';
 ?>
 <div class = "home">
     <div class = "home_head">

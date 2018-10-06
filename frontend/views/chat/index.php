@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $message \common\models\Chat */
 /* @var $userModel \common\models\User */
 
-$this->title = 'ABS Авто Чат';
+$this->title = 'MyNT2018 Чат';
 ?>
 
 <div class = "forum">

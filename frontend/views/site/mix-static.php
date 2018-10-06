@@ -10,7 +10,7 @@
 /* @var $models \common\models\MixStatic */
 /* @var $model \common\models\MixStatic */
 
-$this->title = 'ABS Авто Mix статика';
+$this->title = 'MyNT2018 Mix статика';
 
 ?>
 

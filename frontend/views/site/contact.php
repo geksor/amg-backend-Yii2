@@ -10,7 +10,7 @@
 /* @var $models \common\models\Contact */
 /* @var $model \common\models\Contact */
 
-$this->title = 'ABS Авто Контакты';
+$this->title = 'MyNT2018 Контакты';
 ?>
 
 <div class="info">

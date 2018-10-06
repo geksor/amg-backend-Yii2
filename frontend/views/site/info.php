@@ -8,7 +8,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'ABS Авто Информация';
+$this->title = 'MyNT2018 Информация';
 ?>
 
 <div class="info">
