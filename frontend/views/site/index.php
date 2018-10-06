@@ -88,7 +88,7 @@ $this->title = 'MyNT2018 главная';
     </div>
     <?= $this->render('_footer') ?>
 </div>
-<? $truAnswers = false; ?>
+<?// $truAnswers = false; ?>
 <? if (Yii::$app->session->hasFlash('popupEndTest')) { ?>
     <? $truAnswers = [];
             if (!empty(Yii::$app->session->getFlash('popupEndTest')['truAnswers'])) {

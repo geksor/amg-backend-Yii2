@@ -410,7 +410,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAmgStatic($questId = null, $img_1 = null, $img_2 = null, $img_3 = null)
+    public function actionAmgStatic()
     {
         if (Yii::$app->user->identity->amgStatic !== 0){
             return $this->redirect('/site/index');
@@ -418,23 +418,30 @@ class SiteController extends Controller
 
         $userModel = User::findOne(Yii::$app->user->id);
 
-        if ($questId){
-            $userModel->saveAmgTest($questId);
+        if (Yii::$app->request->isAjax){
+            $userModel->saveAmgTest((integer)Yii::$app->request->post('questId'));
 
             $trueAnswer = 0;
 
-            $img_1_answer = AmgStaticAnswer::findOne($img_1);
-            $img_2_answer = AmgStaticAnswer::findOne($img_2);
-            $img_3_answer = AmgStaticAnswer::findOne($img_3);
+            $img_1 = false;
+            $img_2 = false;
+            $img_3 = false;
+
+            $img_1_answer = AmgStaticAnswer::findOne((integer)Yii::$app->request->post('img_1'));
+            $img_2_answer = AmgStaticAnswer::findOne((integer)Yii::$app->request->post('img_2'));
+            $img_3_answer = AmgStaticAnswer::findOne((integer)Yii::$app->request->post('img_3'));
 
             if ((integer)$img_1_answer->trueImage === 1){
                 ++$trueAnswer;
+                $img_1 = true;
             }
             if ((integer)$img_2_answer->trueImage === 2){
                 ++$trueAnswer;
+                $img_2 = true;
             }
             if ((integer)$img_3_answer->trueImage === 3){
                 ++$trueAnswer;
+                $img_3 = true;
             }
 
             if (Yii::$app->session->has('trueAnswersAmgStatic')){
@@ -443,6 +450,11 @@ class SiteController extends Controller
             }else{
                 Yii::$app->session->set('trueAnswersAmgStatic', $trueAnswer);
             }
+
+
+            $answer = ['img_1' => $img_1,'img_2' => $img_2,'img_3' => $img_3];
+
+            return json_encode($answer);
 
         }
 

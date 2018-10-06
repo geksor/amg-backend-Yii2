@@ -909,7 +909,7 @@ height: 70px;
 .mix_star li{
 	width: 10%;
 }
-#mix_static_link, #amg_static_link, #xclassSubmit{
+#mix_static_link, #amg_static_link, #amg_static_answer, #xclassSubmit{
 	margin-bottom: 60px;
 }
 .mix_ul_p{
@@ -948,6 +948,19 @@ height: 70px;
 	left: 0 !important;
 	margin: auto !important;
 	z-index: 100;
+}
+.amg__questImage.color_0 {
+	background-color: #ef5c5c;
+	border-color: #ef5c5c;
+}
+.amg__questImage.color_1 {
+	background-color: rgba(15, 179, 239, 0.95);
+	border-color: rgba(15, 179, 239, 0.95);
+
+}
+.amg__questImage.color_2 {
+	background-color: #c1c1c1;
+	border-color: #c1c1c1;
 }
 .color_0 {
 	background-color: #ef5c5c;
@@ -1226,6 +1239,7 @@ height: 70px;
 	opacity: .1;
 	position: relative;
 	z-index: -1;
+	display: none;
 }
 .submit.mix__noStars:hover, .submit.mix__noStars:active{
 	color: #fff;
@@ -1239,6 +1253,9 @@ height: 70px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
+	border-style: solid;
+	border-width: 4px;
+	border-color: transparent;
 }
 .amg__questImage.color_0::after,.amg__questImage.color_1::after,.amg__questImage.color_2::after{
 	content: '';
