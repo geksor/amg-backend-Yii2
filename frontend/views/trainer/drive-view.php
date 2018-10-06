@@ -24,7 +24,7 @@ $this->title = "MyNT2018 $title";
 
     <div class="x-class_content">
         <p class = "mix_ul_p"><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
-        <?= Html::img($driveModel->getPhoto(), ['class' => 'mix_img']) ?>
+        <img src="<?= $driveModel->getPhoto() ?>" class="mix_img">
     </div>
 
     <?= $this->render('_footer') ?>
