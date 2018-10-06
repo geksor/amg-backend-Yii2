@@ -43,6 +43,7 @@ class MixStaticController extends Controller
                             'create',
                             'update',
                             'set-photo',
+                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],

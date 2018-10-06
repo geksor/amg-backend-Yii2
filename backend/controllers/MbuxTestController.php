@@ -47,6 +47,8 @@ class MbuxTestController extends Controller
                             'question-create',
                             'question-update',
                             'set-photo',
+                            'delete',
+                            'question-delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
