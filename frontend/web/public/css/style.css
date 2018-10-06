@@ -584,7 +584,8 @@ body {
 }
 .back img{
 	width: 3%;
-	margin-right: 5%;
+	margin-right: 20px;
+	max-width: 10px;
 }
 .back{
 	display: flex;
@@ -631,6 +632,7 @@ body {
 	margin: 5%;
 	font-size: 12px;
 	line-height: 14px;
+	overflow-wrap: break-word;
 }
 .messege h3{
 	color: #00988d;
@@ -1649,6 +1651,8 @@ body {
 	border-right: 2px solid #fff;
 	margin-right: 20px;
 	width: 50%;
+	overflow-wrap: break-word;
+	max-width: 240px;
 }
 .trenr_group_opros_star img{
 	width: 30px;
@@ -1671,7 +1675,7 @@ body {
 .in_drive .trenr_groups {
 	display: flex;
 	flex-flow: column;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 }
 .in_drive .step_1 {
@@ -1690,4 +1694,11 @@ body {
 }
 .in_drive .gold, .in_drive .silver, .in_drive .bronze {
 	color: #8a5fb1;
+}
+@media (min-width: 1px) and (max-width: 900px) {
+	.trenr_group_opros_in .trenr_group_opros {
+		width: 100%;
+		margin: 1%;
+		display: inline-block;
+	}
 }
