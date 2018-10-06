@@ -20,8 +20,8 @@ use bupy7\cropbox\CropboxWidget;
         'pluginOptions' => [
             'variants' => [
                 [
-                    'width' => 303,
-                    'height' => 150
+                    'width' => 503,
+                    'height' => 350
                 ],
             ]
         ]
