@@ -953,7 +953,7 @@ height: 70px;
 	background-color: #ef5c5c;
 }
 .color_1 {
-	background-color: #555fe9;
+	background-color: rgba(15, 179, 239, 0.95);
 }
 .color_2 {
 	background-color: #c1c1c1;
@@ -978,7 +978,7 @@ height: 70px;
 	width: 200%;
 	color: #fff;
 	padding: 20px 0;
-	background: #ff7744;
+	background: #ff2020;
 	text-align: center;
 }
 .x-class_right{
@@ -992,7 +992,7 @@ height: 70px;
 	width: 200%;
 	color: #fff;
 	padding: 20px 0;
-	background: #555fe9;
+	background: rgba(15, 179, 239, 0.95);
 	text-align: center;
 	float: right;
 }
@@ -1253,7 +1253,7 @@ height: 70px;
 	background-color: rgba(239, 92, 92, 0.95);
 }
 .amg__questImage.color_1::after{
-	background-color: rgba(85, 95, 233, 0.95);
+	background-color: rgba(15, 179, 239, 0.95);
 }
 .amg__questImage.color_2::after{
 	background-color: rgba(193, 193, 193, 0.95);
