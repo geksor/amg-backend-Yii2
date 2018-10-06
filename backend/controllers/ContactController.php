@@ -39,6 +39,7 @@ class ContactController extends Controller
                             'view',
                             'create',
                             'update',
+                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
