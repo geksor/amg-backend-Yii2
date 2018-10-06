@@ -444,13 +444,13 @@ body {
 	background-color: rgba(232, 232, 232, 0.3);
 }
 .test_1 .ui-widget-header {
-	background-color: rgba(232, 232, 232, 1);
+	background-color: hsl(180, 1%, 73%);
 }
 .test_1 h3{
-	color: #000000;
+	color: #fff;
 }
 .test_1 p{
-	color: #000000;
+	color: #fff;
 }
 .test_2{
 	background-color: rgba(255, 213, 100, 0.3);
