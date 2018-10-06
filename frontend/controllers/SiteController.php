@@ -1062,7 +1062,7 @@ class SiteController extends Controller
     public function actionSignupStep3()
     {
         $model = new SignupFormStep3();
-        $dealerCenters = DealerCenter::find()->select(['id', 'title'])->asArray()->all();
+        $dealerCenters = DealerCenter::find()->select(['id', 'title'])->orderBy(['title' => SORT_ASC])->asArray()->all();
 
         $dealerCentersArr = [];
 

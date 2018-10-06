@@ -15,8 +15,8 @@ $this->title = 'Регистрация';
     <div class = "mail_send_in">
         <img src = "/public/images/mail_send.svg">
         <p>
-            Спасибо за регистрацию!<br>
-            Пожалуйста проверте свою почту
+            Спасибо за регистрацию,<br>
+            Пожалуйста проверьте свою электронную почту
         </p>
         <?= Html::a('OK', '/', ['class' => 'mail_send_bottom']) ?>
     </div>
