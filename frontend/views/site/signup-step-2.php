@@ -32,7 +32,7 @@ $this->title = 'Регистрация';
         </p>
 
         <div class="button_next_back">
-            <?= Html::a('<img src = "/public/images/left-arrow.svg">Назад', '/', ['class' => 'button_back'] ) ?>
+<!--            --><?//= Html::a('<img src = "/public/images/left-arrow.svg">Назад', '/', ['class' => 'button_back'] ) ?>
             <?= Html::submitButton('Далее<img src = "/public/images/right-arrow.svg">', ['class' => 'button_next', 'name' => 'signup-button']) ?>
         </div>
 

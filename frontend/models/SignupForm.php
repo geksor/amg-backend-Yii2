@@ -93,7 +93,7 @@ class SignupForm extends Model
 
         return Yii::$app->mailer->compose()
             ->setTo($this->email)
-            ->setFrom(['support@mynt2018.ru' => 'ABS-Auto'])
+            ->setFrom(['support@mynt2018.ru' => 'MyNT2018'])
             ->setSubject('Регистрация')
             ->setHtmlBody($body)
             ->send();

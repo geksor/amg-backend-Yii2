@@ -26,7 +26,7 @@ $this->title = 'Регистрация';
 
         <?= $form->field($model, 'last_name')->textInput(['class' => 'user', 'placeholder' => 'Отчество'])->label(false) ?>
 
-        <?= $form->field($model, 'dealer_center_id')->dropDownList($dealerCentersArr, [ 'class' => 'user', 'prompt' => 'Диллерский центр', ])->label(false) ?>
+        <?= $form->field($model, 'dealer_center_id')->dropDownList($dealerCentersArr, [ 'class' => 'user', 'prompt' => 'Дилерский центр', ])->label(false) ?>
 
 
         <p>
