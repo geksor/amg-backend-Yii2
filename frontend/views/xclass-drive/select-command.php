@@ -83,7 +83,7 @@ $this->title = 'ABS Авто Выбор команды';
                 var response = JSON.parse(e.data);
 
                 if (response.type && response.type === 'selectCommand') {
-                    console.log(response);
+                    // console.log(response);
                     if (response.from.commandId && response.from.player) {
                         switch (response.from.player) {
                             case 'player1':
@@ -104,7 +104,7 @@ $this->title = 'ABS Авто Выбор команды';
                     }
 
                 } else if (response.message) {
-                    console.log(response.message);
+                    // console.log(response.message);
                 }
             };
 

@@ -56,7 +56,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
 
                 var response = JSON.parse(e.data);
                 if (response.type && response.type === 'setCaptain') {
-                    console.log(response);
+                    // console.log(response);
                     if (+response.from === +userId){
                         $('#captainOk').show();
                     }
@@ -64,7 +64,7 @@ $this->title = 'ABS Авто X-Class тест драйв';
                         $('#captainNone').show();
                     }
                 } else if (response.message) {
-                    console.log(response.message);
+                    // console.log(response.message);
                 }
             };
 
