@@ -21,7 +21,7 @@ $this->title = 'ABS Авто MBUX теория и практика';
         <div class="mbux_slick">
             <? foreach ($model->mbuxQuestions as $key => $question) {?>
                 <div class="mbux__slide">
-                    <img src = "<?= $question->getPhotos()['image_1'] ?>" class = "mix_img">
+                    <img src = "<?= $question->getPhotos()['thumb_image_1'] ?>" class = "mix_img">
                     <p class = "mix_ul_p"><?= $question->title ?></p>
                     <div id="help_<?= $key ?>" style="display: none">
                             <?= $question->description ?>
