@@ -19,7 +19,7 @@ $this->title = 'MyNT2018 Выбор команды';
 
 <div class = "schedule">
     <?= $this->render('_top-line', [
-        'title' => 'Выбор команды',
+        'title' => 'Пожайлуста выберите капитана',
         'link' => false,
     ]) ?>
 
