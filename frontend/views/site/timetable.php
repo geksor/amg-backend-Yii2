@@ -5,7 +5,7 @@
 /* @var $traningDay \frontend\controllers\SiteController */
 /* @var $model \common\models\Timetable */
 
-$this->title = 'ABS Авто расписание';
+$this->title = 'MyNT2018 расписание';
 ?>
 <div class="schedule">
     <?= $this->render('_top-line', [

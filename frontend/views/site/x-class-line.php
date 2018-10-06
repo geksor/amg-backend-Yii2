@@ -9,7 +9,7 @@
 /* @var $this yii\web\View */
 /* @var $questionModel \common\models\XClassLineQuestion */
 
-$this->title = 'ABS Авто X-Класс линии исполнения';
+$this->title = 'MyNT2018 X-Класс линии исполнения';
 ?>
 
 <div class="info">

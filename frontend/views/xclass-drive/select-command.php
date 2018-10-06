@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $commandModels \common\models\Command */
 /* @var $commandModel \common\models\Command */
 
-$this->title = 'ABS Авто Выбор команды';
+$this->title = 'MyNT2018 Выбор команды';
 ?>
 
 <div class = "schedule">

@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $commandModels \common\models\Command */
 /* @var $isRunDrive bool */
 
-$this->title = 'ABS Авто X-Класс Тест-Драйв';
+$this->title = 'MyNT2018 X-Класс Тест-Драйв';
 ?>
 
 <div class = "info info_trenr_group_viktorina">

@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $userModel \common\models\User */
 
-$this->title = 'ABS Авто X-Class тест драйв';
+$this->title = 'MyNT2018 X-Class тест драйв';
 ?>
 
 <div class = "info x-class">

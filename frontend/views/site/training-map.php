@@ -9,7 +9,7 @@
 /* @var $this yii\web\View */
 /* @var $map */
 
-$this->title = 'ABS Авто Карта тренинга';
+$this->title = 'MyNT2018 Карта тренинга';
 ?>
 
 <div class="info">

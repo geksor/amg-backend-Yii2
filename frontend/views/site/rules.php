@@ -9,7 +9,7 @@
 /* @var $this yii\web\View */
 /* @var $rules */
 
-$this->title = 'ABS Авто Правила тренинга';
+$this->title = 'MyNT2018 Правила тренинга';
 ?>
 
 <div class="info">

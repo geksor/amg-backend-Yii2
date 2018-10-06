@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $userModels \common\models\User */
 /* @var $maxPoint \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто MBUX';
+$this->title = 'MyNT2018 MBUX';
 ?>
 <div class = "info info_trenr_group_viktorina">
     <?= $this->render('_top-line', [

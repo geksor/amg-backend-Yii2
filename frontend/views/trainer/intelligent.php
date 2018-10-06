@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $userModels \common\models\User */
 /* @var $maxPoint \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто Intelligent Drive';
+$this->title = 'MyNT2018 Intelligent Drive';
 ?>
 <div class = "info info_trenr_group in_drive">
     <?= $this->render('_top-line', [

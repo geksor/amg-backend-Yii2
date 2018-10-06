@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $images \common\models\GalleryImage */
 
-$this->title = 'ABS Авто Mix статика';
+$this->title = 'MyNT2018 Mix статика';
 
 function floor_to($number, $increments) {
     $increments = 1 / $increments;

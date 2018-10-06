@@ -11,7 +11,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $userModels \common\models\User */
 
-$this->title = 'ABS Авто AMG Тест-Драйв';
+$this->title = 'MyNT2018 AMG Тест-Драйв';
 ?>
 
 <div class = "info info_trenr_group_viktorina">

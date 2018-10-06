@@ -5,7 +5,7 @@
 /* @var $userModelsGroup2 \common\models\User */
 /* @var $maxPoint \frontend\controllers\TrainerController */
 
-$this->title = 'ABS Авто раздел тренера список учасников';
+$this->title = 'MyNT2018 раздел тренера список учасников';
 ?>
 <div class = "info info_trenr_group">
     <?= $this->render('_top-line', [

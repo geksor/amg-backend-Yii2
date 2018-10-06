@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $model \common\models\Timetable */
 
-$this->title = 'ABS Авто информация';
+$this->title = 'MyNT2018 информация';
 ?>
 <div class = "info">
     <?= $this->render('_top-line', [
