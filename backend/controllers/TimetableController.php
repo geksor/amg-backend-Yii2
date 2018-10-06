@@ -41,6 +41,7 @@ class TimetableController extends Controller
                             'create',
                             'update',
                             'table',
+                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],

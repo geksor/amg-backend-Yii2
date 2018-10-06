@@ -40,6 +40,7 @@ class TrainingController extends Controller
                             'view',
                             'create',
                             'update',
+                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],

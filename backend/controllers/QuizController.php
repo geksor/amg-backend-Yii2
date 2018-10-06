@@ -39,6 +39,7 @@ class QuizController extends Controller
                             'view',
                             'create',
                             'update',
+                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],

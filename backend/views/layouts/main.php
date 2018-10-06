@@ -41,6 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .bg-cropbox{width: 100%!important;}
         .imagePages-form .workarea-cropbox{height: 600px!important;}
         .imagePages-form .bg-cropbox{height: 600px!important;}
+        .grid-view{overflow: auto}
     </style>
     <?php $this->head() ?>
 </head>
