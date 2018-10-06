@@ -520,6 +520,13 @@ body {
 	flex-flow: row wrap;
 	justify-content: space-around;
 	align-items: center;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.home_footer_fixed{
+height: 70px;
+	display: block;
 }
 .home_footer img{
 
