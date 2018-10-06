@@ -16,7 +16,10 @@ $this->title = 'ABS Авто раздел тренера главная';
         <div class = "block_3 block_3_mersedes">
             <p>Дата тренинга: <?= date("d.m.Y", (integer) $userModel->training->date) ?> </p>
         </div>
-        <?= \yii\helpers\Html::a('Изменить', '/trainer/select-training', ['class' => 'selectTraining submit']) ?>
+        <div class = "block_3 block_3_mersedes">
+            <?= \yii\helpers\Html::a('Изменить', '/trainer/select-training', ['class' => 'selectTraining submit']) ?>
+        </div>
+
         <div class = "block_3 block_3_mersedes">
             <p>Группа: <?= $userModel->group ?> </p>
         </div>
