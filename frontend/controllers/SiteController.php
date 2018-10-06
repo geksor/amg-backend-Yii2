@@ -664,6 +664,10 @@ class SiteController extends Controller
         {
             $file = UploadedFile::getInstance($model, 'image');
 
+//            $exif = exif_read_data($file->tempName);
+//
+//            VarDumper::dump($exif, 10, true);die;
+
             if ($amgDriveModel->savePhoto($model->uploadFile($file, $amgDriveModel->photo)))
             {
                 $point = Yii::$app->params['PointTest']['amgDrive'];

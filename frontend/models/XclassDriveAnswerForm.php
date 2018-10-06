@@ -44,7 +44,7 @@ class XclassDriveAnswerForm extends Model
         ];
 
         if (!in_array(mb_strtolower ($this->$attribute), $answerArr)) {
-            $this->addError($attribute, 'Ответ не верный');
+            $this->addError($attribute, 'Ответ неверный');
         }
     }
 
