@@ -1219,8 +1219,8 @@ height: 70px;
 	margin-bottom: 10px;
 }
 .mix__link.viewed .mix_img{
-	-webkit-filter: brightness(0.1);
-	filter: brightness(0.1);
+	-webkit-filter: brightness(0.4);
+	filter: brightness(0.4);
 }
 .mix__noStars{
 	opacity: .1;
