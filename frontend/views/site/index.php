@@ -5,6 +5,7 @@
 /* @var $place \common\models\User */
 /* @var $totalCount \frontend\controllers\SiteController */
 /* @var $isRunDrive bool */
+/* @var $totalQuestion integer */
 
 $this->title = 'MyNT2018 главная';
 ?>
@@ -79,11 +80,12 @@ $this->title = 'MyNT2018 главная';
             <p><?= $userModel->xClassLine ?> / <?= Yii::$app->params['PointTest']['xClassLine'] ?></p>
         </div>
 
-        <div class = "test test_8">
+        <div data-value="<?= $userModel->quiz ?>" data-max="<?= Yii::$app->params['PointTest']['quizItem'] * $totalQuestion ?>" class = "progressBar test test_8">
             <? if (!$userModel->endQuests->quiz) {?>
                 <?= \yii\helpers\Html::a('', '/site/quiz') ?>
             <?}?>
             <h3>Викторина</h3>
+            <p><?= $userModel->quiz ?> / <?= Yii::$app->params['PointTest']['quizItem'] * $totalQuestion ?></p>
         </div>
     </div>
     <?= $this->render('_footer') ?>

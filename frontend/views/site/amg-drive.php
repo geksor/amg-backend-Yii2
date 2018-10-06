@@ -31,7 +31,7 @@ $this->title = 'MyNT2018 AMG Тест-Драйв';
     <p class="mix_ul_p"></p>
 
 
-    <?= Html::submitButton('Загрузить фотографии', ['class' => 'submit']) ?>
+    <?= Html::submitButton('Отправить фотограйию', ['class' => 'submit']) ?>
 
     <?php ActiveForm::end(); ?>
 

@@ -162,6 +162,7 @@ class SiteController extends Controller
             'totalCount' => $userModel->totalPoint,
             'place' => $userModel->getPlace(),
             'isRunDrive' => $isRunDrive,
+            'totalQuestion' => $totalQuestion = Quiz::find()->count(),
         ]);
     }
 
@@ -891,9 +892,6 @@ class SiteController extends Controller
      */
     public function actionQuiz()
     {
-        if (Yii::$app->user->identity->quiz  !== 0){
-            return $this->redirect('/site/index');
-        }
 
         $userModel = User::findOne(Yii::$app->user->id);
 
@@ -910,6 +908,11 @@ class SiteController extends Controller
 
             if ((integer)$answer === $quiz->trueAnswer){
                 ++$trueAnswer;
+                $setPoint = $userModel->quiz + (integer)Yii::$app->params['PointTest']['quizItem'];
+
+                $userModel->quiz = $setPoint;
+                $userModel->save();
+
             }
 
             if (Yii::$app->session->has('trueAnswersQuiz')){
@@ -950,9 +953,6 @@ class SiteController extends Controller
             $point = ceil(Yii::$app->session->get('trueAnswersQuiz')*$pointStep);
 
             $this->setEndQuest($userModel, 'quiz');
-
-            $userModel->quiz = $point;
-            $userModel->save();
 
             Yii::$app->session->setFlash('popupEndTest', [
                 'point' => $point,
@@ -1153,12 +1153,5 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
-    }
-
-    public function actionRun()
-    {
-//        Yii::$app->consoleRunner->run('server/start');
-//        $cr = new ConsoleRunner(['file' => Yii::getAlias('@app/yii.php')]);
-//        $cr->run('server/start');
     }
 }
