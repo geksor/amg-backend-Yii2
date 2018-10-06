@@ -13,6 +13,7 @@ $this->title = 'ABS Авто раздел тренера список учасн
         'link' => '/trainer/index',
     ]) ?>
 
+    <div class="flex_1">
         <div id="group_1_block" class = "trenr_groups" <?= (integer)Yii::$app->user->identity->group === 1 ? '' : 'style="display:none"' ?>>
             <? if (empty($userModelsGroup1)) {?>
                 Нет пользователей в группе
@@ -54,6 +55,7 @@ $this->title = 'ABS Авто раздел тренера список учасн
                 <?}?>
             <?}?>
         </div>
+    </div>
 
     <?= $this->render('_footer-group') ?>
 </div> <!-- -->
