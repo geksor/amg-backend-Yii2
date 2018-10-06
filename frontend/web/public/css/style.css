@@ -1321,6 +1321,7 @@ body {
 	justify-content: flex-end;
 	align-items: center;
 	display: flex;
+	width: 23%;
 }
 .test_trener .test_1 {
 	background-color: rgba(232, 232, 232, 1);
