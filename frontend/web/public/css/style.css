@@ -3,16 +3,8 @@
 	src: url(../fonts/CorporateA-Demi.otf);
 }
 @font-face {
-	font-family: Montserrat-Bold, sans-serif;
-	src: url(../fonts/Montserrat-Bold.ttf);
-}
-@font-face {
-	font-family: Montserrat, sans-serif;
-	src: url(../fonts/Montserrat-Regular.ttf);
-}
-@font-face {
-	font-family: Montserrat-Medium, sans-serif;
-	src: url(../fonts/Montserrat-Medium.ttf);
+	font-family: CorporateS-Regular, sans-serif;
+	src: url(../fonts/CorporateS-Regular.otf);
 }
 /* Eric Meyer's CSS Reset */
 html, body, div, span, applet, object, iframe,
@@ -78,11 +70,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 }
 body {
 	font: 14px/18px;
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	height: 100%;
 }
 .h2{
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	font-size: 16px;
 	line-height: 1.19;
 	padding: 10px 0;
@@ -153,7 +145,7 @@ body {
 }
 .user, .password{
 	width: 100%;
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	text-align: center;
 	font-size: 14px;
 	line-height: 18px;
@@ -170,7 +162,7 @@ body {
 }
 .submit{
 	width: 90%;
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	text-align: center;
 	font-size: 14px;
 	line-height: 18px;
@@ -785,7 +777,7 @@ height: 70px;
 	text-align: center;
 }
 .red_button{
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 1.2;
@@ -1060,7 +1052,7 @@ height: 70px;
 	color: #ef5c5c;
 	font-size: 30px;
 	line-height: 20px;
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	font-weight: bold;
 	margin: 10px 0
 }
@@ -1074,7 +1066,7 @@ height: 70px;
 	margin-top: -80px;
 }
 .head_h2{
-	font-family: Montserrat, sans-serif;
+	font-family: CorporateS-Regular, sans-serif;
 	font-size: 16px;
 	padding: 15px 0;
 	color: #3e3e3e;
