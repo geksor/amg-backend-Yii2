@@ -29,7 +29,7 @@ $imageId = Yii::$app->session->get('images')[$step]['id'];
             <?/* @var $image \common\models\GalleryImage */?>
             <? if ($image->id === $imageId) {?>
                 <div class="mix__imageWrap">
-                    <?= \yii\helpers\Html::img($image->getUrl('small'), ['alt' => $image->name, 'class' => 'mix__imageAbsolute']); ?>
+                    <?= \yii\helpers\Html::img($image->getUrl('medium'), ['alt' => $image->name, 'class' => 'mix__imageAbsolute']); ?>
                 </div>
                 <p class="mixStatic__imageName"><?= $image->name ?></p>
             <?}?>
