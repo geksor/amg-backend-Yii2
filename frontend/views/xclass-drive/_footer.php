@@ -3,6 +3,8 @@
 
 
 ?>
+<div class = "home_footer_fixed">
+</div>
 
 <div class = "home_footer site-footer">
     <div class = "footer_block_1 footerLinkWrap">
