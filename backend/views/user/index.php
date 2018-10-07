@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'mixDrive',
                 'xClassLine',
                 'quiz',
-                'moderatorPoints',
+//                'moderatorPoints',
                 'totalPoint',
                 //'command_id',
 
