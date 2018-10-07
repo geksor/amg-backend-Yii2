@@ -503,8 +503,11 @@ body {
 	color: #fff;
 }
 .test_8{
-	background-color: #3dc99a;
+	background-color: rgba(61, 201, 154, 0.3);
 	color: #fff;
+}
+.test_8 .ui-widget-header {
+	background-color: rgba(61, 201, 154, 1);
 }
 .home_footer{
 	display: flex;
