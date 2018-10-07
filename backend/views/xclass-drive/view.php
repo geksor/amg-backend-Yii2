@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'description:ntext',
+            'request:ntext',
             'answer_var_1',
             'answer_var_2',
             'answer_var_3',
