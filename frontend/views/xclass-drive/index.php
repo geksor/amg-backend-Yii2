@@ -59,9 +59,11 @@ $this->title = 'MyNT2018 Х-Класс тест драйв';
                     // console.log(response);
                     if (+response.from === +userId){
                         $('#captainOk').show();
+                        $('.red_button').hide();
                     }
                     if (response.from === 0 && response.message === 0) {
                         $('#captainNone').show();
+                        $('.red_button').hide();
                     }
                 } else if (response.message) {
                     // console.log(response.message);
