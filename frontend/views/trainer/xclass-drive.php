@@ -21,30 +21,33 @@ $this->title = 'MyNT2018 X-Класс Тест-Драйв';
         'link' => '/trainer/index',
     ]) ?>
 
-    <div class="x-class_content">
-        <? foreach ($commandModels as $key => $commandModel) {?>
-            <?
-            /* @var $commandModel \common\models\Command */
-            /* @var $captain \common\models\User */
-            $captain = $commandModel->captain;
-            ?>
-            <div class = "trenr_group_comand">
-                <div class = "trenr_group_comand_name">
-                    <h2>Команда №<?= ++$key ?></h2>
-                    <p>Капитан команды: <?= $captain->surname . ' ' . $captain->first_name . ' ' . $captain->last_name ?></p>
+    <div class = "flex_1">
+        <div class = "trenr_groups">
+            <? foreach ($commandModels as $key => $commandModel) {?>
+                <?
+                /* @var $commandModel \common\models\Command */
+                /* @var $captain \common\models\User */
+                $captain = $commandModel->captain;
+                $captaineName = $captain->surname . ' ' . $captain->first_name . ' ' . $captain->last_name;
+                ?>
+                <div class = "gallery__item">
+                    <div class = "linkWrap gallery__imageWrap">
+                        <? if ($captain->endQuests->xClassDrive) {?>
+                            <img src="<?= $commandModel->getPhoto() ?>" class="gallery__image" alt="<?= $captaineName ?>">
+                        <?
+                            echo Html::a('', $commandModel->getPhoto(), ['data-fancybox' => 'gallery', 'data-caption' => $captaineName]);
+                        }else{?>
+                            <img src="/public/images/noimage.svg" class="gallery__image" alt="<?= $captaineName ?>">
+                        <?}?>
+                    </div>
+                    <p class="gallery__userName"><?= $captaineName . '<br> группа ' . $captain->group ?></p>
                 </div>
-                <div class = "trenr_group_comand_progres">
-                    <? if ($captain->endQuests->xClassDrive) {?>
-                        <p><?= Yii::$app->params['PointTest']['xClassDrive'] ?></p>
-                    <?}else{?>
-                        Тестирование не окончено
-                    <?}?>
-                </div>
-            </div>
-        <?}?>
-        <? if (!$isRunDrive) {?>
+            <?}?>
+            <? if (!$isRunDrive) {?>
                 <?= \yii\helpers\Html::a('Активировать', '/trainer/run-xclass-drive', ['class' => 'submit', 'style' => 'background-color: #00675f;']) ?>
-        <?}?>
+            <?}?>
+
+        </div>
     </div>
 
     <?= $this->render('_footer') ?>

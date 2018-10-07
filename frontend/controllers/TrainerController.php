@@ -521,7 +521,6 @@ class TrainerController extends Controller
         $commandModels = Command::find()
             ->where([
                 'training_id' => Yii::$app->user->identity->training_id,
-                'group' => Yii::$app->user->identity->group,
             ])
             ->with(['captain'])
             ->all();

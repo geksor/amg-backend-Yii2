@@ -179,4 +179,8 @@ class Command extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function getPhoto()
+    {
+        return ($this->photo) ? '/uploads/images/' . $this->photo : '/public/images/noimage.svg';
+    }
 }
