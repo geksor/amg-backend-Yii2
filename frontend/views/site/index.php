@@ -80,17 +80,17 @@ $this->title = 'MyNT2018 главная';
             <p><?= $userModel->xClassLine ?> / <?= Yii::$app->params['PointTest']['xClassLine'] ?></p>
         </div>
 
+        <div data-value="<?= $userModel->intelligent ?>" data-max="<?= Yii::$app->params['PointTest']['intelligent'] ?>" class = "progressBar test test_9">
+            <h3>Intelligent drive</h3>
+            <p><?= $userModel->intelligent ?> / <?= Yii::$app->params['PointTest']['intelligent'] ?></p>
+        </div>
+
         <div data-value="<?= $userModel->quiz ?>" data-max="<?= Yii::$app->params['PointTest']['quizItem'] * $totalQuestion ?>" class = "progressBar test test_8">
             <? if (!$userModel->endQuests->quiz) {?>
                 <?= \yii\helpers\Html::a('', '/site/quiz') ?>
             <?}?>
             <h3>Викторина</h3>
             <p><?= $userModel->quiz ?> / <?= Yii::$app->params['PointTest']['quizItem'] * $totalQuestion ?></p>
-        </div>
-
-        <div data-value="<?= $userModel->intelligent ?>" data-max="<?= Yii::$app->params['PointTest']['intelligent'] ?>" class = "progressBar test test_9">
-            <h3>Intelligent drive</h3>
-            <p><?= $userModel->intelligent ?> / <?= Yii::$app->params['PointTest']['intelligent'] ?></p>
         </div>
     </div>
     <?= $this->render('_footer') ?>
