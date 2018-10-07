@@ -10,7 +10,7 @@
     <div class = "back fullLinkWrap">
         <?= \yii\helpers\Html::a('', $link, ['class' => 'fullLink']) ?>
         <img src = "/public/images/back.svg" alt = "назад">
-        <p><?= $title ?></p>
+        <p>Назад</p>
     </div>
 </div>
 

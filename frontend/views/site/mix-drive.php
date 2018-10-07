@@ -29,7 +29,7 @@ $this->title = 'MyNT2018 MIX Тест-Драйв';
     <p class="mix_ul_p"></p>
 
 
-    <?= Html::submitButton('Отправить фотограйию', ['class' => 'submit']) ?>
+    <?= Html::submitButton('Отправить фотографию', ['class' => 'submit']) ?>
 
     <?php ActiveForm::end(); ?>
 

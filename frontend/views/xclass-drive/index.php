@@ -12,12 +12,12 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $userModel \common\models\User */
 
-$this->title = 'MyNT2018 X-Class тест драйв';
+$this->title = 'MyNT2018 Х-Класс тест драйв';
 ?>
 
 <div class = "info x-class">
     <?= $this->render('_top-line', [
-        'title' => 'X-Class Выбор капитанов',
+        'title' => 'Х-Класс Выбор капитанов',
         'link' => Yii::$app->homeUrl,
     ]) ?>
     <div class = "x-class_content">
