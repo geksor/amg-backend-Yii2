@@ -41,6 +41,8 @@ class XclassDriveAnswerForm extends Model
             mb_strtolower ($question->answer_var_2),
             mb_strtolower ($question->answer_var_3),
             mb_strtolower ($question->answer_var_4),
+            mb_strtolower ($question->answer_var_5),
+            mb_strtolower ($question->answer_var_6),
         ];
 
         if (!in_array(mb_strtolower ($this->$attribute), $answerArr)) {

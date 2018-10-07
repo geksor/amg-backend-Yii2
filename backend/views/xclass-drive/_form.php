@@ -29,6 +29,10 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'answer_var_4')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'answer_var_5')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'answer_var_6')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'answer_isImage')->checkbox() ?>
 
     <div class="form-group">

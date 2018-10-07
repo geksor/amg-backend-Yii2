@@ -46,6 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'answer_var_2',
             'answer_var_3',
             'answer_var_4',
+            'answer_var_5',
+            'answer_var_6',
             [
                 'format' => 'ntext',
                 'label' => 'Ответ в виде фото',

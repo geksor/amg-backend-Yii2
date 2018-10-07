@@ -18,6 +18,8 @@ use Yii;
  * @property string $answer_var_3
  * @property string $answer_var_4
  * @property int $answer_isImage
+ * @property string $answer_var_5
+ * @property string $answer_var_6
  *
  * @property XClassDriveAnswerImage[] $xClassDriveAnswerImages
  * @property CommandXClassDriveQuestion[] $commandXClassDriveQuestions
@@ -41,7 +43,7 @@ class XClassDriveQuestion extends \yii\db\ActiveRecord
         return [
             [['question', 'description'], 'string'],
             [['answer_isImage'], 'integer'],
-            [['title', 'question_image', 'request', 'answer_var_1', 'answer_var_2', 'answer_var_3', 'answer_var_4'], 'string', 'max' => 255],
+            [['title', 'question_image', 'request', 'answer_var_1', 'answer_var_2', 'answer_var_3', 'answer_var_4', 'answer_var_5', 'answer_var_6'], 'string', 'max' => 255],
         ];
     }
 
@@ -62,6 +64,8 @@ class XClassDriveQuestion extends \yii\db\ActiveRecord
             'answer_var_3' => 'Вариант ответа 3',
             'answer_var_4' => 'Вариант ответа 4',
             'answer_isImage' => 'Ответ в виде фото',
+            'answer_var_5' => 'Вариант ответа 5',
+            'answer_var_6' => 'Вариант ответа 6',
         ];
     }
 
