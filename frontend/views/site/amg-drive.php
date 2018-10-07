@@ -24,11 +24,10 @@ $this->title = 'MyNT2018 AMG Тест-Драйв';
         'options' => ['enctype' => 'multipart/form-data', 'class' => 'x-class_content'],
     ]); ?>
 
-
+    <p class="mix_ul_p">Нажмите на иконку фотоаппарата, переверните телефон в горизонтальное положение, сделайте снимок и загрузите фото.</p>
 
     <?= $form->field($model, 'image')->fileInput(['class' => 'jsImageInput', 'style' => 'display:none'])->label('<img id="insertImage" src = "/public/images/noimage.svg" class = "mix_img">'); ?>
 
-    <p class="mix_ul_p"></p>
 
 
     <?= Html::submitButton('Отправить фотографию', ['class' => 'submit']) ?>

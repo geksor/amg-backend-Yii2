@@ -28,7 +28,7 @@ class ImageUpload extends Model
     public function rules()
     {
         return [
-            [['image'], 'required'],
+            [['image'], 'required', 'message' => ''],
             [
                 'image',
                 'image',
