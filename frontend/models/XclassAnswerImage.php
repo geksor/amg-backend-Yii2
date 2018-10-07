@@ -10,6 +10,7 @@ namespace frontend\models;
 
 
 use yii\base\Model;
+use yii\imagine\Image;
 use yii\web\UploadedFile;
 use Yii;
 
@@ -95,7 +96,7 @@ class XclassAnswerImage extends Model
     {
         $fileName = $this->generateFileName();
 
-        $this->image->saveAs($this->getFolder() . $fileName);
+        Image::autorotate($this->image->tempName)->save($this->getFolder() . $fileName);
 
         return $fileName;
     }
