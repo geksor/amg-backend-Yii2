@@ -116,7 +116,7 @@ class SiteController extends Controller
         if ($trainingId){
             $query->andwhere(['training_id' => $trainingId]);
         }
-        $query->orderBy(['totalPoint' => SORT_DESC]);
+        $query->orderBy(['surname'=> SORT_ASC, 'totalPoint' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

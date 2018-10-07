@@ -18,7 +18,7 @@ $this->title = 'MyNT2018 Правила тренинга';
         'link' => Yii::$app->request->referrer,
     ]) ?>
     <div class = "info_content info_content_p ">
-        <div class = "info_content">
+        <div class = "info_content content_styles">
             <?= $rules ?>
         </div>
     </div>

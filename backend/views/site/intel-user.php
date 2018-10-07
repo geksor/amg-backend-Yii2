@@ -91,24 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
             });
             var params = {'checkUsers': arr};
             $(this).attr('data-params', JSON.stringify(params));
-            if (arr.length === userCountForCheck){
-                $(this).attr('data-method', 'POST');
-            }
-
-            if(arr.length === 0){
-                alert('Необходимо выбрать пользователей');
-                ev.preventDefault();
-            }else if (arr.length > 0 && arr.length < userCountForCheck) {
-                var userCountNow = userCountForCheck - arr.length;
-                var endCount = userCountNow === 1 ? '-го' : '';
-                var endString = userCountNow === 5 ? 'ей' : 'я';
-                alert('Необходимо выбрать еще ' + userCountNow + endCount + ' пользовател' + endString);
-                ev.preventDefault();
-            }else if (arr.length > userCountForCheck) {
-                userCountNow = arr.length - userCountForCheck;
-                alert('Пользователей выбрано больше на ' + userCountNow);
-                ev.preventDefault();
-            }
+            $(this).attr('data-method', 'POST');
         });
     }
 </script>
