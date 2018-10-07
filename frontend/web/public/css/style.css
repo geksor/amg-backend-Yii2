@@ -29,6 +29,9 @@ time, mark, audio, video {
 *{
 	box-sizing: border-box;
 }
+.strong{
+	font-weight: bold;
+}
 input[type=text], input[type=password], input[type=submit], textarea{
 	-webkit-appearance: none;
 	border-radius: 0;
@@ -510,11 +513,15 @@ body {
 	background-color: rgba(61, 201, 154, 1);
 }
 .test_9{
-	background-color: rgba(61, 201, 154, 0.3);
+	background-color: rgba(0, 136, 216, 0.3);
 	color: #fff;
 }
 .test_9 .ui-widget-header {
-	background-color: rgba(61, 201, 154, 1);
+	background-color: rgba(0, 136, 216, 1);
+}
+.content_styles ul{
+	list-style: circle;
+	margin-left: 10px 0px 10px 10px;
 }
 .home_footer{
 	display: flex;
