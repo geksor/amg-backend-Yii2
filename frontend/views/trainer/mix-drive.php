@@ -26,24 +26,23 @@ $this->title = 'MyNT2018 MIX Тест-Драйв';
                 /* @var $userModel \common\models\User */
                 /* @var $endQuests \common\models\EndQuest */
                 $endQuests = $userModel->endQuests;
+                $userFIO = $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name;
             ?>
-            <div class = "trenr_group linkWrap">
-                <div class = "group_place">
-                    <p class = "group_place_number"><?= ++$key ?></p>
-                </div>
-                <div class = "group_name">
-                    <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
-                </div>
-                <div class = "group_bal">
+            <div class="gallery__item">
+                <div class = "linkWrap gallery__imageWrap">
                     <? if ($endQuests !== null && $endQuests->mixDrive) {?>
-                        <p class = "test_ok">Тест завершен</p>
-                    <?}else{?>
-                        <p class = "test_no">Нет данных</p>
+                        <?/* @var $mixDrive \common\models\MixDrive */
+                        $mixDrive = $userModel->mixDrives
+                        ?>
+
+                        <img src="<?= $mixDrive->getPhoto() ?>" class="gallery__image" alt="<?= $userFIO ?>">
+                        <?
+                        echo Html::a('', $mixDrive->getPhoto(), ['data-fancybox' => 'gallery', 'data-caption' => $userFIO]);
+                    }else{?>
+                        <img src="/public/images/noimage.svg" class="gallery__image" alt="<?= $userFIO ?>">
                     <?}?>
                 </div>
-                <? if ($endQuests !== null && $endQuests->mixDrive) {
-                    echo Html::a('', ['/trainer/mix-drive-view', 'id' => $userModel->id]);
-                }?>
+                <p class="gallery__userName"><?= $userFIO ?></p>
             </div>
         <?}?>
     </div>

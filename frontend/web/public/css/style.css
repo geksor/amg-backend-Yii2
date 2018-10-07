@@ -1416,7 +1416,6 @@ height: 70px;
 .trenr_groups{
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-around;
 	align-items: center;
 }
 .trenr_group{
@@ -1723,6 +1722,30 @@ height: 70px;
 .in_drive .gold, .in_drive .silver, .in_drive .bronze {
 	color: #8a5fb1;
 }
+
+.gallery__item{
+	padding: 15px;
+	width: 33.3333%;
+}
+.gallery__imageWrap{
+	position: relative;
+	padding-top: 100%;
+}
+.gallery__image{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.gallery__userName{
+	color: #ffffff;
+	text-align: center;
+	padding-top: 15px;
+}
+
+
 @media (min-width: 1px) and (max-width: 900px) {
 	.trenr_group_opros_in .trenr_group_opros {
 		width: 100%;

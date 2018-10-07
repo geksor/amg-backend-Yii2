@@ -343,7 +343,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAmgDrives()
     {
-        return $this->hasMany(AmgDrive::className(), ['user_id' => 'id']);
+        return $this->hasOne(AmgDrive::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -373,7 +373,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getMixDrives()
     {
-        return $this->hasMany(MixDrive::className(), ['user_id' => 'id']);
+        return $this->hasOne(MixDrive::className(), ['user_id' => 'id']);
     }
 
     /**

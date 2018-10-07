@@ -23,27 +23,26 @@ $this->title = 'MyNT2018 AMG Тест-Драйв';
         <div class = "trenr_groups">
         <? foreach ($userModels as $key => $userModel) {?>
             <?
-                /* @var $userModel \common\models\User */
-                /* @var $endQuests \common\models\EndQuest */
-                $endQuests = $userModel->endQuests;
+            /* @var $userModel \common\models\User */
+            /* @var $endQuests \common\models\EndQuest */
+            $endQuests = $userModel->endQuests;
+            $userFIO = $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name;
             ?>
-            <div class = "trenr_group linkWrap">
-                <div class = "group_place">
-                    <p class = "group_place_number"><?= ++$key ?></p>
-                </div>
-                <div class = "group_name">
-                    <p><?= $userModel->surname . ' ' . $userModel->first_name . ' ' . $userModel->last_name ?></p>
-                </div>
-                <div class = "group_bal">
+            <div class="gallery__item">
+                <div class = "linkWrap gallery__imageWrap">
                     <? if ($endQuests !== null && $endQuests->amgDrive) {?>
-                        <p class = "test_ok">Тест завершен</p>
-                    <?}else{?>
-                        <p class = "test_no">Нет данных</p>
+                        <?/* @var $amgDrive \common\models\MixDrive */
+                        $amgDrive = $userModel->amgDrives
+                        ?>
+
+                        <img src="<?= $amgDrive->getPhoto() ?>" class="gallery__image" alt="<?= $userFIO ?>">
+                        <?
+                        echo Html::a('', $amgDrive->getPhoto(), ['data-fancybox' => 'gallery', 'data-caption' => $userFIO]);
+                    }else{?>
+                        <img src="/public/images/noimage.svg" class="gallery__image" alt="<?= $userFIO ?>">
                     <?}?>
                 </div>
-                <? if ($endQuests !== null && $endQuests->amgDrive) {
-                    echo Html::a('', ['/trainer/amg-drive-view', 'id' => $userModel->id]);
-                }?>
+                <p class="gallery__userName"><?= $userFIO ?></p>
             </div>
         <?}?>
     </div>

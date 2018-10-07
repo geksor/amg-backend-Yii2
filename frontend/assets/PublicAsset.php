@@ -21,7 +21,7 @@ class PublicAsset extends AssetBundle
 //        'https://code.jquery.com/jquery-1.12.4.js',
         'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
         'public\js\jquery.ui.touch-punch.min.js',
-        'public\js\jquery.fancybox.min',
+        'public\js\jquery.fancybox.min.js',
         'public\js\slick.min.js',
         'public\js\main.js',
     ];
