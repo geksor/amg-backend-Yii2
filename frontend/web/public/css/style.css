@@ -29,7 +29,7 @@ time, mark, audio, video {
 *{
 	box-sizing: border-box;
 }
-.strong{
+strong{
 	font-weight: bold;
 }
 input[type=text], input[type=password], input[type=submit], textarea{
@@ -521,7 +521,7 @@ body {
 }
 .content_styles ul{
 	list-style: circle;
-	margin-left: 10px 0px 10px 10px;
+	margin: 10px 0px 10px 10px;
 }
 .home_footer{
 	display: flex;
