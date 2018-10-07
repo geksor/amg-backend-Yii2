@@ -14,12 +14,14 @@ class PublicAsset extends AssetBundle
     public $css = [
         'public/css/slick-theme.css',
         'public/css/slick.css',
+        'public/css/fancybox.css',
         'public/css/style.css',
     ];
     public $js = [
 //        'https://code.jquery.com/jquery-1.12.4.js',
         'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
         'public\js\jquery.ui.touch-punch.min.js',
+        'public\js\jquery.fancybox.min',
         'public\js\slick.min.js',
         'public\js\main.js',
     ];
