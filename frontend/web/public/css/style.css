@@ -509,6 +509,13 @@ body {
 .test_8 .ui-widget-header {
 	background-color: rgba(61, 201, 154, 1);
 }
+.test_9{
+	background-color: rgba(61, 201, 154, 0.3);
+	color: #fff;
+}
+.test_9 .ui-widget-header {
+	background-color: rgba(61, 201, 154, 1);
+}
 .home_footer{
 	display: flex;
 	flex-flow: row wrap;

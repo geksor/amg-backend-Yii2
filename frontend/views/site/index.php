@@ -87,6 +87,11 @@ $this->title = 'MyNT2018 главная';
             <h3>Викторина</h3>
             <p><?= $userModel->quiz ?> / <?= Yii::$app->params['PointTest']['quizItem'] * $totalQuestion ?></p>
         </div>
+
+        <div data-value="<?= $userModel->intelligent ?>" data-max="<?= Yii::$app->params['PointTest']['intelligent'] ?>" class = "progressBar test test_9">
+            <h3>Intelligent drive</h3>
+            <p><?= $userModel->intelligent ?> / <?= Yii::$app->params['PointTest']['intelligent'] ?></p>
+        </div>
     </div>
     <?= $this->render('_footer') ?>
 </div>
