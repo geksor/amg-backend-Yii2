@@ -460,6 +460,7 @@ class TrainerController extends Controller
 
         $driveModel = MixDrive::findOne(['user_id' => $id]);
 
+
         return $this->render('drive-view', [
             'userModel' => $userModel,
             'driveModel' => $driveModel,
@@ -483,6 +484,23 @@ class TrainerController extends Controller
         $userModel = User::findOne($id);
 
         $driveModel = AmgDrive::findOne(['user_id' => $id]);
+
+//        $exif = exif_read_data('F:/OSPanel/domains/abs/frontend/web'.$driveModel->getPhoto());
+//        if(!empty($exif['Orientation'])) {
+//            switch($exif['Orientation']) {
+//                case 8:
+//                    imagerotate('F:/OSPanel/domains/abs/frontend/web'.$driveModel->getPhoto(),90,0);
+//                    break;
+//                case 3:
+//                    imagerotate('F:/OSPanel/domains/abs/frontend/web'.$driveModel->getPhoto(),180,0);
+//                    break;
+//                case 6:
+//                    imagerotate('F:/OSPanel/domains/abs/frontend/web'.$driveModel->getPhoto(),-90,0);
+//                    break;
+//            }
+//        }
+
+//        VarDumper::dump($exif,10,true);die;
 
         return $this->render('drive-view', [
             'userModel' => $userModel,
