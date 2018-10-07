@@ -42,6 +42,7 @@ class MixStaticController extends Controller
                             'view',
                             'create',
                             'update',
+                            'galleryApi',
                             'set-photo',
                             'delete',
                         ],
