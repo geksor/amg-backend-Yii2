@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $commandModel \common\models\Command */
 /* @var $captain \common\models\User */
 
-$captain = $commandModel->captain;
+$captain = $commandModel['captain'];
 $this->title = 'MyNT2018 Список членов команды';
 ?>
 
