@@ -90,7 +90,7 @@ desired effect
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
-                        <?= Html::a('Выход', ['site/logout'], ['data'=>['method'=>'post'] ,'class'=>'btn btn-primary btn-flat']) ?>
+                        <?= Html::a('Выход', ['/admin/site/logout'], ['data'=>['method'=>'post'] ,'class'=>'btn btn-primary btn-flat']) ?>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>

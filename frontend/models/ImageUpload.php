@@ -11,6 +11,7 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\helpers\VarDumper;
+use yii\imagine\Image;
 use yii\web\UploadedFile;
 use Yii;
 
@@ -93,7 +94,7 @@ class ImageUpload extends Model
     {
         $fileName = $this->generateFileName();
 
-        $this->image->saveAs($this->getFolder() . $fileName);
+        Image::autorotate($this->image->tempName)->save($this->getFolder() . $fileName);
 
         return $fileName;
     }
