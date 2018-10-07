@@ -112,7 +112,7 @@ class SiteController extends Controller
     public function actionIntelUser($trainingId = null)
     {
 
-        $query = User::find()->where(['role' => [3,4], 'moderatorPoints' => 0]);
+        $query = User::find()->where(['role' => [3,4], 'intelligent' => 0]);
         if ($trainingId){
             $query->andwhere(['training_id' => $trainingId]);
         }
@@ -160,7 +160,7 @@ class SiteController extends Controller
 
             foreach ($userModels as $userModel){
                 /* @var $userModel User */
-                $userModel->moderatorPoints = $intelPointForm->point;
+                $userModel->intelligent = $intelPointForm->point;
                 $userModel->save();
             }
 
