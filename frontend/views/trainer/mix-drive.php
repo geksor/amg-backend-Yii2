@@ -42,7 +42,7 @@ $this->title = 'MyNT2018 MIX Тест-Драйв';
                         <img src="/public/images/noimage.svg" class="gallery__image" alt="<?= $userFIO ?>">
                     <?}?>
                 </div>
-                <p class="gallery__userName"><?= $userFIO ?></p>
+                <p class="gallery__userName"><?= $userFIO . '<br> группа ' . $userModel->group ?></p>
             </div>
         <?}?>
     </div>

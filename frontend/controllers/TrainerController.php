@@ -409,7 +409,7 @@ class TrainerController extends Controller
         $userModels = User::find()
             ->where([
                 'training_id' => Yii::$app->user->identity->training_id,
-                'group' => Yii::$app->user->identity->group,
+//                'group' => Yii::$app->user->identity->group,
                 'role' => [4,3],
             ])
             ->with(['endQuests', 'amgDrives'])
@@ -432,7 +432,7 @@ class TrainerController extends Controller
         $userModels = User::find()
             ->where([
                 'training_id' => Yii::$app->user->identity->training_id,
-                'group' => Yii::$app->user->identity->group,
+//                'group' => Yii::$app->user->identity->group,
                 'role' => [4,3],
             ])
             ->with(['endQuests', 'mixDrives'])
