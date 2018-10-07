@@ -26,6 +26,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dealer_center_id')->dropDownList($dealerCentersArr, [ 'prompt' => 'Выберите один вариант', ]) ?>
 
+    <?= $form->field($model, 'amgStatic')->textInput() ?>
+
+    <?= $form->field($model, 'mixStatic')->textInput() ?>
+
+    <?= $form->field($model, 'mbux')->textInput() ?>
+
+    <?= $form->field($model, 'xClassDrive')->textInput() ?>
+
+    <?= $form->field($model, 'amgDrive')->textInput() ?>
+
+    <?= $form->field($model, 'intelligent')->textInput() ?>
+
+    <?= $form->field($model, 'mixDrive')->textInput() ?>
+
+    <?= $form->field($model, 'xClassLine')->textInput() ?>
+
+    <?= $form->field($model, 'quiz')->textInput() ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
