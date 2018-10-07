@@ -357,11 +357,10 @@ body {
 /* home
 -----------------------------------------------------------------------------*/
 .home{
-	background: url(../images/home.png) #000;
+	background: url(../images/home.jpg) #000 no-repeat center;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-size: cover;
 }
 .home_head{
 	display: flex;
@@ -515,7 +514,7 @@ body {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	z-index: 2;
+	z-index: 10;
 }
 .home_footer_fixed{
 height: 70px;
