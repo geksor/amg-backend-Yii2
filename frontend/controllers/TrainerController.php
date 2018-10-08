@@ -265,7 +265,12 @@ class TrainerController extends Controller
      */
     public function actionMixStatic()
     {
-        $models = MixStatic::find()->with('mixStaticUsers')->all();
+        $models = MixStatic::find()->with([
+            'users' => function (\yii\db\ActiveQuery $query) {
+                $query->andWhere(['group' => Yii::$app->user->identity->group])
+                ->andWhere(['training_id' => Yii::$app->user->identity->training_id]);
+            },
+        ])->all();
 
         return $this->render('mix-static', [
             'models' => $models,

@@ -29,8 +29,8 @@ $this->title = 'MyNT2018 Mix статика';
                     <?= \yii\helpers\Html::a('', ['/trainer/mix-static-gallery', 'id' => $model->id]) ?>
                 </div>
                 <?
-                    $mixStaticUsers = $model->mixStaticUsers;
-                    $usersArr = \yii\helpers\ArrayHelper::toArray($mixStaticUsers);
+                    $users = $model->users;
+                    $usersArr = \yii\helpers\ArrayHelper::toArray($users);
                     $userCount = count($usersArr);
                 ?>
                 <div class = "trenr_group_opros_progres">
