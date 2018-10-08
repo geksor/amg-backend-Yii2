@@ -98,7 +98,7 @@ class XclassDriveController extends Controller
 
         $commandCount = Command::find()->where(['training_id' => $userModel->training_id, 'group' => $userModel->group])->count();
 
-        if ($userModel->role === 4 && $commandCount >= 1){//1 is temp use 6
+        if ($userModel->role === 4 && $commandCount >= 6){//1 is temp use 6
             if ($userModel->command_id != null){
                 return $this->redirect('captain-command');
             }
@@ -162,7 +162,7 @@ class XclassDriveController extends Controller
         $countCommandQuery = clone $commandQuery;
         $commandFullCount = $countCommandQuery->andWhere(['isFull' => 1])->count();
 
-        if ($commandFullCount === 1){//1 is temp use 6
+        if ($commandFullCount === 6){//1 is temp use 6
             Yii::$app->session->setFlash('commandsFull');
             return $this->redirect('/');
         }
