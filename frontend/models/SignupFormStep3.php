@@ -21,9 +21,8 @@ class SignupFormStep3 extends Model
     public function rules()
     {
         return [
-            ['last_name', 'default', 'value' => ' '],
             [['surname', 'first_name', 'last_name'], 'trim'],
-            [['surname', 'first_name', 'dealer_center_id'], 'required']
+            [['surname', 'first_name', 'last_name', 'dealer_center_id'], 'required']
         ];
     }
 
