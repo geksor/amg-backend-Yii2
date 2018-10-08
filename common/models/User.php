@@ -526,10 +526,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function saveAmgTest($amgTestId)
     {
         if ($amgTestId)
-        $link = UserAmgStaticQuestion::find()->where(['amgStatic_question_id' => $amgTestId])->one();
-        if ($link){
-            $link->delete();
-        }
         $amgTest = AmgStaticQuestion::findOne($amgTestId);
 
         $this->link('amgStaticQuestions', $amgTest);
@@ -554,9 +550,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function saveQuestion($questionId)
     {
         if ($questionId){
-            if ($link = UserXClassLineQuestion::find()->where(['xClass_line_question_id' => $questionId])->one()){
-                $link->delete();
-            }
 
             $xClassQuest = XClassLineQuestion::findOne($questionId);
 
@@ -588,9 +581,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function saveQuiz($quizId)
     {
         if ($quizId){
-            if ($link = UserQuiz::find()->where(['quiz_id' => $quizId])->one()){
-                $link->delete();
-            }
 
             $quizItem = Quiz::findOne($quizId);
 
