@@ -681,6 +681,7 @@ height: 70px;
 	flex-direction: column;
 	height: auto;
 	min-height: 100vh;
+	overflow: auto;
 }
 .info_button{
 	margin: 40% 5%;
@@ -1431,6 +1432,7 @@ height: 70px;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
+	padding-bottom: 70px;
 }
 .trenr_group{
 	display: flex;
