@@ -902,16 +902,16 @@ class SiteController extends Controller
         if (Yii::$app->request->isPost){
             $postQuiz = Yii::$app->request->post('Quiz');
             $quizId = $postQuiz['id'];
-            $userModel->saveQuiz($quizId);
+//            $userModel->saveQuiz($quizId);
 
-            $trueAnswer = 0;
+//            $trueAnswer = 0;
 
             $quiz = Quiz::findOne($quizId);
 
             $answer = $postQuiz['trueAnswer'];
 
             if ((integer)$answer === $quiz->trueAnswer){
-                ++$trueAnswer;
+//                ++$trueAnswer;
                 $setPoint = $userModel->quiz + (integer)Yii::$app->params['PointTest']['quizItem'];
 
                 $userModel->quiz = $setPoint;
@@ -919,12 +919,12 @@ class SiteController extends Controller
 
             }
 
-            if (Yii::$app->session->has('trueAnswersQuiz')){
-                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersQuiz') + $trueAnswer;
-                Yii::$app->session->set('trueAnswersQuiz', $trueAnswerFromSession);
-            }else{
-                Yii::$app->session->set('trueAnswersQuiz', $trueAnswer);
-            }
+//            if (Yii::$app->session->has('trueAnswersQuiz')){
+//                $trueAnswerFromSession = Yii::$app->session->get('trueAnswersQuiz') + $trueAnswer;
+//                Yii::$app->session->set('trueAnswersQuiz', $trueAnswerFromSession);
+//            }else{
+//                Yii::$app->session->set('trueAnswersQuiz', $trueAnswer);
+//            }
 
             return $this->render('quiz', [
                 'model' => $quiz,
@@ -942,35 +942,35 @@ class SiteController extends Controller
         $noAnswerQuests = [];
 
         foreach ($modelsArr as $item){
-            $quiz = Quiz::findOne($item['id']);
-            if (!$quiz->isUserAnswer(Yii::$app->user->id)){
+//            $quiz = Quiz::findOne($item['id']);
+//            if (!$quiz->isUserAnswer(Yii::$app->user->id)){
                 $noAnswerQuests[] = $item;
-            }
+//            }
         }
 
-        if (empty($noAnswerQuests)){
-
-            $totalQuestion = Quiz::find()->count();
-
-            $pointStep = Yii::$app->params['PointTest']['quizItem'];
-
-            $point = ceil(Yii::$app->session->get('trueAnswersQuiz')*$pointStep);
-
-            $this->setEndQuest($userModel, 'quiz');
-
-            Yii::$app->session->setFlash('popupEndTest', [
-                'point' => $point,
-                'truAnswers' => [
-                    'true' => Yii::$app->session->get('trueAnswersQuiz'),
-                    'total' => $totalQuestion,
-                ]
-            ]);
-
-            Yii::$app->session->remove('point');
-            Yii::$app->session->remove('trueAnswersQuiz');
-
-            return $this->redirect('/');
-        }
+//        if (empty($noAnswerQuests)){
+//
+//            $totalQuestion = Quiz::find()->count();
+//
+//            $pointStep = Yii::$app->params['PointTest']['quizItem'];
+//
+//            $point = ceil(Yii::$app->session->get('trueAnswersQuiz')*$pointStep);
+//
+//            $this->setEndQuest($userModel, 'quiz');
+//
+//            Yii::$app->session->setFlash('popupEndTest', [
+//                'point' => $point,
+//                'truAnswers' => [
+//                    'true' => Yii::$app->session->get('trueAnswersQuiz'),
+//                    'total' => $totalQuestion,
+//                ]
+//            ]);
+//
+//            Yii::$app->session->remove('point');
+//            Yii::$app->session->remove('trueAnswersQuiz');
+//
+//            return $this->redirect('/');
+//        }
 
         $idArr = ArrayHelper::index($noAnswerQuests, 'id');
 
