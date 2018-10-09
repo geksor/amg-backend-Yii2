@@ -121,6 +121,7 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->pagination = false;
 
         Yii::$app->session->set('backIntelUser', ['intel-user', 'trainingId' => $trainingId]);
 
