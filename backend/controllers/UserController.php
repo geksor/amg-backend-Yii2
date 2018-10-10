@@ -8,6 +8,7 @@ use Yii;
 use common\models\User;
 use common\models\UserSearch;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,9 +69,18 @@ class UserController extends Controller
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $trainings = Training::find()->all();
+
+        $filterArr = [];
+
+        foreach ($trainings as $training){
+            $filterArr[$training->id] = date('d.m.y', $training->date);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'filterArr' => $filterArr,
         ]);
     }
 

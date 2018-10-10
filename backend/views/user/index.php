@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $filterArr */
 
 $this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
@@ -37,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'created_at',
                 //'updated_at',
                 [
+                    'attribute' => 'training_id',
+                    'filter'=>$filterArr,
+
                     'label' => 'Дата тренинга',
                     'value' => function ($data){
                     /* @var $data \common\models\User */
