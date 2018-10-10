@@ -24,15 +24,20 @@ class ServerController extends Controller
         });
 
         $ChatServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN, function($e) use($ChatServer) {
-            echo "Server started at port " . $ChatServer->port;
+            echo "\n Server started at port " . $ChatServer->port;
         });
 
-        $ChatServer->on(WebSocketServer::EVENT_CLIENT_CONNECTED, function($e) use($ChatServer) {
-            echo "\n Client Connect";
-        });
+//        $ChatServer->on(WebSocketServer::EVENT_CLIENT_CONNECTED, function($e) use($ChatServer) {
+//            echo "\n Client Connect";
+//        });
+//
+//        $ChatServer->on(WebSocketServer::EVENT_CLIENT_DISCONNECTED, function($e) use($ChatServer) {
+//            echo "\n Client Disconnect";
+//        });
 
-        $ChatServer->on(WebSocketServer::EVENT_CLIENT_DISCONNECTED, function($e) use($ChatServer) {
-            echo "\n Client Disconnect";
+        $ChatServer->on(WebSocketServer::EVENT_WEBSOCKET_CLOSE, function($e) use($ChatServer) {
+            echo "\n Closing";
+            $ChatServer->start();
         });
 
         $ChatServer->start();

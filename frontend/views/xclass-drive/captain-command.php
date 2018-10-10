@@ -99,7 +99,7 @@ $this->title = 'MyNT2018 Список членов команды';
             };
 
             socket.onclose = function () {
-                connect()
+                window.location.reload();
             };
         }
 

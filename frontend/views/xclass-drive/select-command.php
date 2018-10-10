@@ -118,7 +118,7 @@ $this->title = 'MyNT2018 Выбор команды';
             });
 
             socket.onclose = function () {
-                connect()
+                window.location.reload();
             };
         }
 

@@ -80,7 +80,7 @@ $this->title = 'MyNT2018 Х-Класс тест драйв';
             });
 
             socket.onclose = function () {
-                connect()
+                window.location.reload();
             };
         }
 
