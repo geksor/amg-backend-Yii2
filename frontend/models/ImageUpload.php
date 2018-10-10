@@ -94,7 +94,7 @@ class ImageUpload extends Model
     {
         $fileName = $this->generateFileName();
 
-        Image::autorotate($this->image->tempName)->save($this->getFolder() . $fileName, ['quality' => 50]);
+        Image::autorotate($this->image->tempName)->save($this->getFolder() . $fileName, ['quality' => 40]);
         Image::autorotate($this->image->tempName)->save($this->getFolder() . 'full_' . $fileName);
 
         return $fileName;
