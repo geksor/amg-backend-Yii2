@@ -74,7 +74,7 @@ $this->title = 'MyNT2018 Список членов команды';
                 var response = JSON.parse(e.data);
 
                 if (response.type && response.type === 'selectCommand') {
-                    // console.log(response);
+                    console.log(response);
                     if (+response.from.commandId === +commandId) {
                         switch (response.from.player) {
                             case 'player1':
@@ -89,7 +89,7 @@ $this->title = 'MyNT2018 Список членов команды';
                         }
                     }
                 } else if (response.message) {
-                    // console.log(response.message);
+                    console.log(response.message);
                 }
             };
 

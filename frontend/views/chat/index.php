@@ -74,13 +74,13 @@ $this->title = 'MyNT2018 Чат';
 
                 var response = JSON.parse(e.data);
                 if (response.type && response.type === 'chat') {
-                    // console.log(response);
+                    console.log(response);
                     var messClass = +response.from.id === +$sendMessage.data('id') ? ' messege_user' : '';
                     var messName = +response.from.id === +$sendMessage.data('id') ? 'Вы' : response.from.name;
                     $chatBlock.append( '<div class="messege' + messClass + '"><h3>' + messName + '</h3> <p>' + response.message + '</p></div>' );
                     $chatWrap.scrollTop($chatBlock.height());
                 } else if (response.message) {
-                    // console.log(response.message);
+                    console.log(response.message);
                 }
             };
             chat.onopen = function(e) {

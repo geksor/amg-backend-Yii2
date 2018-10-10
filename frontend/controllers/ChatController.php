@@ -87,4 +87,5 @@ class ChatController extends Controller
             'userModel' => $userModel,
         ]);
     }
+
 }

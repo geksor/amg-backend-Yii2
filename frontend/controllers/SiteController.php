@@ -543,7 +543,7 @@ class SiteController extends Controller
 
             Yii::$app->session->remove('point');
             Yii::$app->session->remove('amgStaticTestId');
-            Yii::$app->session->remove('trueAnswers');
+            Yii::$app->session->remove('trueAnswersAmgStatic');
 
             return $this->redirect('/');
         }
