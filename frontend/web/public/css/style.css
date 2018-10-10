@@ -598,6 +598,7 @@ height: 70px;
 .messBlockWrap{
 	flex-grow: 1;
 	overflow-y: auto;
+	padding-bottom: 50px;
 }
 .back img{
 	width: 3%;
