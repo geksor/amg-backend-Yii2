@@ -24,12 +24,12 @@ $this->title = 'MyNT2018 главная';
         </div>
     </div>
     <div class = "home_content">
-        <div data-value="<?= $userModel->xClassDrive ?>" data-max="<?= (integer)Yii::$app->params['PointTest']['amgDrive']/4 ?>" class="progressBar test test_1">
+        <div data-value="<?= $userModel->xClassDrive ?>" data-max="<?= (integer)Yii::$app->params['PointTest']['xClassDrive']/4 ?>" class="progressBar test test_1">
             <? if (!$userModel->endQuests->xClassDrive && $isRunDrive ) {?>
                 <?= \yii\helpers\Html::a('', '/xclass-drive/index') ?>
             <?}?>
             <h3><?= $userModel->getAttributeLabel('xClassDrive') ?></h3>
-            <p><?= $userModel->xClassDrive ?> / <?= (integer)Yii::$app->params['PointTest']['amgDrive']/4 ?></p>
+            <p><?= $userModel->xClassDrive ?> / <?= (integer)Yii::$app->params['PointTest']['xClassDrive']/4 ?></p>
         </div>
 
         <div data-value="<?= $userModel->mixStatic ?>" data-max="<?= Yii::$app->params['PointTest']['mixStatic'] ?>" class="progressBar test test_2">
