@@ -16,7 +16,8 @@ return [
     'components' => [
         'ffmpeg' => [
             'class' => '\rbtphp\ffmpeg\Ffmpeg',
-            'path' => 'C:\ffmpeg\ffmpeg.exe',
+//            'path' => 'C:\ffmpeg\ffmpeg.exe',
+            'path' => 'ffmpeg',
         ],
         'request' => [
             'baseUrl' => '/admin',
