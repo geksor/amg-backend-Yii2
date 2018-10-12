@@ -104,9 +104,9 @@ class PhotoReport extends \yii\db\ActiveRecord
      * @param null $title
      * @return bool
      */
-    public function saveVideo($fileName = null , $title = null)
+    public function saveVideo($fileName , $title = null)
     {
-        if ($fileName !== null ){
+        if (!empty($fileName)){
             $this->video = $fileName;
         }
         if ($title !== null){
