@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\ImageUpload;
+use Imagine\Image\ImageInterface;
 use Yii;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
 use common\behavior\RankGalleryBehavior;
@@ -57,7 +58,7 @@ class MixStatic extends \yii\db\ActiveRecord
                             ->thumbnail(new \Imagine\Image\Box(303, 303));
                     },
                     'medium' => function ($img) {
-                        /** @var Imagine\Image\ImageInterface $img */
+                        /** @var ImageInterface $img */
                         $dstSize = $img->getSize();
                         $maxWidth = 800;
                         if ($dstSize->getWidth() > $maxWidth) {

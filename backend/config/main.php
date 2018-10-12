@@ -14,6 +14,10 @@ return [
     'modules' => [],
     'homeUrl' => '/admin',
     'components' => [
+        'ffmpeg' => [
+            'class' => '\rbtphp\ffmpeg\Ffmpeg',
+            'path' => 'C:\ffmpeg\ffmpeg.exe',
+        ],
         'request' => [
             'baseUrl' => '/admin',
             'csrfParam' => '_csrf-backend',
@@ -53,6 +57,7 @@ return [
                 '<controller>/<action>/<id:\d+>' => '<controller>/<action>',
                 '<controller>/<action>/<parentId:\d+>' => '<controller>/<action>',
                 '<controller>/<action>' => '<controller>/<action>',
+
             ],
         ],
     ],

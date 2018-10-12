@@ -5,8 +5,10 @@
  */
 
 use yii\helpers\Html;
+use backend\assets\AppAsset;
 
 yiister\adminlte\assets\Asset::register($this);
+AppAsset::register($this);
 
 $this->title = 'Админ панель AMG'
 ?>
@@ -31,6 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
     <style>
         .textWrap{overflow: auto}
         .markTr .table-striped > tbody > tr.newRow{background-color:rgba(255, 26, 0, 0.10)}
@@ -93,9 +96,6 @@ desired effect
                         <?= Html::a('Выход', ['/site/logout'], ['data'=>['method'=>'post'] ,'class'=>'btn btn-primary btn-flat']) ?>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="/admin/params"><i class="fa fa-gears"></i></a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -312,6 +312,7 @@ desired effect
                                         ],
                                     ],
                                 ],
+                                ["label" => "Фотоотчет", "url" => ["/photo-report/index"], "active" => Yii::$app->controller->id === 'photo-report',],
                             ],
                         ],
                         [

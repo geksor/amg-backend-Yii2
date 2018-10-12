@@ -2,11 +2,11 @@
 
 namespace backend\controllers;
 
-use common\models\ImageUpload;
 use common\models\User;
+use common\models\VideoUpload;
 use Yii;
-use common\models\MixStatic;
-use common\models\MixStaticSearch;
+use common\models\PhotoReport;
+use common\models\PhotoReportSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,9 +15,9 @@ use yii\web\UploadedFile;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 /**
- * MixStaticController implements the CRUD actions for MixStatic model.
+ * PhotoReportController implements the CRUD actions for PhotoReport model.
  */
-class MixStaticController extends Controller
+class PhotoReportController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -43,7 +43,8 @@ class MixStaticController extends Controller
                             'create',
                             'update',
                             'galleryApi',
-                            'set-photo',
+                            'set-video',
+                            'save-video',
                             'delete',
                         ],
                         'allow' => true,
@@ -70,19 +71,19 @@ class MixStaticController extends Controller
                 'class' => GalleryManagerAction::className(),
                 // mappings between type names and model classes (should be the same as in behaviour)
                 'types' => [
-                    'mix-static' => MixStatic::className()
+                    'photo-report' => PhotoReport::className()
                 ]
             ],
         ];
     }
 
     /**
-     * Lists all MixStatic models.
+     * Lists all PhotoReport models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MixStaticSearch();
+        $searchModel = new PhotoReportSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -92,7 +93,7 @@ class MixStaticController extends Controller
     }
 
     /**
-     * Displays a single MixStatic model.
+     * Displays a single PhotoReport model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -105,19 +106,13 @@ class MixStaticController extends Controller
     }
 
     /**
-     * Creates a new MixStatic model.
+     * Creates a new PhotoReport model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MixStatic();
-
-        $maxRank = MixStatic::find()->max('rank');
-
-        if ($maxRank){
-            $model->rank = ++$maxRank;
-        }
+        $model = new PhotoReport();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -129,7 +124,7 @@ class MixStaticController extends Controller
     }
 
     /**
-     * Updates an existing MixStatic model.
+     * Updates an existing PhotoReport model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -149,7 +144,7 @@ class MixStaticController extends Controller
     }
 
     /**
-     * Deletes an existing MixStatic model.
+     * Deletes an existing PhotoReport model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -163,15 +158,15 @@ class MixStaticController extends Controller
     }
 
     /**
-     * Finds the MixStatic model based on its primary key value.
+     * Finds the PhotoReport model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MixStatic the loaded model
+     * @return PhotoReport the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MixStatic::findOne($id)) !== null) {
+        if (($model = PhotoReport::findOne($id)) !== null) {
             return $model;
         }
 
@@ -183,23 +178,12 @@ class MixStaticController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException
      */
-    public function actionSetPhoto($id)
+    public function actionSetVideo($id)
     {
-        $model = new ImageUpload();
+        $model = new VideoUpload();
         $gallery = $this->findModel($id);
 
-        if (Yii::$app->request->isPost && Yii::$app->request->post('ImageUpload')['crop_info'])
-        {
-            $file = UploadedFile::getInstance($model, 'image');
-            $cropInfo = Yii::$app->request->post('ImageUpload')['crop_info'];
-
-            if ($gallery->savePhoto($model->uploadFile($file, $gallery->image, $cropInfo)))
-            {
-                return $this->redirect(['view', 'id' => $gallery->id]);
-            }
-        }
-
-        return $this->render('set-photo', [
+        return $this->render('set-video', [
             'model' => $model,
             'gallery' => $gallery,
         ]);
@@ -207,37 +191,40 @@ class MixStaticController extends Controller
 
     /**
      * @param $id
-     * @param $order
-     * @param $up
-     * @return bool|\yii\web\Response
+     * @return string|\yii\web\Response
      * @throws NotFoundHttpException
      */
-    public function actionOrder($id, $order, $up)
+
+    public function actionSaveVideo($id)
     {
-        if (Yii::$app->request->isAjax){
-            $maxOrder = MixStatic::find()->max('rank');
+        $model = new VideoUpload();
 
-            if ($order <= $maxOrder){
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
+        {
+            $gallery = $this->findModel($id);
 
-                $model = $this->findModel($id);
+            $gallery->isVideoLoad = 0;
+            $gallery->save();
 
-                $model->rank = (integer) $order;
+            $file = UploadedFile::getInstance($model, 'video');
+            $title = $model->title;
 
-                while (!$modelReplace = MixStatic::find()->where(['order' => $order])->one()){
-                    $up ? $order-- : $order++;
-                }
-
-                $modelReplace->rank = $up ? ++$modelReplace->rank : --$modelReplace->rank;
-                if ($modelReplace->rank === $model->rank){
-                    $modelReplace->rank = $up ? ++$modelReplace->rank : --$modelReplace->rank;
-                }
-
-                if ($model->save() && $modelReplace->save()){
-                    return $this->redirect(['index']);
-                }
+            if ($gallery->saveVideo($model->uploadFile($file, $gallery->video), $title))
+            {
+                return $this->render('_form-video', [
+                    'model' => $model,
+                    'message' => 'Видео загружено на сайт',
+                    'id' => $gallery->id,
+                ]);
+            }else{
+                return $this->render('_form-video', [
+                    'model' => $model,
+                    'message' => 'Не удалось выполнить загрузку',
+                    'id' => $gallery->id,
+                ]);
             }
-            return $this->redirect(['index']);
         }
-        return false;
+        return $this->redirect('index');
     }
+
 }

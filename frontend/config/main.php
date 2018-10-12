@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' =>
             [
+                '<controller:photo-report>/<id:\d+>' => 'photo-report/index',
                 '/' => 'site/index',
                 '<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use bupy7\cropbox\CropboxWidget;
 
 /* @var $this yii\web\View */
-/* @var $model \common\models\MixStatic */
+/* @var $model \common\models\ImageUpload */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -1762,6 +1762,32 @@ height: 70px;
 	padding-top: 15px;
 }
 
+.photoReportInner{
+	display: flex;
+	flex-direction: column;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+}
+.photoReport__groups{
+	padding-bottom: 0;
+}
+.photoReport__h{
+	font-family: CorporateS-Regular, sans-serif;
+	font-size: 28px;
+	color: #ffffff;
+	width: 100%;
+	text-align: center;
+	padding: 15px;
+}
+.photoReport__videoWrap{
+	width: 100%;
+	padding: 0 15px 15px;
+	text-align: center;
+}
+.photoReport__videoWrap video{
+	max-width: 100%;
+}
 
 @media (min-width: 1px) and (max-width: 900px) {
 	.trenr_group_opros_in .trenr_group_opros {

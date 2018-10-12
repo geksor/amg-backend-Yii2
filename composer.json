@@ -29,7 +29,8 @@
         "textalk/websocket": "1.0.*",
         "vova07/yii2-console-runner-extension": "*",
         "morozovsk/yii2-websocket": "^1.0",
-        "kartik-v/yii2-widget-rating": "*"
+        "kartik-v/yii2-widget-rating": "*",
+        "rbtphp/yii2-ffmpeg": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
