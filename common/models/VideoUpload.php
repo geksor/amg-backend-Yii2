@@ -32,7 +32,7 @@ class VideoUpload extends Model
         return [
             [['video'], 'required'],
             ['video', 'file', 'mimeTypes' => ['video/*'], 'wrongMimeType' => 'Выбранный фаил не является видео',],
-            ['video', 'file', 'maxSize' => 1024*1024*50,],
+            ['video', 'file', 'maxSize' => 1024*1024*350,],
             [['title'], 'trim'],
             [['title'], 'string'],
         ];
