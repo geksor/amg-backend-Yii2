@@ -17,12 +17,10 @@ $this->title = "MyNT2018 $model->title";
 
 <div class = "info info_trenr_group_viktorina">
     <div class="photoReportInner">
-        <? if (!Yii::$app->user->isGuest) {?>
             <?= $this->render('_top-line', [
                 'title' => 'Назад',
                 'link' => Yii::$app->request->referrer,
             ]) ?>
-        <?}?>
         <div class = "trenr_groups photoReport__groups">
             <h1 class="photoReport__h"><?= $model->title ?></h1>
 
