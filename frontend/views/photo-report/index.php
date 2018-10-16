@@ -35,7 +35,7 @@ $this->title = 'MyNT2018 Фотоотчеты';
 
                                 foreach ($images as $image) {
                                     /* @var $image \common\models\PhotoReportGallery */
-                                    echo Html::img($image->getUrl('preview'), ['class' => 'gallery__image', 'alt' => $image->name]);
+                                    echo Html::img($image->getUrl('medium'), ['class' => 'gallery__image', 'alt' => $image->name]);
                                     break;
                                 }?>
 
