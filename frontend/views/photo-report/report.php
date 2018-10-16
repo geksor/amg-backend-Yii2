@@ -41,7 +41,7 @@ $this->title = "MyNT2018 $model->title";
                         <div class = "linkWrap gallery__imageWrap">
                             <?/* @var $image \common\models\PhotoReportGallery */?>
 
-                            <img src="<?= $image->getUrl('medium') ?>" class="gallery__image" alt="<?= $image->name ?>">
+                            <img src="<?= $image->getUrl('preview') ?>" class="gallery__image" alt="<?= $image->name ?>">
                             <?= Html::a('', $image->getUrl('original'), ['data-fancybox' => 'gallery', 'data-caption' => $image->name]);?>
                         </div>
                     </div>
