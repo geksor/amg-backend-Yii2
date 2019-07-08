@@ -188,7 +188,6 @@ $( function() {
             return false;
         }
         var setData = $(this).data('params');
-        console.log(setData);
 
         $.ajax({
             url: '/site/x-class-line',
