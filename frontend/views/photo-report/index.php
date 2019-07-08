@@ -41,6 +41,7 @@ $this->title = 'MyNT2018 Фотоотчеты';
 
                                 <?= Html::a('', ['report', 'id' => $model->id]);?>
                             </div>
+                            <p class="gallery__userName"><?= $model->title ?></p>
                         </div>
                     <?}?>
                 <?}?>
