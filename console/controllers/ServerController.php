@@ -4,9 +4,6 @@ namespace console\controllers;
 use consik\yii2websocket\events\WSClientEvent;
 use consik\yii2websocket\WebSocketServer;
 use console\daemons\ChatServer;
-use console\daemons\CommandsServer;
-use console\daemons\EchoServer;
-use console\daemons\TestServer;
 use yii\console\Controller;
 
 class ServerController extends Controller
@@ -14,7 +11,7 @@ class ServerController extends Controller
     public function actionStart()
     {
         $ChatServer = new ChatServer();
-        $ChatServer->port = 1024; //This port must be busy by WebServer and we handle an error
+        $ChatServer->port = 1025; //This port must be busy by WebServer and we handle an error
 //        $ChatServer->port = 8081; //This port must be busy by WebServer and we handle an error
 
         $ChatServer->on(WebSocketServer::EVENT_WEBSOCKET_OPEN_ERROR, function($e) use($ChatServer) {

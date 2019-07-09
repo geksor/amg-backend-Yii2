@@ -68,7 +68,7 @@ $this->title = 'MyNT2018 Чат';
         $chatWrap.scrollTop($chatBlock.height());
 
         function connect () {
-            var chat = new WebSocket('ws://176.57.214.45:1024');
+            var chat = new WebSocket('ws://188.225.9.40:1025');
             // var chat = new WebSocket('ws://localhost:1024');
             chat.onmessage = function(e) {
 
