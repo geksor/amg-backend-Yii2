@@ -975,7 +975,7 @@ class SiteController extends Controller
         $idArr = ArrayHelper::index($noAnswerQuests, 'id');
 
         if (empty($idArr)){
-            $this->redirect('/');
+            return $this->redirect('/');
         }
 
         $questId = array_rand($idArr, 1);
