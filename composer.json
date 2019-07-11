@@ -30,9 +30,11 @@
         "vova07/yii2-console-runner-extension": "*",
         "morozovsk/yii2-websocket": "^1.0",
         "kartik-v/yii2-widget-rating": "*",
-        "rbtphp/yii2-ffmpeg": "*"
+        "rbtphp/yii2-ffmpeg": "*",
+        "ext-json": "*"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",
         "yiisoft/yii2-faker": "~2.0.0",

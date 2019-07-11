@@ -30,6 +30,11 @@ class ChatServer extends WebSocketServer
     }
 
 
+    /**
+     * @param ConnectionInterface $client
+     * @param $msg
+     *
+     */
     public function commandChat(ConnectionInterface $client, $msg)
     {
         $request = json_decode($msg, true);
@@ -40,13 +45,17 @@ class ChatServer extends WebSocketServer
 
             //save from DB
             try {
-                $userModel = User::findOne($client->id);
-                $model = new Chat();
-                $model->message = $message;
-                $model->create_at = time();
-                $model->user_id = $userModel->id;
-                $model->training_id = $userModel->training_id;
-                $model->save();
+                if (!empty($client->id)) {
+                    $userModel = User::findOne($client->id);
+                }
+                if (!empty($userModel)){
+                    $model = new Chat();
+                    $model->message = $message;
+                    $model->create_at = time();
+                    $model->user_id = $userModel->id;
+                    $model->training_id = $userModel->training_id;
+                    $model->save();
+                }
             }catch (Exception $e){
                 $client->send(json_encode([
                     'type' => 'error',
@@ -57,11 +66,13 @@ class ChatServer extends WebSocketServer
             //end Save from Db
 
             foreach ($this->clients as $chatClient) {
-                $chatClient->send( json_encode([
-                    'type' => 'chat',
-                    'from' => [ 'name' => $client->name, 'id' => $client->id],
-                    'message' => $message,
-                ]) );
+                if (!empty($client->name) && !empty($client->id)) {
+                    $chatClient->send( json_encode([
+                        'type' => 'chat',
+                        'from' => [ 'name' => $client->name, 'id' => $client->id],
+                        'message' => $message,
+                    ]) );
+                }
             }
         } else {
             $result['message'] = 'Введите сообщение';
@@ -96,6 +107,10 @@ class ChatServer extends WebSocketServer
         $client->send( json_encode($result) );
     }
 
+    /**
+     * @param ConnectionInterface $client
+     * @param $msg
+     */
     public function commandSetCaptain(ConnectionInterface $client, $msg)
     {
         $request = json_decode($msg, true);
@@ -120,23 +135,28 @@ class ChatServer extends WebSocketServer
                     $newCommand->training_id = $trainingId;
                     $newCommand->group = $group;
                     if ($newCommand->save()){
-                        $newCommand->captain->role = 3;
-                        $newCommand->captain->command_id = $newCommand->id;
-                        $newCommand->captain->save();
-                        $client->send(json_encode([
-                            'type' => 'setCaptain',
-                            'from' =>  $client->id,
-                            'message' => 1,
-                        ]));
+                        $captain = $newCommand->captain;
+                        $captain->role = 3;
+                        $captain->command_id = $newCommand->id;
+                        $captain->save();
+                        if (!empty($client->id)) {
+                            $client->send(json_encode([
+                                'type' => 'setCaptain',
+                                'from' =>  $client->id,
+                                'message' => 1,
+                            ]));
+                        }
                         if ($commandCount + 1 >= 6){//1 is temp use 6
                             foreach ($this->clients as $amgClient){
                                 $user = User::findOne($amgClient->id);
-                                if ($user->role === 4 && $user->training_id === (integer)$trainingId){
-                                    $amgClient->send(json_encode([
-                                        'type' => 'setCaptain',
-                                        'from' =>  0,
-                                        'message' => 0,
-                                    ]));
+                                if (!empty($user)) {
+                                    if ($user->role === 4 && $user->training_id === (integer)$trainingId){
+                                        $amgClient->send(json_encode([
+                                            'type' => 'setCaptain',
+                                            'from' =>  0,
+                                            'message' => 0,
+                                        ]));
+                                    }
                                 }
                             }
                         }
@@ -144,12 +164,14 @@ class ChatServer extends WebSocketServer
                 }else{
                     foreach ($this->clients as $amgClient){
                         $user = User::findOne($amgClient->id);
-                        if ($user->role === 4 && $user->training_id === (integer)$trainingId){
-                            $amgClient->send(json_encode([
-                                'type' => 'setCaptain',
-                                'from' =>  0,
-                                'message' => 0,
-                            ]));
+                        if (!empty($user)) {
+                            if ($user->role === 4 && $user->training_id === (integer)$trainingId){
+                                $amgClient->send(json_encode([
+                                    'type' => 'setCaptain',
+                                    'from' =>  0,
+                                    'message' => 0,
+                                ]));
+                            }
                         }
                     }
                 }
@@ -204,20 +226,24 @@ class ChatServer extends WebSocketServer
                         $userModel->save();
                         foreach ($this->clients as $amgClient){
 
-                            $amgClient->send(json_encode([
-                                'type' => 'selectCommand',
-                                'from' => ['commandId' => $commandId, 'player' => $from, 'userId' => $client->id],
-                                'message' => $name,
-                            ]));
+                            if (!empty($client->id)) {
+                                $amgClient->send(json_encode([
+                                    'type' => 'selectCommand',
+                                    'from' => ['commandId' => $commandId, 'player' => $from, 'userId' => $client->id],
+                                    'message' => $name,
+                                ]));
+                            }
 
                         }
                     }
                 }else{
-                    $client->send(json_encode([
-                        'type' => 'selectCommand',
-                        'from' =>  $client->id,
-                        'message' => false,
-                    ]));
+                    if (!empty($client->id)) {
+                        $client->send(json_encode([
+                            'type' => 'selectCommand',
+                            'from' =>  $client->id,
+                            'message' => false,
+                        ]));
+                    }
                 }
             }catch (\Exception $e){
                 $client->send(json_encode([
