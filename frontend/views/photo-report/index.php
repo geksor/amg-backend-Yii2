@@ -31,13 +31,10 @@ $this->title = 'MyNT2018 Фотоотчеты';
                         <div class="gallery__item">
                             <div class = "linkWrap gallery__imageWrap">
                                 <?/* @var $model \common\models\PhotoReport */
-                                /* @var $images \common\models\PhotoReportGallery */
-
-                                foreach ($images as $image) {
-                                    /* @var $image \common\models\PhotoReportGallery */
-                                    echo Html::img($image->getUrl('medium'), ['class' => 'gallery__image', 'alt' => $image->name]);
-                                    break;
-                                }?>
+                                /* @var $image \zxbodya\yii2\galleryManager\GalleryBehavior */
+                                $image = $images[0];
+                                echo Html::img($image->getUrl('medium'), ['class' => 'gallery__image', 'alt' => $image->name]);
+                                ?>
 
                                 <?= Html::a('', ['report', 'id' => $model->id]);?>
                             </div>

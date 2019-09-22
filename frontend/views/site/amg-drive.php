@@ -36,5 +36,3 @@ $this->title = 'MyNT2018 AMG Тест-Драйв';
 
     <?= $this->render('_footer') ?>
 </div>
-
-

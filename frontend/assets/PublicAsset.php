@@ -23,6 +23,7 @@ class PublicAsset extends AssetBundle
         'public\js\jquery.ui.touch-punch.min.js',
         'public\js\jquery.fancybox.min.js',
         'public\js\slick.min.js',
+        'public\js\load-image.all.min.js',
         'public\js\main.js',
     ];
     public $depends = [

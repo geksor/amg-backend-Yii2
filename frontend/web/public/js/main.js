@@ -99,8 +99,18 @@ $( function() {
         }
     }
 
-    $('.jsImageInput').on('change', function () {
-        readURL(this);
+    $('.jsImageInput').on('change', function (e) {
+        // readURL(this);
+        loadImage(
+            e.target.files[0],
+            function(img) {
+                $(img).width('100%');
+                $('.control-label').html(img);
+            },
+            {
+                orientation: true
+            } // Options
+        );
     });
 
     //login

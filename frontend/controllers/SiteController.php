@@ -39,6 +39,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 
@@ -118,52 +119,56 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
-     * @var $userModel User
      * @return mixed
+     * @throws NotFoundHttpException
+     * @var $userModel User
      */
     public function actionIndex()
     {
-        $userModel = User::findOne(Yii::$app->user->id);
+        if ($userModel = User::findOne(Yii::$app->user->id)){
 
-        if (User::isTrainer(Yii::$app->user->identity->username)){
-            return $this->redirect('/trainer/index');
+            if (User::isTrainer(Yii::$app->user->identity->username)){
+                return $this->redirect('/trainer/index');
+            }
+
+            if (User::isAdmin(Yii::$app->user->identity->username)){
+                return $this->redirect('/admin');
+            }
+
+
+            if (empty($userModel->endQuests)){
+                $endQuestsModel = new EndQuest();
+                $endQuestsModel->user_id = $userModel->id;
+                $endQuestsModel->save();
+                return $this->goHome();
+            }
+
+            if (!$userModel->training_id || !$userModel->group){
+                return $this->redirect('site/signup-step-2');
+            }
+
+            if (!$userModel->first_name || !$userModel->last_name || !$userModel->surname || !$userModel->dealer_center_id){
+                return $this->redirect('signup-step-3');
+            }
+
+            $modelsRunDrive = RunDrive::find()
+                ->where(['training_id' => Yii::$app->user->identity->training_id, 'group' => Yii::$app->user->identity->group])
+                ->all();
+            $isRunDrive = false;
+            if (!empty($modelsRunDrive)){
+                $isRunDrive = true;
+            }
+
+            return $this->render('index', [
+                'userModel' => $userModel,
+                'totalCount' => $userModel->totalPoint,
+                'place' => $userModel->getPlace(),
+                'isRunDrive' => $isRunDrive,
+                'totalQuestion' => $totalQuestion = Quiz::find()->count(),
+            ]);
         }
 
-        if (User::isAdmin(Yii::$app->user->identity->username)){
-            return $this->redirect('/admin');
-        }
-
-
-        if (empty($userModel->endQuests)){
-            $endQuestsModel = new EndQuest();
-            $endQuestsModel->user_id = $userModel->id;
-            $endQuestsModel->save();
-            return $this->goHome();
-        }
-
-        if (!$userModel->training_id || !$userModel->group){
-            return $this->redirect('site/signup-step-2');
-        }
-
-        if (!$userModel->first_name || !$userModel->last_name || !$userModel->surname || !$userModel->dealer_center_id){
-            return $this->redirect('signup-step-3');
-        }
-
-        $modelsRunDrive = RunDrive::find()
-            ->where(['training_id' => Yii::$app->user->identity->training_id, 'group' => Yii::$app->user->identity->group])
-            ->all();
-        $isRunDrive = false;
-        if (!empty($modelsRunDrive)){
-            $isRunDrive = true;
-        }
-
-        return $this->render('index', [
-            'userModel' => $userModel,
-            'totalCount' => $userModel->totalPoint,
-            'place' => $userModel->getPlace(),
-            'isRunDrive' => $isRunDrive,
-            'totalQuestion' => $totalQuestion = Quiz::find()->count(),
-        ]);
+        throw new NotFoundHttpException('Пользователь не найден');
     }
 
     /**
