@@ -19,6 +19,8 @@ class m180926_141850_create_junction_table_for_user_and_quiz_tables extends Migr
         $this->createTable('user_quiz', [
             'user_id' => $this->integer(),
             'quiz_id' => $this->integer(),
+            'isTrue' => $this->integer(1),
+            'rank' => $this->integer(),
             'PRIMARY KEY(user_id, quiz_id)',
         ]);
 

@@ -19,7 +19,10 @@ class m180903_140313_create_quiz_table extends Migration
             'answer_2' => $this->string(),
             'answer_3' => $this->string(),
             'answer_4' => $this->string(),
-            'trueAnswer' => $this->integer(1),
+            'isTrue_1' => $this->integer(1),
+            'isTrue_2' => $this->integer(1),
+            'isTrue_3' => $this->integer(1),
+            'isTrue_4' => $this->integer(1),
         ]);
     }
 

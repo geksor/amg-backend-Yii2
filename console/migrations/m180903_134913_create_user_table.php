@@ -32,16 +32,21 @@ class m180903_134913_create_user_table extends Migration
             'training_id' => $this->integer(),
             'dealer_center_id' => $this->integer(),
 
-            'amgStatic' => $this->integer()->defaultValue(0),
-            'mixStatic' => $this->integer()->defaultValue(0),
-            'mbux' => $this->integer()->defaultValue(0),
-            'xClassDrive' => $this->integer()->defaultValue(0),
             'amgDrive' => $this->integer()->defaultValue(0),
-            'intelligent' => $this->integer()->defaultValue(0),
-            'mixDrive' => $this->integer()->defaultValue(0),
-            'xClassLine' => $this->integer()->defaultValue(0),
+            'mfaDrive ' => $this->integer()->defaultValue(0),
+            'eqDrive' => $this->integer()->defaultValue(0),
+
             'quiz' => $this->integer()->defaultValue(0),
-            'moderatorPoints' => $this->integer()->defaultValue(0),
+            'trueAnsversQuiz' => $this->integer()->defaultValue(0),
+
+            'brainsBattle' => $this->integer()->defaultValue(0),
+            'totalBattle' => $this->integer()->defaultValue(0),
+            'numberWin' => $this->integer()->defaultValue(0),
+
+            'suvChallenge' => $this->integer()->defaultValue(0),
+            'trueAnsversSuv' => $this->integer()->defaultValue(0),
+
+            'race' => $this->integer()->defaultValue(0),
 
             'totalPoint' => $this->integer()->defaultValue(0),
             'command_id' => $this->integer(),

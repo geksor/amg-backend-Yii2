@@ -18,14 +18,14 @@ class m180924_055000_create_endQuest_table extends Migration
         $this->createTable('endQuest', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
-            'xClassDrive' => $this->integer(1)->defaultValue(0),
-            'mixStatic' => $this->integer(1)->defaultValue(0),
-            'amgStatic' => $this->integer(1)->defaultValue(0),
-            'mbux' => $this->integer(1)->defaultValue(0),
+
             'amgDrive' => $this->integer(1)->defaultValue(0),
-            'mixDrive' => $this->integer(1)->defaultValue(0),
-            'xClassLine' => $this->integer(1)->defaultValue(0),
+            'mfaDrive' => $this->integer(1)->defaultValue(0),
+            'eqDrive' => $this->integer(1)->defaultValue(0),
             'quiz' => $this->integer(1)->defaultValue(0),
+            'brainsBattle' => $this->integer(1)->defaultValue(0),
+            'suvChallenge' => $this->integer(1)->defaultValue(0),
+            'race' => $this->integer(1)->defaultValue(0),
         ]);
 
         // creates index for column `user_id`
