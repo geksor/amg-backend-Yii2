@@ -6,6 +6,7 @@ use common\models\User;
 use Yii;
 use common\models\Contact;
 use common\models\ContactSearch;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,22 +30,26 @@ class ContactController extends Controller
                         'actions' => ['login', 'error'],
                         'allow' => true,
                         'roles' => ['?'],
-
                     ],
                     [
                         'actions' => [
-                            'logout',
+                            'login',
+                        ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -130,6 +135,8 @@ class ContactController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -151,6 +158,6 @@ class ContactController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Заправшиваемая страница не найдена.');
     }
 }

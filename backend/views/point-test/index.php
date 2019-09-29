@@ -1,13 +1,14 @@
 <?php
 
+use common\models\PointTest;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model \common\models\PointTest */
+/* @var $model PointTest */
 /* @var $form ActiveForm */
 
-$this->title = 'Очки за тесты';
+$this->title = 'Настройки тестов';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -17,15 +18,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-primary">
         <div class="box-body">
             <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'amgStatic') ?>
-            <?= $form->field($model, 'mixStatic') ?>
-            <?= $form->field($model, 'mbux') ?>
-            <?= $form->field($model, 'xClassDrive') ?>
+
+            <h2>Тесты с загрузкой фото</h2>
             <?= $form->field($model, 'amgDrive') ?>
-            <?= $form->field($model, 'intelligent') ?>
-            <?= $form->field($model, 'mixDrive') ?>
-            <?= $form->field($model, 'xClassLine') ?>
+            <?= $form->field($model, 'mfaDrive') ?>
+            <?= $form->field($model, 'eqDrive') ?>
+
+            <h2>Викторина</h2>
             <?= $form->field($model, 'quizItem') ?>
+            <?= $form->field($model, 'quizItemTime') ?>
+
+            <h2>Битва умов</h2>
+            <?= $form->field($model, 'brainsBattleFirstRound') ?>
+            <?= $form->field($model, 'brainsBattleWin') ?>
+            <?= $form->field($model, 'brainsBattleDrawn') ?>
+            <?= $form->field($model, 'brainsBattleMaxPoints') ?>
+            <?= $form->field($model, 'brainsBattleItemTime') ?>
+
+            <h2>Suv Challenge</h2>
+            <?= $form->field($model, 'suvChallenge') ?>
+            <?= $form->field($model, 'suvChallengeItem') ?>
+            <?= $form->field($model, 'suvChallengeItemTime') ?>
+
+            <h2>Race</h2>
+            <?= $form->field($model, 'racePlace_1') ?>
+            <?= $form->field($model, 'racePlace_2') ?>
+            <?= $form->field($model, 'racePlace_3') ?>
+            <?= $form->field($model, 'raceItemTime') ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

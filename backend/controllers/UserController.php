@@ -46,7 +46,7 @@ class UserController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -186,6 +186,6 @@ class UserController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Заправшиваемая страница не найдена.');
     }
 }

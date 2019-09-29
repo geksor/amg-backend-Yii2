@@ -19,8 +19,6 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'weekday')->hiddenInput(['value' => (integer) $day])->label(false) ?>
 
-    <?= $form->field($model, 'trainingDay')->hiddenInput(['value' => (integer) $training])->label(false) ?>
-
     <?= $form->field($model, 'group')->hiddenInput(['value' => (integer) $group])->label(false) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

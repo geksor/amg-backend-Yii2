@@ -19,7 +19,6 @@ class m180903_110712_create_timetable_table extends Migration
             'startTime' => $this->string(),
             'stopTime' => $this->string(),
             'weekday' => $this->integer(1),
-            'trainingDay' => $this->integer(1),
             'group' => $this->integer(1),
         ]);
 

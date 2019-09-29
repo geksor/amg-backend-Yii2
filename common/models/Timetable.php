@@ -13,7 +13,6 @@ use Yii;
  * @property int $startTime
  * @property int $stopTime
  * @property int $weekday
- * @property int $trainingDay
  * @property int $group
  */
 class Timetable extends \yii\db\ActiveRecord
@@ -32,8 +31,8 @@ class Timetable extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['startTime', 'stopTime', 'weekday', 'trainingDay', 'group'], 'required'],
-            [['startTime', 'stopTime', 'weekday', 'trainingDay', 'group'], 'safe'],
+            [['startTime', 'stopTime', 'weekday', 'group'], 'required'],
+            [['startTime', 'stopTime', 'weekday', 'group'], 'safe'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string'],
         ];
@@ -51,7 +50,6 @@ class Timetable extends \yii\db\ActiveRecord
             'startTime' => 'Время начала',
             'stopTime' => 'Время окончания',
             'weekday' => 'День',
-            'trainingDay' => 'Тренинг',
             'group' => 'Група',
         ];
     }

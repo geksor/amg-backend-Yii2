@@ -125,11 +125,11 @@ class SiteController extends Controller
     {
         $userModel = User::findOne(Yii::$app->user->id);
 
-        if (User::isTrainer(Yii::$app->user->identity->username)){
+        if (User::isTrainer(Yii::$app->user->id)){
             return $this->redirect('/trainer/index');
         }
 
-        if (User::isAdmin(Yii::$app->user->identity->username)){
+        if (User::isAdmin(Yii::$app->user->id)){
             return $this->redirect('/admin');
         }
 

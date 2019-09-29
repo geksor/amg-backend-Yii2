@@ -7,13 +7,9 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\TimetableSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $day */
-/* @var $dayName */
-/* @var $training */
 /* @var $group */
-/* @var $numberTraining */
 
-$this->title = "Расписание на $dayName группа № $group";
-$this->params['breadcrumbs'][] = ['label' => "Тренинг $numberTraining Расписание на $dayName", 'url' => ['index', 'trainingDay' => $training, 'weekday' => $day,]];
+$this->title = "Расписание на день $day группа № $group";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="timetable-table">
@@ -23,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать запись', ['create', 'trainingDay' => $training, 'weekday' => $day, 'group' => $group], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать запись', ['create', 'weekday' => $day, 'group' => $group], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box box-primary">
@@ -38,9 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title',
                     'startTime',
                     'stopTime',
-//                    'weekday',
-//                    'trainingDay',
-//                    'group',
 
                     ['class' => 'yii\grid\ActionColumn'],
                 ],

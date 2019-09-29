@@ -39,7 +39,7 @@ class RulesTrainingController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],

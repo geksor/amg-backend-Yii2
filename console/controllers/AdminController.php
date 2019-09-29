@@ -2,12 +2,17 @@
 namespace console\controllers;
 
 use common\models\User;
+use yii\base\Exception;
 use yii\console\Controller;
 use yii\helpers\Console;
 
 
 class AdminController extends Controller
 {
+    /**
+     * @param null $password
+     * @throws Exception
+     */
     public function actionCreate($password=null)
     {
         if ($password){
@@ -33,6 +38,10 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param null $password
+     * @throws Exception
+     */
     public function actionPassword($password=null)
     {
         if ($password){

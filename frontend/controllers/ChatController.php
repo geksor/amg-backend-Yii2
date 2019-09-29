@@ -70,7 +70,7 @@ class ChatController extends Controller
         if (Yii::$app->user->isGuest){
             return $this->redirect('/');
         }
-        if (User::isAdmin(Yii::$app->user->identity->username)){
+        if (User::isAdmin(Yii::$app->user->id)){
             return $this->redirect('/admin');
         }
 

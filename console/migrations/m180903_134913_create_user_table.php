@@ -37,14 +37,14 @@ class m180903_134913_create_user_table extends Migration
             'eqDrive' => $this->integer()->defaultValue(0),
 
             'quiz' => $this->integer()->defaultValue(0),
-            'trueAnsversQuiz' => $this->integer()->defaultValue(0),
+            'trueAnswersQuiz' => $this->integer()->defaultValue(0),
 
             'brainsBattle' => $this->integer()->defaultValue(0),
             'totalBattle' => $this->integer()->defaultValue(0),
             'numberWin' => $this->integer()->defaultValue(0),
 
             'suvChallenge' => $this->integer()->defaultValue(0),
-            'trueAnsversSuv' => $this->integer()->defaultValue(0),
+            'trueAnswersSuv' => $this->integer()->defaultValue(0),
 
             'race' => $this->integer()->defaultValue(0),
 

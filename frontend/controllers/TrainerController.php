@@ -94,7 +94,7 @@ class TrainerController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isTrainer(Yii::$app->user->identity->username);
+                            return User::isTrainer(Yii::$app->user->id);
                         }
                     ],
                 ],

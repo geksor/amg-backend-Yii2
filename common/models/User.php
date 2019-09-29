@@ -92,12 +92,12 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param $userName
+     * @param $userId
      * @return bool
      */
-    public static function isAdmin($userName)
+    public static function isAdmin($userId)
     {
-        if (static::findOne(['username' => $userName, 'role' => self::ROLE_ADMIN]))
+        if (static::findOne(['id' => $userId, 'role' => self::ROLE_ADMIN]))
         {
             return true;
         }
@@ -106,12 +106,12 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param $userName
+     * @param $userId
      * @return bool
      */
-    public static function isTrainer($userName)
+    public static function isTrainer($userId)
     {
-        if (static::findOne(['username' => $userName, 'role' => self::ROLE_TRAINER]))
+        if (static::findOne(['username' => $userId, 'role' => self::ROLE_TRAINER]))
         {
             return true;
         }

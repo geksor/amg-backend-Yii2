@@ -131,181 +131,109 @@ desired effect
                                     "active" => Yii::$app->controller->id === 'timetable',
                                     "items" => [
                                         [
-                                            "label" => "Тренинг 1",
+                                            "label" => "День 1",
                                             "url" => ["#"],
                                             "items" => [
                                                 [
-                                                    "label" => "Понедельник",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 1, 'weekday' => 1],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 1,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 1,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
+                                                    "label" => "группа 1",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 1,
+                                                            'group' => 1
                                                         ],
                                                     ],
                                                 ],
                                                 [
-                                                    "label" => "Вторник",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 1, 'weekday' => 2],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 2,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 2,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
-                                                        ],
+                                                    "label" => "группа 2",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 1,
+                                                            'group' => 2
+                                                        ]
                                                     ],
                                                 ],
                                                 [
-                                                    "label" => "Среда",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 1, 'weekday' => 3],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 3,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 1,
-                                                                    'weekday' => 3,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
-                                                        ],
+                                                    "label" => "группа 3",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 1,
+                                                            'group' => 3
+                                                        ]
                                                     ],
                                                 ],
                                             ],
                                         ],
                                         [
-                                            "label" => "Тренинг 2",
+                                            "label" => "День 2",
                                             "url" => ["#"],
                                             "items" => [
                                                 [
-                                                    "label" => "Среда",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 3, 'weekday' => 3],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 3,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 3,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
+                                                    "label" => "группа 1",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 2,
+                                                            'group' => 1
                                                         ],
                                                     ],
                                                 ],
                                                 [
-                                                    "label" => "Четверг",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 3, 'weekday' => 4],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 4,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 4,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
+                                                    "label" => "группа 2",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 2,
+                                                            'group' => 2
+                                                        ]
+                                                    ],
+                                                ],
+                                                [
+                                                    "label" => "группа 3",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 2,
+                                                            'group' => 3
+                                                        ]
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                        [
+                                            "label" => "День 3",
+                                            "url" => ["#"],
+                                            "items" => [
+                                                [
+                                                    "label" => "группа 1",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 3,
+                                                            'group' => 1
                                                         ],
                                                     ],
                                                 ],
                                                 [
-                                                    "label" => "Пятница",
-                                                    "url" => ["/timetable/index", 'trainingDay' => 3, 'weekday' => 5],
-                                                    "items" => [
-                                                        [
-                                                            "label" => "группа 1",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 5,
-                                                                    'group' => 1
-                                                                ],
-                                                            ],
-                                                        ],
-                                                        [
-                                                            "label" => "группа 2",
-                                                            "url" => [
-                                                                "/timetable/table",
-                                                                'TimetableSearch' => [
-                                                                    'trainingDay' => 3,
-                                                                    'weekday' => 5,
-                                                                    'group' => 2
-                                                                ]
-                                                            ],
-                                                        ],
+                                                    "label" => "группа 2",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 3,
+                                                            'group' => 2
+                                                        ]
+                                                    ],
+                                                ],
+                                                [
+                                                    "label" => "группа 3",
+                                                    "url" => [
+                                                        "/timetable/table",
+                                                        'TimetableSearch' => [
+                                                            'weekday' => 3,
+                                                            'group' => 3
+                                                        ]
                                                     ],
                                                 ],
                                             ],
@@ -320,75 +248,10 @@ desired effect
                             "icon" => "gamepad",
                             "url" => "#",
                             "items" => [
-                                ["label" => "Очки за тесты", "url" => ["/point-test/index"], "active" => Yii::$app->controller->id === 'point-test',],
-                                ["label" => "X-Class Тест драйв", "url" => ["/xclass-drive/index"], "active" => Yii::$app->controller->id === 'xclass-drive',],
-                                ["label" => "MIX Статика", "url" => ["/mix-static/index"], "active" => Yii::$app->controller->id === 'mix-static',],
-                                ["label" => "AMG Статика", "url" => ["/amg-static-test/index"], "active" => Yii::$app->controller->id === 'amg-static-test',],
-                                ["label" => "MBUX Тест", "url" => ["/mbux-test/index"], "active" => Yii::$app->controller->id === 'mbux-test',],
-                                ["label" => "X-Class линии исполнения", "url" => ["/xclass-line/index"], "active" => Yii::$app->controller->id === 'xclass-line',],
+                                ["label" => "Настройки тестов", "url" => ["/point-test/index"], "active" => Yii::$app->controller->id === 'point-test',],
                                 ["label" => "Викторина", "url" => ["/quiz/index"], "active" => Yii::$app->controller->id === 'quiz',],
                             ],
                         ],
-//                        [
-//                            "label" => "Widgets",
-//                            "icon" => "th",
-//                            "url" => "#",
-//                            "items" => [
-//                                ["label" => "Menu", "url" => ["site/menu"]],
-//                                ["label" => "Boxes", "url" => ["site/boxes"]],
-//                                ["label" => "FlashAlert", "url" => ["site/flash-alert"]],
-//                                ["label" => "Callouts", "url" => ["site/callouts"]],
-//                            ],
-//                        ],
-//                        [
-//                            "label" => "Badges",
-//                            "url" => "#",
-//                            "icon" => "table",
-//                            "items" => [
-//                                [
-//                                    "label" => "Default",
-//                                    "url" => "#",
-//                                    "icon" => "table",
-//                                    "badge" => "123",
-//                                ],
-//                                [
-//                                    "label" => "Blue",
-//                                    "url" => "#",
-//                                    "icon" => "table",
-//                                    "badge" => "123",
-//                                    "badgeOptions" => [
-//                                        "class" => \yiister\adminlte\components\AdminLTE::BG_BLUE,
-//                                    ],
-//                                ],
-//                            ],
-//                        ],
-//                        [
-//                            "label" => "Multilevel",
-//                            "url" => "#",
-//                            "icon" => "table",
-//                            "items" => [
-//                                [
-//                                    "label" => "Second level",
-//                                    "url" => "#",
-//                                ],
-//                                [
-//                                    "label" => "Second level",
-//                                    "url" => "#",
-//                                    "icon" => "table",
-//                                    "items" => [
-//                                        [
-//                                            "label" => "Default",
-//                                            "url" => "#",
-//                                        ],
-//                                        [
-//                                            "label" => "Red",
-//                                            "url" => "#",
-//                                            "icon" => "table",
-//                                        ],
-//                                    ],
-//                                ],
-//                            ],
-//                        ],
                     ],
                 ]
             )

@@ -2,17 +2,14 @@
 
 namespace backend\controllers;
 
-//use WebSocket\Client;
 use common\models\User;
 use Yii;
 use common\models\DealerCenter;
 use common\models\DealerCenterSearch;
-//use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\events\TestEvent;
 
 /**
  * DealerCenterController implements the CRUD actions for DealerCenter model.
@@ -36,18 +33,23 @@ class DealerCenterController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
+                            'login',
+                        ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -99,17 +101,6 @@ class DealerCenterController extends Controller
         $model = new DealerCenter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            $data = ArrayHelper::toArray($model, [
-//                'app\models\Post' => [
-//                    'id',
-//                    'title',
-//                ],
-//            ]);
-//            $data = json_encode($data);
-//            try {
-//                $client = new Client("ws://188.225.10.52:1024");
-//                $client->send(json_encode(['action' => 'chat', 'message' => $data]));
-//            }catch (\Exception $exception){}
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -144,6 +135,8 @@ class DealerCenterController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -165,6 +158,6 @@ class DealerCenterController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Заправшиваемая страница не найдена.');
     }
 }

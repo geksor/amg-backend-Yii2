@@ -6,6 +6,7 @@ use common\models\User;
 use Yii;
 use common\models\Timetable;
 use common\models\TimetableSearch;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -33,20 +34,10 @@ class TimetableController extends Controller
 
                     ],
                     [
-                        'actions' => [
-                            'logout',
-                            'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'table',
-                            'delete',
-                        ],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -61,45 +52,21 @@ class TimetableController extends Controller
     }
 
     /**
-     * Lists all Timetable models.
-     * @return mixed
+     * @return string
      */
-    public function actionIndex()
-    {
-        $training = Yii::$app->request->get('trainingDay');
-        $day = Yii::$app->request->get('weekday');
-        $dayName = $this->getDayName($day);
-        $numberTraining = (string) $training == 1 ? '1' : '2';
-
-        return $this->render('index', [
-            'training' => $training,
-            'day' => $day,
-            'dayName' => $dayName,
-            'numberTraining' => $numberTraining
-        ]);
-    }
-
     public function actionTable()
     {
         $searchModel = new TimetableSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        VarDumper::dump($dataProvider, 10, true);die;
-
-        $training = Yii::$app->request->get('TimetableSearch')['trainingDay'];
         $day = Yii::$app->request->get('TimetableSearch')['weekday'];
-        $dayName = $this->getDayName($day);
         $group = Yii::$app->request->get('TimetableSearch')['group'];
-        $numberTraining = (string) $training == 1 ? '1' : '2';
 
         return $this->render('table', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'training' => $training,
             'day' => $day,
-            'dayName' => $dayName,
             'group' => $group,
-            'numberTraining' => $numberTraining
         ]);
     }
 
@@ -129,13 +96,8 @@ class TimetableController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $dayName = $this->getDayName($model->weekday);
-
-
         return $this->render('view', [
-            'model' => $model,
-            'dayName' => $dayName,
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -148,15 +110,8 @@ class TimetableController extends Controller
     {
         $model = new Timetable();
 
-        $training = Yii::$app->request->get('trainingDay');
         $day = Yii::$app->request->get('weekday');
-        $dayName = $this->getDayName($day);
         $group = Yii::$app->request->get('group');
-        $numberTraining = (string) $training == 1 ? '1' : '2';
-
-//        if ($model->load(Yii::$app->request->post())){
-//            VarDumper::dump($model, 10, true);die;
-//        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -164,11 +119,8 @@ class TimetableController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'training' => $training,
             'day' => $day,
-            'dayName' => $dayName,
             'group' => $group,
-            'numberTraining' => $numberTraining
         ]);
     }
 
@@ -182,8 +134,6 @@ class TimetableController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $dayName = $this->getDayName($model->weekday);
-
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -191,7 +141,6 @@ class TimetableController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'dayName' => $dayName,
         ]);
     }
 
@@ -201,6 +150,8 @@ class TimetableController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -222,6 +173,6 @@ class TimetableController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Заправшиваемая страница не найдена.');
     }
 }

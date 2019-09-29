@@ -5,11 +5,9 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Timetable */
-/* @var $dayName */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => "Тренинг $model->trainingDay Расписание на $dayName", 'url' => ['index', 'trainingDay' => $model->trainingDay, 'weekday' => $model->weekday,]];
-$this->params['breadcrumbs'][] = ['label' => "Расписание на $dayName группа № $model->group", 'url' => ['table', 'TimetableSearch' => ['trainingDay' => $model->trainingDay, 'weekday' => $model->weekday, 'group' => $model->group]]];
+$this->params['breadcrumbs'][] = ['label' => "Расписание на день $model->weekday группа № $model->group", 'url' => ['table', 'TimetableSearch' => ['weekday' => $model->weekday, 'group' => $model->group]]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="timetable-view">
@@ -34,11 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'startTime',
             'stopTime',
-            [
-                'attribute' => 'weekday',
-                'value' => $dayName,
-            ],
-            'trainingDay',
+            'weekday',
             'group',
         ],
     ]) ?>

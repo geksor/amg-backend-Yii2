@@ -36,21 +36,23 @@ class PhotoReportController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
+                            'login',
+                        ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'galleryApi',
-                            'set-video',
-                            'save-video',
-                            'delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -149,6 +151,8 @@ class PhotoReportController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -170,7 +174,7 @@ class PhotoReportController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Заправшиваемая страница не найдена.');
     }
 
     /**
@@ -216,13 +220,13 @@ class PhotoReportController extends Controller
                     'message' => 'Видео загружено на сайт',
                     'id' => $gallery->id,
                 ]);
-            }else{
-                return $this->render('_form-video', [
-                    'model' => $model,
-                    'message' => 'Не удалось выполнить загрузку',
-                    'id' => $gallery->id,
-                ]);
             }
+
+            return $this->render('_form-video', [
+                'model' => $model,
+                'message' => 'Не удалось выполнить загрузку',
+                'id' => $gallery->id,
+            ]);
         }
         return $this->redirect('index');
     }

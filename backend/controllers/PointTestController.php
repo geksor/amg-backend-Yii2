@@ -32,14 +32,23 @@ class PointTestController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
+                            'login',
+                        ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'error',
-                            'index',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return User::isAdmin(Yii::$app->user->identity->username);
+                            return User::isAdmin(Yii::$app->user->id);
                         }
                     ],
                 ],
@@ -62,10 +71,12 @@ class PointTestController extends Controller
         $model = new PointTest();
 
         if ($model->load(Yii::$app->params)) {
-            if ($model->validate() && Yii::$app->request->post()) {
-                $tempParams = json_encode(Yii::$app->request->post('PointTest'));
-                $setPath = dirname(dirname(__DIR__)).'/common/config/testPoint.json';
-                file_put_contents($setPath , $tempParams);
+            if (Yii::$app->request->post()) {
+                if ($model->save()){
+                    Yii::$app->session->setFlash('success', 'Операция выполнена успешно');
+                }else{
+                    Yii::$app->session->setFlash('error', 'Что то пошло не так, попробуйте еще раз.');
+                };
                 return $this->redirect(['index']);
             }
         }

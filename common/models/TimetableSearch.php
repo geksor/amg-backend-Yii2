@@ -18,7 +18,7 @@ class TimetableSearch extends Timetable
     public function rules()
     {
         return [
-            [['id', 'weekday', 'trainingDay', 'group'], 'integer'],
+            [['id', 'weekday', 'group'], 'integer'],
             [['title', 'startTime', 'stopTime'], 'safe'],
         ];
     }
@@ -61,7 +61,6 @@ class TimetableSearch extends Timetable
         $query->andFilterWhere([
             'id' => $this->id,
             'weekday' => $this->weekday,
-            'trainingDay' => $this->trainingDay,
             'group' => $this->group,
         ]);
 
