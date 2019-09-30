@@ -115,6 +115,10 @@ class PointTest extends Model
         ];
     }
 
+    /**
+     * @param null $request
+     * @return bool
+     */
     public function save($request = null){
         if ($request){
             $tempParams = json_encode($request);

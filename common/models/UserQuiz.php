@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $user_id
  * @property int $quiz_id
+ * @property int $isTrue
+ * @property int $rank
  *
  * @property Quiz $quiz
  * @property User $user
@@ -29,8 +31,8 @@ class UserQuiz extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'quiz_id'], 'required'],
-            [['user_id', 'quiz_id'], 'integer'],
+            [['user_id', 'quiz_id',], 'required'],
+            [['user_id', 'quiz_id', 'isTrue', 'rank'], 'integer'],
             [['user_id', 'quiz_id'], 'unique', 'targetAttribute' => ['user_id', 'quiz_id']],
             [['quiz_id'], 'exist', 'skipOnError' => true, 'targetClass' => Quiz::className(), 'targetAttribute' => ['quiz_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -45,6 +47,8 @@ class UserQuiz extends \yii\db\ActiveRecord
         return [
             'user_id' => 'User ID',
             'quiz_id' => 'Quiz ID',
+            'isTrue' => 'Is true answer',
+            'rank' => 'Order question'
         ];
     }
 

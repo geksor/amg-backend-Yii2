@@ -18,7 +18,7 @@ class QuizSearch extends Quiz
     public function rules()
     {
         return [
-            [['id', 'trueAnswer'], 'integer'],
+            [['id', 'isTrue_1', 'isTrue_2', 'isTrue_3', 'isTrue_4',], 'integer'],
             [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'], 'safe'],
         ];
     }
@@ -60,7 +60,10 @@ class QuizSearch extends Quiz
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'trueAnswer' => $this->trueAnswer,
+            'isTrue_1' => $this->isTrue_1,
+            'isTrue_2' => $this->isTrue_2,
+            'isTrue_3' => $this->isTrue_3,
+            'isTrue_4' => $this->isTrue_4,
         ]);
 
         $query->andFilterWhere(['like', 'question', $this->question])

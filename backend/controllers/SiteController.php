@@ -36,12 +36,19 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
-                            'index',
-                            'intel-user',
-                            'intel-user-point',
+                            'login',
+                        ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
                             'error',
                         ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -80,99 +87,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $trainings = Training::find()->select(['id', 'date'])->asArray()->all();
-
-        $selectModel = new IntelligentSelectForm();
-
-        if ($selectModel->load(Yii::$app->request->post())){
-            return $this->redirect(['intel-user', 'trainingId' => $selectModel->training_id]);
-        }
-
-        $trainingsArr = [];
-
-        if (!empty($trainings)){
-            foreach ($trainings as $training){
-                $value = date("d.m.Y", (integer) $training['date']);
-                $trainingsArr[$training['id']] = $value;
-            }
-        }
-
-        return $this->render('index', [
-            'trainingsArr' => $trainingsArr,
-            'selectModel' => $selectModel,
-        ]);
-    }
-
-    /**
-     * Displays intel-user.
-     *
-     *
-     * @return string
-     */
-    public function actionIntelUser($trainingId = null)
-    {
-
-        $query = User::find()->where(['role' => [3,4], 'intelligent' => 0]);
-        if ($trainingId){
-            $query->andwhere(['training_id' => $trainingId]);
-        }
-        $query->orderBy(['group' => SORT_ASC, 'surname'=> SORT_ASC, 'first_name' => SORT_ASC, 'last_name' => SORT_ASC, 'totalPoint' => SORT_DESC]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        $dataProvider->pagination = false;
-
-        Yii::$app->session->set('backIntelUser', ['intel-user', 'trainingId' => $trainingId]);
-
-        return $this->render('intel-user', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays intel-user-point.
-     *
-     * @var $selectModel IntelligentSelectForm
-     *
-     * @return string
-     */
-    public function actionIntelUserPoint()
-    {
-        $intelPointForm = new IntelligentUserPointForm();
-        if (Yii::$app->request->post('checkUsers')){
-            $usersId = explode(',', Yii::$app->request->post('checkUsers'));
-
-            $intelPointForm->usersId = Yii::$app->request->post('checkUsers');
-
-            $query = User::find()->where(['role' => [3,4], 'id' => $usersId]);
-            $query->orderBy(['totalPoint' => SORT_DESC]);
-
-            $dataProvider = new ActiveDataProvider([
-                'query' => $query,
-            ]);
-        }
-
-        if ($intelPointForm->load(Yii::$app->request->post())){
-
-            $usersId = explode(',', $intelPointForm->usersId);
-
-            $userModels = User::find()->where(['id' => $usersId])->all();
-
-            foreach ($userModels as $userModel){
-                /* @var $userModel User */
-                $userModel->intelligent = $intelPointForm->point;
-                $userModel->save();
-            }
-
-            return $this->redirect(Yii::$app->session->get('backIntelUser'));
-
-        }
-
-        return $this->render('intel-user-point', [
-            'dataProvider' => $dataProvider,
-            'intelPointForm' => $intelPointForm,
-        ]);
+        return $this->render('index');
     }
 
     /**

@@ -36,14 +36,19 @@ class TrainerController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
-                            'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'change-password',
+                            'login',
                         ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
+                            'error',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -173,6 +178,8 @@ class TrainerController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

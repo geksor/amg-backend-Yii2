@@ -14,25 +14,41 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'question')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'answer_1')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-xs-8">
+            <?= $form->field($model, 'answer_1')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4">
+            <?= $form->field($model, 'isTrue_1')->checkbox() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'answer_2')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-xs-8">
+            <?= $form->field($model, 'answer_2')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4">
+            <?= $form->field($model, 'isTrue_2')->checkbox() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'answer_3')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-xs-8">
+            <?= $form->field($model, 'answer_3')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4">
+            <?= $form->field($model, 'isTrue_3')->checkbox() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'answer_4')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'trueAnswer')->dropDownList(
-        [
-            '1' => 'Ответ 1',
-            '2' => 'Ответ 2',
-            '3' => 'Ответ 3',
-            '4' => 'Ответ 4',
-        ],
-        [
-            'prompt' => 'Выберите правильный ответ...',
-        ]
-    ) ?>
+    <div class="row">
+        <div class="col-xs-8">
+            <?= $form->field($model, 'answer_4')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4">
+            <?= $form->field($model, 'isTrue_4')->checkbox() ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

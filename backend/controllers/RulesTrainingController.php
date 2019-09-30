@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\SetImageFromSettings;
 use common\models\RulesTraining;
 use common\models\User;
 use Yii;
@@ -32,10 +33,19 @@ class RulesTrainingController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
-                            'error',
-                            'index',
+                            'login',
                         ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
+                            'error',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -54,6 +64,26 @@ class RulesTrainingController extends Controller
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        return [
+            'set-map' => [
+                'class' => SetImageFromSettings::className(),
+                'folder' => 'rules_img',
+                'propImage' => 'map',
+                'title' => 'Изображение истории',
+                'fromModel' => new RulesTraining(),
+                'backLink' => 'rules-training',
+                'width' => 1200,
+                'height' => 2133,
+            ],
+        ];
+    }
+
+
+    /**
      * Lists all Callback models.
      * @return mixed
      */
@@ -62,10 +92,12 @@ class RulesTrainingController extends Controller
         $model = new RulesTraining();
 
         if ($model->load(Yii::$app->params)) {
-            if ($model->validate() && Yii::$app->request->post()) {
-                $tempParams = json_encode(Yii::$app->request->post('RulesTraining'));
-                $setPath = dirname(dirname(__DIR__)).'/common/config/rulesTraining.json';
-                file_put_contents($setPath , $tempParams);
+            if (Yii::$app->request->post()) {
+                if ($model->save()){
+                    Yii::$app->session->setFlash('success', 'Операция выполнена успешно');
+                }else{
+                    Yii::$app->session->setFlash('error', 'Что то пошло не так, попробуйте еще раз.');
+                };
                 return $this->redirect(['index']);
             }
         }

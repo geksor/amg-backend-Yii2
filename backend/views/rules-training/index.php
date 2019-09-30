@@ -26,7 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'resize_enabled' => true,
                 ],
             ]) ?>
-            <?= $form->field($model, 'map') ?>
+            <?= $form->field($model, 'map')->hiddenInput() ?>
+            <div class="row" style="display: flex; align-items: center;">
+                <? if ($model->image) {?>
+                    <div class="col-xs-6">
+                        <?= Html::img($model->getThumbImage('map'), ['style' => 'max-width:100%']) ?>
+                    </div>
+                    <div class="col-xs-6">
+                        <?= Html::a('Изменить', ['set-map'], ['class' => 'btn btn-warning']) ?>
+                    </div>
+                <?}else{?>
+                    <div class="col-xs-6">
+                        <?= Html::a('Загрузить', ['set-map'], ['class' => 'btn btn-success']) ?>
+                    </div>
+                <?}?>
+            </div>
+
 
             <div class="form-group">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

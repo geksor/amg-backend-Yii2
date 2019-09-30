@@ -14,6 +14,7 @@ class m180903_140313_create_quiz_table extends Migration
     {
         $this->createTable('quiz', [
             'id' => $this->primaryKey(),
+            'image' => $this->string(),
             'question' => $this->string(),
             'answer_1' => $this->string(),
             'answer_2' => $this->string(),

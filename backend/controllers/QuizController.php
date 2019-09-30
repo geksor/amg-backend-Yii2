@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\SetImage;
 use common\models\QuizSearch;
 use common\models\User;
 use Yii;
@@ -33,14 +34,19 @@ class QuizController extends Controller
                     ],
                     [
                         'actions' => [
-                            'logout',
-                            'error',
-                            'index',
-                            'view',
-                            'create',
-                            'update',
-                            'delete',
+                            'login',
                         ],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
+                            'error',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -54,6 +60,23 @@ class QuizController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'set-image' => [
+                'class' => SetImage::className(),
+                'folder' => 'quiz_image',
+                'propImage' => 'image',
+                'title' => 'Фоновое изображение вопроса',
+                'width' => 354,
+                'height' => 200,
             ],
         ];
     }
@@ -130,6 +153,8 @@ class QuizController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

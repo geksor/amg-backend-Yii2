@@ -2,18 +2,23 @@
 
 namespace common\models;
 
+use common\behaviors\ImgUploadBehavior;
 use Yii;
 
 /**
  * This is the model class for table "quiz".
  *
  * @property int $id
+ * @property string $image
  * @property string $question
  * @property string $answer_1
  * @property string $answer_2
  * @property string $answer_3
  * @property string $answer_4
- * @property int $trueAnswer
+ * @property int $isTrue_1
+ * @property int $isTrue_2
+ * @property int $isTrue_3
+ * @property int $isTrue_4
  *
  * @property UserQuiz[] $userQuizzes
  * @property User[] $users
@@ -29,14 +34,30 @@ class Quiz extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'ImgUploadBehavior' => [
+                'class' => ImgUploadBehavior::className(),
+                'noImage' => 'no_image.png',
+                'folder' => '/uploads/images/quiz_image',
+                'propImage' => 'image',
+            ],
+
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['trueAnswer'], 'integer'],
-            [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'trueAnswer'], 'required'],
-            [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'], 'string', 'max' => 255],
+            [['isTrue_1', 'isTrue_2', 'isTrue_3', 'isTrue_4',], 'integer'],
+            [['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'], 'required'],
+            [['image', 'question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,12 +68,16 @@ class Quiz extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'image' => 'Фоновое изображение вопроса',
             'question' => 'Вопрос',
             'answer_1' => 'Ответ 1',
             'answer_2' => 'Ответ 2',
             'answer_3' => 'Ответ 3',
             'answer_4' => 'Ответ 4',
-            'trueAnswer' => 'Правильный ответ',
+            'isTrue_1' => 'Правильный ответ',
+            'isTrue_2' => 'Правильный ответ',
+            'isTrue_3' => 'Правильный ответ',
+            'isTrue_4' => 'Правильный ответ',
         ];
     }
 
@@ -80,7 +105,7 @@ class Quiz extends \yii\db\ActiveRecord
     {
         foreach ($this->users as $user)
         {
-            if ($user->id == $userId)
+            if ($user->id === $userId)
             {
                 return true;
             }
@@ -88,4 +113,21 @@ class Quiz extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function isMultiAnswer()
+    {
+        return ($this->isTrue_1 + $this->isTrue_2 + $this->isTrue_3 + $this->isTrue_4) > 1;
+    }
+
+    public function trueAnswerSet()
+    {
+        return ($this->isTrue_1 + $this->isTrue_2 + $this->isTrue_3 + $this->isTrue_4) > 0;
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!$this->trueAnswerSet()){
+            $this->isTrue_1 = 1;
+        }
+        return parent::beforeSave($insert);
+    }
 }
